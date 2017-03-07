@@ -1,0 +1,116 @@
+FlickerLight MuzzleFlash_M2Flamethrower
+{
+ Color 0.5 0.4 0.3
+ Size 40
+ SecondarySize 48
+ Offset 0 0 0
+}
+FlickerLight MuzzleFlash_
+{
+ Color 0.5 0.5 0.3
+ Size 56
+ SecondarySize 64
+ Offset 0 0 0
+}
+PointLight DogSpawnA
+{
+ Color 0.0 0.4 1.0
+ Size 48
+ Offset 0 0 0
+}
+PointLight DogSpawnB
+{
+ Color 0.0 0.4 1.0
+ Size 64
+ Offset 0 0 0
+}
+PointLight MuzzleFlash_Regular
+{
+ Color 1.0 1.0 0.5
+ Size 16
+ Offset 4 16 4
+}
+PointLight Spark
+{
+ Color 1.0 1.0 0.5
+ Size 4
+ Offset 0 0 0
+}
+PointLight M2_Projectile
+{
+ Color 1.0 1.0 0.8
+ Size 20
+ Offset 0 0 0
+}
+PointLight M2_Blaze
+{
+ Color 1.0 1.0 0.8
+ Size 32
+ Offset 0 0 0
+}
+PointLight UpgM2_Projectile
+{
+ Color 0.7 0.0 0.6
+ Size 20
+ Offset 0 0 0
+ dontlightself 0
+}
+PointLight UpgM2_Blaze
+{
+ Color 0.7 0.0 0.6
+ Size 32
+ Offset 0 0 0
+ dontlightself 0
+}
+
+Object NaziZombiesPlayer
+{
+ Frame PLAYF { Light MuzzleFlash_Regular }
+}
+
+Object GunSmoke_Spark
+{
+ Frame FLARD { Light Spark }
+}
+Object GunSmoke
+{
+ Frame FRFX { Light MuzzleFlash_ }
+}
+
+Object M67Grenade_Explosion
+{
+ Frame EXP1 {Light MuzzleFlash_ }
+ Frame EXP1A { Light MuzzleFlash_ }
+ Frame EXP1B { Light MuzzleFlash_ }
+ Frame EXP1C { Light MuzzleFlash_ }
+ Frame EXP1D { Light MuzzleFlash_ }
+}
+
+Object M2Flamethrower_Projectile
+{
+ Frame FRFX { Light MuzzleFlash_M2Flamethrower }
+ Frame FLAM { Light M2_Blaze }
+}
+Object M2Flamethrower_Blaze
+{
+ Frame TNT1 { Light M2_Blaze }
+}
+
+Object UpgM2_Projectile
+{
+ Frame FRFX { Light UpgM2_Projectile }
+ Frame FLAM { Light UpgM2_Blaze }
+}
+Object UpgM2_Blaze
+{
+ Frame TNT1 { Light UpgM2_Blaze }
+}
+
+Object DogSpawn_RippleA
+{
+ Frame THUNB { Light DogSpawnA }
+}
+Object DogSpawn_RippleB
+{
+ Frame THUNB { Light DogSpawnB }
+}

@@ -1,0 +1,129 @@
+// WhiteAce here, I used certain hyphens to tag things like HGs for handguns
+// and etc to make things easier to navigate
+
+// Handguns (HGs)
+#include "actors/Handguns/dec_m1911.txt" // The Colt M1911 Handgun
+#include "actors/Handguns/dec_nambu.txt" // The type 14 Nambu Handgun, sprites by Sgt. shivers from zdoom forums so ask before using please
+#include "actors/Handguns/dec_glock18.txt" // The Glock 18 Handgun
+#include "actors/Handguns/dec_luger.txt" // The german Luger Handgun
+#include "actors/Handguns/dec_dualm1911.txt" // The Colt M1911, dual-wielded Handguns
+#include "actors/Handguns/dec_357magnum.txt"  // The .357 Magnum Handgun
+
+// Shotguns (SGs)
+#include "actors/Shotguns/dec_doublebarrel.txt" // The Stoeger Shotgun
+#include "actors/Shotguns/dec_olympia.txt" // The Olympia Shotgun
+#include "actors/Shotguns/dec_sawnoff.txt" // The Sawn-off Shotgun
+#include "actors/Shotguns/dec_browninga5.txt" //The Browning Auto-5 Shotgun
+#include "actors/Shotguns/dec_m1897trenchgun.txt" // The Trench Gun, Shotgun
+
+//Machine Rifles (MRs)
+#include "actors/MachineRifles/dec_bar.txt"  // The Browning Machine Rifle
+
+// Light Machine Guns (LMGs)
+#include "actors/LightMachineGuns/dec_browningm1919.txt" // The Browning M1919 Light Machine Gun
+#include "actors/LightMachineGuns/dec_dp28.txt" // The DP-28 Light Machine Gun
+#include "actors/LightMachineGuns/dec_mg42.txt" // The MG42 Light Machine Gun
+
+// Sub-Machine Guns (SMGs)
+#include "actors/SubMachineGuns/dec_thompson.txt" // The Thompson Sub-Machine Gun
+#include "actors/SubMachineGuns/dec_ppsh41.txt" // The PPSh-41 Sub-Machine Gun
+#include "actors/SubMachineGuns/dec_sterlingl2a3.txt" // The Sterling L2A3 Sub-Machine Gun, sprites by Sgt. shivers from zdoom forums so ask before using please
+#include "actors/SubMachineGuns/dec_mp40.txt" // The MP40 Sub-Machine Gun
+
+// Battle Rifles (BRs)
+#include "actors/BattleRifles/dec_fg42.txt" // The FG42 Battle Rifle
+
+// Assault Rifles (ARs)
+#include "actors/AssaultRifles/dec_stg44.txt"  // The STG-44 Assault Rifle
+
+// Bolt-Action Rifles (BARs)
+#include "actors/BoltActionRifles/dec_kar98k.txt"  // The Kar98k Bolt-Action Rifle
+#include "actors/BoltActionRifles/dec_springfield.txt" // The Springfield Bolt-Action Rifle
+#include "actors/BoltActionRifles/dec_scopesfield.txt" // The scoped version of the Springfield
+
+// Semi-Automatic Rifles (SARs)
+#include "actors/SemiAutoRifles/dec_m1garand.txt" // The M1 Garandf Semi-Automatic Rifle
+#include "actors/SemiAutoRifles/dec_gewehr43.txt" // The Gewehr 43 Semi-Automatic Rifle
+#include "actors/SemiAutoRifles/dec_m1a1carbine.txt" // The M1A1 Carbine Semi-Automatic Rifle
+
+// Special Weapons (Wonder Weapons, Launchers, Flamethrowers) (WWs, Ls, FTs)
+#include "actors/SpecialWeapons/dec_panzerschreck.txt" // The Panzerschreck Launcher
+#include "actors/SpecialWeapons/dec_m2flamethrower.txt" // The M2 Flamethrower
+#include "actors/SpecialWeapons/dec_raygun.txt"  // The Ray Gun Wonder Weapon
+#include "actors/SpecialWeapons/dec_thundergun.txt" // The Thunder Gun Wonder Weapon
+#include "actors/SpecialWeapons/dec_nailgun.txt" // The Nailgun Wonder Weapon
+
+// Melee (MLE)
+#include "actors/Melee/dec_knife.txt" // The Knife
+#include "actors/Melee/dec_machete.txt" // The Machete
+
+// Grenades (GNDs)
+#include "actors/Grenades/dec_grenade.txt" // The Grenades
+#include "actors/Grenades/dec_n74st.txt" // The N74ST Sticky grenades
+#include "actors/Grenades/dec_molotov.txt" // The Molotov Cocktails
+#include "actors/Grenades/dec_bouncingbetty.txt" // The Bouncing Betties
+
+//Pack A Punch Weapons (Unused) (PAP)
+#include "actors/PackAPunch/upg_sawnoff.txt" // The Sawn-off Shotgun upgraded (The Snuff Box)
+#include "actors/PackAPunch/upg_gewehr43.txt" // The Gewehr 43 (G115 Compressor)
+#include "actors/PackAPunch/upg_m1a1carbine.txt" // The M1A1 Carbine upgraded (Widdershins RC-1)
+#include "actors/PackAPunch/upg_browningm1919.txt" // The Browning M1919 upgraded (B115 Accelerator)
+//#include "actors/PackAPunch/upg_stg.txt"  // The STG-44 upgraded (Spatz-447+)
+#include "actors/PackAPunch/upg_thompson.txt" // The Thompson upgraded (Gibs-o-matic)
+#include "actors/PackAPunch/upg_m2flamethrower.txt" // The M2 Flamethrower upgraded (F1W Nitrogen Cooled)
+#include "actors/PackAPunch/upg_mp40.txt" // The MP40 upgraded (The Afterburner)
+#include "actors/PackAPunch/upg_m1897trenchgun.txt" // The Trench Gun upgraded (Gut Shot)
+#include "actors/PackAPunch/upg_doublebarrel.txt" // The Stoeger Shotgun upgraded (24 Bore Long Range)
+#include "actors/PackAPunch/upg_357magnum.txt"  // The .357 Magnum upgraded (.357 Plus 1 K1L-u)
+#include "actors/PackAPunch/upg_dualm1911.txt"   // The Colt M1911, dual-wielded and upgraded (Mustang and Sally)
+#include "actors/PackAPunch/upg_luger.txt" //The german Luger upgraded (Oh-Sieben)
+#include "actors/PackAPunch/upg_nailgun.txt" // The Nailgun upgraded (Ace's NG64)
+#include "actors/PackAPunch/upg_kar98k.txt" // The Kar98k upgraded (Armageddon)
+#include "actors/PackAPunch/upg_colt45.txt" // The Colt M1911 upgrade (C-3000 b1at-ch35) 
+
+// Last Stand Weapons (LSWs)
+#include "actors/LastStand/dec_m1911_ls.txt"// The Colt M1911, modified for players in Last Stand
+#include "actors/LastStand/dec_raygun_ls.txt"// The Raygun, modified for players in Last Stand
+#include "actors/LastStand/dec_luger_ls.txt"// The Luger, modified for players in Last Stand
+
+// Perks (PRKs)
+#Include "actors/Perks/dec_machines.txt" // Perk machines
+#Include "actors/Perks/dec_perkcola.txt" // Perk-a-colas
+#include "actors/Perks/dec_perk.txt" // The perks inventory markers
+
+// Enemies (ENM)
+#include "actors/Enemies/dec_zombie.txt" // The Zombie Enemy
+#include "actors/Enemies/dec_hellhound.txt"  // The Hellhound Enemy
+#include "actors/Enemies/dec_phantom.txt" // The Phantom Enemy
+
+// Decorations (DCR)
+#Include "actors/Decorations/dec_propbottles.txt" // Bottles such as vintage alchohol
+#Include "actors/Decorations/dec_perkbottles.txt" // Perk decoration bottles
+#Include "actors/Decorations/dec_decorations.txt" // Misc, decoration type stuff
+#Include "actors/Decorations/dec_lights.txt" // Lights used for decoration
+#Include "actors/Decorations/dec_corpses.txt" //Corpses for zombies
+
+// Special Effects (SFX)
+#include "actors/SpecialFX/dec_gore.txt" // Blood effects
+#include "actors/SpecialFX/dec_specialfx.txt" // Special effects for player and other stuff
+
+// Game (GME)
+#include "actors/Game/dec_points.txt" // Money
+#include "actors/Game/dec_player.txt" // Player coding
+#include "actors/Game/dec_flamebarrel.txt" // Burning barrel replacement
+#include "actors/Game/dec_powerups.txt" // The bonus pick-ups (nukes, double points, etc.)
+#include "actors/Game/dec_turret.txt"  // The automatic turrets
+#include "actors/Game/TITLEPIC" // Used for the mod's title pic
+
+// Unused (UNSD)
+#include "actors/Unused/dec_unused1.txt" // Trailer stuff
+#include "actors/Unused/dec_unused2.txt" // Old ammo coding, part 1
+#include "actors/Unused/dec_unused3.txt" // Old ammo coding, part 2
+#include "actors/Unused/dec_unused4.txt" // Invisible barricade thing
+
+// Required (RQD)
+#include "actors/Required/dec_required.txt" // Required for weapons to work properly
+#include "actors/Required/LEVEL"    // Required for experience/rank system
+
+// Trap Things (TRPT)
+#include "actors/Trap Things/dec_zapper.txt" //Used for the electric trap

@@ -1,0 +1,25 @@
+clearplayerclasses
+addplayerclass NaziZombiesPlayer
+
+addkeysection "Nazi Zombies" DoomNaziZombies
+addmenukey "Knife" knife
+addmenukey "Grenade" grenade
+addmenukey "Special Grenade" specgrenade
+//addmenukey "Sprint" sprinting
+addmenukey "Reload" reload
+//addmenukey "Weapon mode switch" modeswitch
+addmenukey "Scoreboard" scoreboard
+alias knife "puke 254"
+alias grenade "puke 255"
+alias specgrenade "puke 256"
+//alias sprinting "puke 257"
+alias reload "puke 259"
+//alias modeswitch "puke 260"
+alias scoreboard "Puke 262"
+defaultbind E knife
+defaultbind G grenade
+defaultbind F specgrenade
+//defaultbind Shift sprinting
+defaultbind R reload
+//defaultbind 9 modeswitch
+defaultbind Tab scoreboard

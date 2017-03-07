@@ -1,0 +1,377 @@
+playersnds/grenade1 sounds/player/SAY_GRN1
+playersnds/grenade2 sounds/player/SAY_GRN2
+playersnds/grenade3 sounds/player/SAY_GRN3
+playersnds/grenade4 sounds/player/SAY_GRN4
+playersnds/grenade5 sounds/player/SAY_GRN5
+playersnds/grenade6 sounds/player/SAY_GRN6
+playersnds/grenade7 sounds/player/SAY_GRN7
+playersnds/grenade8 sounds/player/SAY_GRN8
+playersnds/grenade9 sounds/player/SAY_GRN9
+playersnds/grenade10 sounds/player/SAY_GRN10
+playersnds/betty1   sounds/player/SAY_TRP1
+playersnds/betty2   sounds/player/SAY_TRP2
+playersnds/betty3   sounds/player/SAY_TRP3
+playersnds/kill1    sounds/player/SAY_KIL1
+playersnds/kill2    sounds/player/SAY_KIL2
+playersnds/kill3    sounds/player/SAY_KIL3
+playersnds/kill4    sounds/player/SAY_KIL4
+playersnds/kill5    sounds/player/SAY_KIL5
+playersnds/kill6    sounds/player/SAY_KIL6
+playersnds/kill7    sounds/player/SAY_KIL7
+playersnds/attack1  sounds/player/SAY_ATK1
+playersnds/attack2  sounds/player/SAY_ATK2
+playersnds/attack3  sounds/player/SAY_ATK3
+playersnds/attack4  sounds/player/SAY_ATK4
+playersnds/attack5  sounds/player/SAY_ATK5
+playersnds/attack6  sounds/player/SAY_ATK6
+playersnds/attack7  sounds/player/SAY_ATK7
+playersnds/attack8  sounds/player/SAY_ATK8
+playersnds/rel1     sounds/player/SAY_REL1
+playersnds/rel2     sounds/player/SAY_REL2
+playersnds/rel3     sounds/player/SAY_REL3
+playersnds/rel4     sounds/player/SAY_REL4
+playersnds/rel5     sounds/player/SAY_REL5
+playersnds/rec1     sounds/player/PLAYFINE1
+playersnds/rec2     sounds/player/PLAYFINE2
+playersnds/hurt1    sounds/player/PLAYHURT1
+playersnds/hurt2    sounds/player/PLAYHURT2
+playersnds/hurt3    sounds/player/PLAYHURT3
+playersnds/bad1     sounds/player/PLAYBAD1
+playersnds/bad2     sounds/player/PLAYBAD2
+playersnds/bad3     sounds/player/PLAYBAD3
+playersnds/bad4     sounds/player/PLAYBAD4
+playersnds/bad5     sounds/player/PLAYBAD5
+playersnds/bad6     sounds/player/PLAYBAD6
+playersnds/bad7     sounds/player/PLAYBAD7
+playersnds/die1     sounds/player/PLAYDIE1
+playersnds/die2     sounds/player/PLAYDIE2
+playersnds/die3     sounds/player/PLAYDIE3
+playersnds/die4     sounds/player/PLAYDIE4
+playersnds/perkdrink sounds/perks/perkdrnk
+playersnds/perkopen sounds/perks/perkopn
+playersnds/perkbreak sounds/perks/perkbrk
+playersnds/perkburp sounds/perks/perkburp
+$random playersnds/grenade { playersnds/grenade1 playersnds/grenade2 playersnds/grenade3 playersnds/grenade4 playersnds/grenade5 playersnds/grenade6 playersnds/grenade7 playersnds/grenade8 playersnds/grenade9 playersnds/grenade10 }
+$random playersnds/betty   { playersnds/betty1 playersnds/betty2 playersnds/betty3 }
+$random playersnds/kill    { playersnds/kill1 playersnds/kill2 playersnds/kill3 playersnds/kill4 playersnds/kill5 playersnds/kill6 }
+$random playersnds/attack  { playersnds/attack1 playersnds/attack2 playersnds/attack3 playersnds/attack4 playersnds/attack5 playersnds/attack6 playersnds/attack7 playersnds/attack8 }
+$random playersnds/reload  { playersnds/rel1 playersnds/rel2 playersnds/rel3 playersnds/rel4 playersnds/rel5 }
+$random playersnds/recover { playersnds/rec1 playersnds/rec2 }
+$random playersnds/hurt    { playersnds/hurt1 playersnds/hurt2 playersnds/hurt3 }
+$random playersnds/injured { playersnds/bad1 playersnds/bad2 playersnds/bad3 playersnds/bad4 playersnds/bad5 playersnds/bad6 playersnds/bad7 }
+$random playersnds/die     { playersnds/die1 playersnds/die2 playersnds/die3 playersnds/die4 }
+
+weapons/TRIGGER sounds/TRIGGER
+weapons/glock   sounds/G18
+weapons/colt    sounds/M1911
+weapons/type14  sounds/NAMBU
+weapons/mp5B    sounds/MP5KFIR
+weapons/mp5     sounds/MP5
+weapons/mp40    sounds/MP40
+weapons/STG		sounds/STG44
+weapons/ak47    sounds/AK47
+weapons/BA5     sounds/BA5FIRE
+weapons/g3      sounds/G3
+weapons/m1      sounds/M1
+weapons/m1a1    sounds/M1A1
+weapons/fg42	sounds/FG42
+weapons/MG42	sounds/MG42
+weapons/ppsh	sounds/PPSH
+weapons/type100 sounds/TYPE100
+weapons/DP28    sounds/DP28
+weapons/kar     sounds/KAR
+weapons/karcyc  sounds/KARCYC
+weapons/karrel  sounds/KARREL
+weapons/olympia sounds/OLYMPIA
+weapons/mag     sounds/357
+weapons/ptrs    sounds/PTRS
+weapons/bar     sounds/BAR
+weapons/raygun  sounds/RAYGUN
+weapons/rayflux sounds/RAYFLUX
+weapons/thunder sounds/THUNDER
+weapons/flamfir sounds/FLAMEST
+weapons/flamlop sounds/FLAMELO
+weapons/flamfad sounds/FLAMESND2
+weapons/trenchg sounds/TRENCHGUN
+weapons/M1919   sounds/M1919
+weapons/LUGER  sounds/M1911OLD
+weapons/panzer  sounds/PANZ
+pap_sound/laser	sounds/PAPSND
+coachgun/fire   sounds/ELEPH
+
+weapons/pzrel  sounds/reload/PANZERREL
+weapons/hgrel  sounds/reload/M191REL
+weapons/m1rel1 sounds/reload/M1PING
+weapons/m1rel2 sounds/reload/M1RELOAD
+weapons/mprel  sounds/reload/MPREL1
+weapons/akrel1 sounds/reload/AK47OUT
+weapons/akrel2 sounds/reload/AK47IN
+weapons/akrel3 sounds/reload/AK47COCK
+weapons/bolta  sounds/reload/BOLTOPN
+weapons/boltb  sounds/reload/BOLTCLS
+weapons/m19rel sounds/reload/M1919REL
+weapons/thout  sounds/reload/THOMOUT
+weapons/thin   sounds/reload/THOMIN
+weapons/mpout1 sounds/reload/MPOUTa
+weapons/mpout2 sounds/reload/MPOUTb
+weapons/mpin1  sounds/reload/MPINa
+weapons/mpin2  sounds/reload/MPINb
+$random weapons/mpout { weapons/mpout1 weapons/mpout2 }
+$random weapons/mpin  { weapons/mpin1  weapons/mpin2 }
+weapons/stgout sounds/reload/STGOUT
+weapons/stgin  sounds/reload/STGIN
+weapons/m19out sounds/reload/M191OUT
+weapons/m19in  sounds/reload/M191IN
+weapons/BA5load sounds/reload/BA5LOAD
+weapons/BA5Reload sounds/reload/BA5RELOAD
+
+weapons/thompson    sounds/THOMPSON
+weapons/spas12      sounds/SPAS12
+weapons/shotgun1	sounds/DSSGBOO1
+weapons/shotgun2	sounds/DSSGBOO2
+weapons/shotgun3	sounds/DSSGBOO3
+weapons/shotgunpump	sounds/DSSGPUMP
+weapons/shotgunrel  sounds/SGRELOAD
+$random weapons/shotgun	{ weapons/shotgun1 weapons/shotgun2 weapons/shotgun3 }
+
+sounds/molotovmainfire	sounds/M_MAINFIRE
+sounds/molotovsmallfire	sounds/M_SMALLFIRE
+sounds/molotovexplode	sounds/M_EXPLODE
+sounds/molotovdistant	sounds/M_EXPDISTANT
+sounds/molotovignite1	sounds/M_IGN1
+sounds/molotovignite2	sounds/M_IGN2
+sounds/molotovignite3	sounds/M_IGN3
+sounds/molotovignite4	sounds/M_IGN4
+$random sounds/molotovignite { sounds/molotovignite1 sounds/molotovignite2 sounds/molotovignite3 sounds/molotovignite4 }
+grenade/explode1 sounds/GRENEXP1
+grenade/explode2 sounds/GRENEXP2
+grenade/explode3 sounds/GRENEXP3
+grenade/explode4 sounds/GRENEXP4
+grenade/d_exp1   sounds/D_EXP1
+grenade/d_exp2   sounds/D_EXP2
+grenade/d_exp3   sounds/D_EXP3
+$random weapons/grenadeexp  { grenade/explode1 grenade/explode2 grenade/explode3 grenade/explode4 }
+$random distant/grenadeexp  { grenade/d_exp1 grenade/d_exp2 grenade/d_exp3 }
+weapons/grenadebou01 sounds/GRENBOU01
+weapons/grenadebou02 sounds/GRENBOU02
+weapons/grenadebou03 sounds/GRENBOU03
+weapons/grenadebou04 sounds/GRENBOU04
+weapons/grenadebou05 sounds/GRENBOU05
+$random weapons/grenadebou  { weapons/grenadebou01 weapons/grenadebou02 weapons/grenadebou03 weapons/grenadebou04 weapons/grenadebou05 }
+weapons/grenadepin  sounds/GRENPIN
+weapons/grenadethr  sounds/GRENTHR
+
+coachgun/reload1	sounds/DSCOCHR1
+coachgun/reload2	sounds/DSCOCHR2
+coachgun/reload3	sounds/DSCOCHR3
+coachgun/fireB		sounds/DSCOCHFG
+
+KnifeHitThing		sounds/DSKNIFE
+KnifeHitWall		sounds/DSKNIFE3	
+KnifeMiss		    sounds/DSKNIFE2
+MacheteHitThing		sounds/DSMACHT2
+MacheteHitWall		sounds/DSMACHT3	
+MacheteSwing		sounds/DSMACHT1
+
+weapons/noammo sounds/NOAMMO
+
+zombie/hit1   sounds/DSSZHIT1
+zombie/hit2   sounds/DSSZHIT2
+zombie/hit3   sounds/DSSZHIT3
+zombie/see1   sounds/DZMBSE1
+zombie/see2   sounds/DZMBSE2
+zombie/see3   sounds/DZMBSE3
+zombie/dead1  sounds/DZMBDE1
+zombie/dead2  sounds/DZMBDE2
+zombie/follow1 sounds/DZMBFO1
+zombie/follow2 sounds/DZMBFO2
+zombie/follow3 sounds/DZMBFO3
+zombie/follow4 sounds/DZMBFO4
+zombie/die1 sounds/DEATH_00
+zombie/die2 sounds/DEATH_01
+zombie/die3 sounds/DEATH_02
+zombie/die4 sounds/DEATH_03
+zombie/die5 sounds/DEATH_04
+zombie/die6 sounds/DEATH_05
+zombie/die7 sounds/DEATH_06
+zombie/die8 sounds/DEATH_07
+zombie/amb1 sounds/zombie/zomb1
+zombie/amb2 sounds/zombie/zomb2
+zombie/amb3 sounds/zombie/zomb3
+zombie/amb4 sounds/zombie/zomb4
+zombie/amb5 sounds/zombie/zomb5
+zombie/amb6 sounds/zombie/zomb6
+zombie/amb7 sounds/zombie/zomb7
+zombie/amb8 sounds/zombie/zomb8
+zombie/spr1 sounds/zombie/sprint1
+zombie/spr2 sounds/zombie/sprint2
+zombie/spr3 sounds/zombie/sprint3
+zombie/spr4 sounds/zombie/sprint4
+zombie/spr5 sounds/zombie/sprint5
+zombie/inj1 sounds/zombie/inj1
+zombie/inj2 sounds/zombie/inj2
+zombie/inj3 sounds/zombie/inj3
+zombie/crack1 sounds/zombie/crack1
+zombie/crack2 sounds/zombie/crack2
+zombie/crack3 sounds/zombie/crack3
+zombie/shot1  sounds/zombie/shot1
+zombie/shot2  sounds/zombie/shot2
+zombie/shot3  sounds/zombie/shot3
+zombie/shot4  sounds/zombie/shot4
+zombie/fall1  sounds/zombie/fall1
+zombie/fall2  sounds/zombie/fall2
+zombie/fall3  sounds/zombie/fall3
+zombie/fall4  sounds/zombie/fall4
+zombie/fall5  sounds/zombie/fall5
+zombie/attack1 sounds/zombie/attack1
+zombie/attack2 sounds/zombie/attack2
+zombie/attack3 sounds/zombie/attack3
+zombie/attack4 sounds/zombie/attack4
+zombie/attack5 sounds/zombie/attack5
+zombie/attack6 sounds/zombie/attack6
+zombie/attack7 sounds/zombie/attack7
+zombie/attack8 sounds/zombie/attack8
+$RANDOM zombie/normal { game/nosound zombie/amb1 zombie/amb2 zombie/amb3 zombie/amb4 zombie/amb5 zombie/amb6 zombie/amb7 zombie/amb8 }
+$RANDOM zombie/sprint { game/nosound zombie/spr1 zombie/spr2 zombie/spr3 zombie/spr4 zombie/spr5 }
+$RANDOM zombie/inj    { game/nosound zombie/inj1 zombie/inj2 zombie/inj3 }
+$RANDOM zombie/crack  { game/nosound zombie/crack1 zombie/crack2 zombie/crack3 }
+$RANDOM zombie/shot	  { game/nosound zombie/shot1 zombie/shot2 zombie/shot3 zombie/shot4 }
+$RANDOM zombie/fall	  { zombie/fall1 zombie/fall2 zombie/fall3 zombie/fall4 zombie/fall5 }
+$RANDOM zombie/attack { zombie/attack1 zombie/attack2 zombie/attack3 zombie/attack4 zombie/attack5 zombie/attack6 zombie/attack7 zombie/attack8 }
+
+
+monster/dogsit sounds/dsdogsit
+monster/dogatk sounds/dsdogatk
+monster/dogbit sounds/dsdogbit
+monster/dogpai sounds/dsdogpai
+ monster/dogdth { monster/dogdt1 monster/dogdt2 }
+$RANDOM monster/zombie { zombie/run1 zombie/run2 zombie/run3 game/nosound }
+$RANDOM monster/sprinter { zombie/spr1 zombie/spr2 zombie/spr3 zombie/spr4 zombie/spr4
+zombie/spr6 game/nosound }
+$RANDOM monster/zmbdie { zombie/die1 zombie/die2 zombie/die3 zombie/die4 zombie/die5
+zombie/die6 zombie/die7 zombie/die8 }
+monster/dogdt1 sounds/dsdogdt1
+monster/dogdt2 sounds/dsdogdt2
+monster/dogact sounds/dsdogact
+weapons/bigbrn sounds/dsbigbrn
+monster/dogsht sounds/dsdogsht
+monster/doghit sounds/dsdoghit
+
+$RANDOM dog/see   { dog/see1 dog/see2 }
+$RANDOM dog/death { dog/death1 dog/death2 }
+dog/teleporttarget sounds/DOGTELE1
+dog/teleportin     sounds/DOGTELE2
+dog/attack         sounds/DOGATK
+dog/bite           sounds/DOGBITE
+dog/see1           sounds/DOGACT
+dog/see2           sounds/DOGACT2
+dog/death1         sounds/DOGDIE
+dog/death2         sounds/DOGDIE2
+dog/explode        sounds/DOGEXP
+dog/walk           sounds/DOGSTEP
+
+game/padactive	   sounds/Teleporter/PadActive
+game/linksuccess   sounds/Teleporter/LinkScess
+game/linkfailed    sounds/Teleporter/LinkFail
+game/linkbegin     sounds/Teleporter/LinkBegin
+game/Tele1Active   sounds/Teleporter/Tele1Active
+game/Tele2Active   sounds/Teleporter/Tele2Active
+game/Tele3Active   sounds/Teleporter/Tele3Active
+game/20secs		   sounds/Teleporter/LinkCnt20
+game/15secs		   sounds/Teleporter/LinkCnt15
+game/10secs		   sounds/Teleporter/LinkCnt10
+game/9secs		   sounds/Teleporter/LinkCnt9
+game/8secs		   sounds/Teleporter/LinkCnt8
+game/7secs		   sounds/Teleporter/LinkCnt7
+game/6secs		   sounds/Teleporter/LinkCnt6
+game/5secs		   sounds/Teleporter/LinkCnt5
+game/4secs		   sounds/Teleporter/LinkCnt4
+game/3secs		   sounds/Teleporter/LinkCnt3
+game/2secs		   sounds/Teleporter/LinkCnt2
+game/1secs		   sounds/Teleporter/LinkCnt1
+game/teleporterwarmup sounds/Teleporter/TeleWarm
+game/teleport	   sounds/Teleporter/Teleport
+
+world/quake	  none
+game/teleport sounds/TELEPORT
+game/nosound  sounds/NOSOUND
+game/DOOROPEN DSDOROPN
+game/GAMEOVEA music/GAMEOVEA
+game/ROUND    sounds/ROUND
+game/END      sounds/END
+game/RANK	  sounds/RANK
+game/CHALLENGE	sounds/C_CHALLENGE
+game/WAGER		sounds/C_WAGER
+game/WAGERBEGIN	sounds/WAGER
+game/REPAIR   sounds/REPAIR
+game/DOGROUND sounds/DOGSINTR
+game/DOGEND   sounds/DOGSOUTR
+game/DOGSOULS sounds/SOULS
+game/MYSTERY  sounds/MYSTERY
+game/AVGN     sounds/AVGN
+game/DOOM64   sounds/DOOM64
+game/C64GATE  music/C64GATE
+game/C64COURT music/C64COURT
+game/CODEMONK music/CODEMONK
+game/GAMEOVER sounds/GAMEOVER
+game/ROBZOMB  music/ROBZOMB
+game/CM       music/E_NACHT
+game/RM       music/E_BLOOD
+game/KM	      music/ZOMBIE
+game/DRM	  music/BOA
+game/muswind  music/WIND1
+game/mussiren sounds/SIREN
+game/ringing  sounds/RINGING
+game/heart    sounds/HEART
+game/barhit   sounds/BARHURT
+game/bardie   sounds/BARDIE
+game/barrep1  sounds/BARRE1
+game/barrep2  sounds/BARRE2
+game/barrep3  sounds/BARRE3
+game/barpnt   sounds/BARRE
+game/nuke     sounds/NUKE
+game/points   sounds/X2
+game/x2vanish sounds/DPVANISH
+game/instak   sounds/INSTAK
+game/ikvanish sounds/IKVANISH
+game/maxammo  sounds/MAXAMMO
+game/rebuild  sounds/REBUILD
+game/PURCHASE sounds/PURCHASE
+game/DOOR     sounds/DOOROPEN
+game/poweron  sounds/POWERON //Temporary sound
+game/footstep1 sounds/STEP1
+game/footstep2 sounds/STEP2
+game/footstep3 sounds/STEP3
+game/footstep4 sounds/STEP4
+game/gear1     sounds/GEAR1
+game/gear2	   sounds/GEAR2
+game/gear3     sounds/GEAR3
+game/HORDE     sounds/BEGIN
+game/INTRO	   music/INTRO
+LOADING		   music/LOADING
+game/raygunre1 sounds/reload/RAYGUNRE1
+game/raygunre2 sounds/reload/RAYGUNRE2
+game/raygunre3 sounds/reload/RAYGUNRE3
+game/ambndu    music/NACHT
+game/horror1   music/HORI1
+game/horror2   music/HOR2
+game/teddy     music/TEDDY
+game/firesnd   sounds/FLAMESND
+game/powerup_Grab		sounds/POWERGRAB
+game/casing1   sounds/CASING1
+game/casing2   sounds/CASING2
+game/casing3   sounds/CASING3
+game/casing4   sounds/CASING4
+game/casing5   sounds/CASING5
+game/casing6   sounds/CASING6
+game/115sound  sounds/115sound
+game/revive    sounds/perks/REVIVE
+game/juggnog   sounds/perks/JUGGNOG
+game/MeteorAffirm sounds/Misc/MAffirm
+$RANDOM player/footstep { game/footstep1 game/footstep2 game/footstep3 game/footstep4 }
+$RANDOM player/gear     { game/gear1 game/gear2 game/gear3 }
+$RANDOM game/casing { game/casing1 game/casing2 game/casing3 }
+$RANDOM game/shell  { game/casing4 game/casing5 game/casing6 }
+$RANDOM game/barrep { game/barrep1 game/barrep2 game/barrep3 }
+
+footstep/metal1 sounds/FOOTM1

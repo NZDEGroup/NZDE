@@ -1,0 +1,30 @@
+{
+ name="Knife"
+ sprite=PKNF
+ class="Marine"
+}
+{
+ name="Pistol"
+ sprite=HGUN
+ class="Marine"
+}
+{
+ name="MachineGun"
+ sprite=MGUN
+ class="Marine"
+}
+{
+ name="Shotgun"
+ sprite=SGUN
+ class="Marine"
+}
+{
+ name="DoubleShot"
+ sprite=DGUN
+ class="Marine"
+}
+{
+ name="FlameThrower"
+ sprite=THRO
+ class="Marine"
+}

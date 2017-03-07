@@ -1,0 +1,30 @@
+:Music1
+ Attenuation none
+ PlayUntilDone game/CM
+End
+
+:Music2
+ attenuation none
+ playuntildone game/RM
+end
+
+:Music3
+ attenuation none
+ playuntildone game/KM
+end
+
+:Music4
+ attenuation none
+ playuntildone game/DRM
+end
+
+:115Sound
+ attenuation static
+ Volume 24
+ PlayRepeat game/115Sound
+end 
+
+:Killstreak
+ attenuation none
+ playuntildone playersnds/kill
+end

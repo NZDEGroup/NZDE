@@ -1,0 +1,83 @@
+Actor ShotgunPUMPACTION : Weapon 10028
+{
+  Weapon.SelectionOrder 1400
+  Weapon.SlotNumber 3
+  Weapon.AmmoUse 1
+  Weapon.AmmoGive1 8
+  Weapon.AmmoGive2 999
+  Weapon.AmmoType1 "InMagazine5"
+  Weapon.AmmoType2 "ShotgunShell"
+  Inventory.PickupMessage "You got a Remington M870 Shotgun!"
+  Obituary "%o was blown open by %k's Remington M870."
+  Attacksound "weapons/spas12"
+  Weapon.PreferredSkin "Shotgun"
+  +AMMO_OPTIONAL
+  +NOAUTOFIRE
+  States
+  {
+   Ready:
+     M870 A 0 A_JumpIfInventory("reload",1,"Reload")
+	 M870 A 0 A_JumpIfInventory("thrownade",1,"ThrowGrenade")
+     M870 A 1 A_WeaponReady
+     Loop
+   Deselect:
+     M870 A 1 A_Lower
+     M870 A 0 A_Lower
+     M870 A 0 A_Lower
+     Loop
+   Select:
+     M870 A 1 A_Raise
+     M870 A 0 A_Raise
+     M870 A 0 A_Raise
+     Loop
+   Fire:
+	 M870 A 0 A_JumpIfNoAmmo("Reload")
+     M870 A 3
+	 M870 AAAA 0 A_SpawnItemEx("GunSmoke",random(12,16),random(4,-4),random(40,30),random(0,2),0,1,0,SXF_CLIENTSIDE)
+     M870 B 1 A_FireBullets(12,12,10,6,"GunSmoke")
+     M870 BCDE 1 BRIGHT ACS_ExecuteAlways(253,0,1,0,0)
+     M870 F 3
+     M870 FGHIJKL 2 ACS_ExecuteAlways(253,0,-1,0.5,0)
+	 M870 KJIHGF 2 ACS_ExecuteAlways(253,0,1,0.5,0)
+     M870 A 7 A_WeaponReady
+     Goto Ready
+   ThrowGrenade:
+     HNDG BCD 1
+     HNDG E 1 A_PlaySound("weapons/grenadepin")
+     HNDG FGHH 1
+     HNDG I 1 A_PlaySound("weapons/grenadethr") 
+     HNDG J 0 A_FireCustomMissile("ThrownGrenade",0,0,0,0)
+     HNDG J 0 A_PlaySound("weapons/grenadethr")
+     HNDG JKLMNOPQ 1
+	 HNDG Q 0 A_TakeInventory("thrownade")
+     Goto Ready
+   Reload:
+	 M870 A 0 A_JumpIfInventory("InMagazine5",8,"NoReload")
+     M870 A 0 A_JumpIfInventory("ShotgunShell",1,1)
+	 Goto Ready
+	 M870 L 1 A_PlaySound("weapons/shotgunrel")
+	 M870 L 2 Offset(0,-4)
+	 M870 L 2 Offset(0,-8)
+	 M870 L 2 Offset(0,-12)
+	 M870 L 2 Offset(0,-16)
+	 M870 L 2 Offset(0,-8)
+	 M870 L 2 Offset(0,0)
+	 M870 L 0 A_GiveInventory("InMagazine5",1)
+	 M870 L 0 A_TakeInventory("ShotgunShell",1)
+	 M870 L 0 A_JumpIfInventory("InMagazine5",8,2)
+	 M870 L 2 A_ReFire
+	 Goto Reload
+	 M870 L 0 A_TakeInventory("reload",1)
+	 Goto Ready
+   NoReload:
+     M870 A 0 A_TakeInventory("reload",1)
+	 Goto Ready
+   Flash:
+     TNT1 A 4 Bright A_Light1
+     TNT1 A 3 Bright A_Light2
+     Goto LightDone
+   Spawn:
+     M870 Z -1
+     Stop
+  }
+}

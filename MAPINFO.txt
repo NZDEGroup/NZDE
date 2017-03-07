@@ -1,0 +1,110 @@
+clearskills
+clearepisodes
+
+Episode "Map02"
+{
+ Name = "Nacht Der Untoten"
+}
+Episode "Map03"
+{
+ Name = "Verruckt"
+}
+Episode "Map04"
+{
+ Name = "Kino Der Toten"
+}
+Episode "Map05"
+{
+ Name = "Der Riese"
+}
+
+skill Normal
+{
+  spawnfilter=1
+  damageFactor=1.50
+  name       ="Normal"
+  acsreturn  =0
+  textcolor  ="red"
+}
+Skill Hardcore
+{
+  Spawnfilter=1
+  damagefactor=2.00
+  name       ="Hardcore"
+  acsreturn  =1
+  textcolor  ="red"
+}  
+skill Hard
+{
+  spawnfilter=3
+  damagefactor=1.50
+  name       ="Hard"
+  acsreturn  =2
+  textcolor  ="red"
+}
+skill Suicidal
+{
+  spawnfilter=4
+  damagefactor=1.50
+  name       ="Suicidal"
+  acsreturn  =3
+  textcolor  ="red"
+}
+skill HellOnEarth
+{
+  spawnfilter=5
+  damagefactor=1.50
+  name       ="Hell on Earth"
+  acsreturn  =4
+  textcolor  ="black"
+}
+skill HardcoreHOE //<-- Lol, Hoe
+{
+  spawnfilter=5
+  damagefactor=2.00
+  name       ="Harcore HOE"
+  acsreturn  =5
+  textcolor  ="black"
+}
+
+GameInfo
+{
+ TitlePage ="TITLEPIC"
+ TitleMusic="music/DAMNED"
+}
+
+Map SAMSROOM "Samantha's Bedroom" //Made by MrEnchanter
+{
+ evenlighting
+ music = "TEDDY"
+}
+
+Map MAP01 "Lobby" //Made by TheCubasy
+{
+ evenlighting
+}
+Map MAP02 "Nacht Der Untoten" //Made by TheCubasy
+{
+ evenlighting
+}
+Map INTRO02 "Blood Party Intro" //Made by WhiteAce
+{
+ Sky1 = "PartySky", 0
+ evenlighting
+ nointermission
+}
+Map MAP03 "Verrückt" //Made by TankDempsey
+{
+ Sky1 = "8FS4mJ6", 0
+ RandomPlayerStarts
+}
+Map MAP04 "Kino Der Toten" //Made by MrEnchanter
+{
+ Sky1 = "8FS4mJ6", 0
+ EvenLighting
+}
+Map MAP05 "Der Riese" //Made by TankDempsey
+{
+ Sky1 = "8FS4mJ6", 0
+ EvenLighting
+}

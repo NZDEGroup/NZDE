@@ -1,0 +1,298 @@
+height 32;
+monospacefonts true, "0";
+resolution 640,480;
+
+StatusBar FullScreen, FullScreenOffsets|forcescaled
+{
+ InInventory Not HideHud, 1
+ {
+  DrawImage "NADE", -118, -64;
+  DrawNumber 3, CONFONT, White, Ammo GrenadeAmmo, -102, -56;
+  InInventory SpecGrenade_N74ST, 1
+  {
+   DrawImage "STICKY", -138, -64;
+   DrawNumber 3, CONFONT, White, Ammo N74STAmmo, -122, -56;
+  }
+  InInventory SpecGrenade_Molotov, 1
+  {
+   DrawImage "MOLOTOV", -138, -64;
+   DrawNumber 3, CONFONT, White, Ammo MolotovAmmo, -122, -56;
+  }
+  InInventory SpecGrenade_BouncingBetty, 1
+  {
+   DrawImage "BETTY", -138, -64;
+   DrawNumber 3, CONFONT, White, Ammo BouncingBettyAmmo, -122, -56;
+  }
+  /*InInventory SpecGrenade_MonkeyBombs, 1
+  {
+   DrawImage "BOMBS", -138, -64;
+   DrawNumber 3, SMALLFONT, White, Ammo MonkeyBombAmmo, -122, -56;
+  }*/
+   Ininventory PowerQuickRevive, 1
+  {
+   drawimage "QR", 33, -108;
+  }
+   Ininventory PowerJuggernog, 1
+  {
+   drawimage "JN", 58, -108;
+  }
+   Ininventory SpeedCola, 1
+  {
+   drawimage "SC", 83, -108;
+  }
+   Ininventory Doubletap, 1
+  {
+   drawimage "DT", 108, -108;
+  }
+   Ininventory StaminUp, 1
+  {
+   drawimage "SU", 33, -134;
+  }
+   InInventory PHDFlopper, 1
+  {
+   DrawImage "PH", 58, -134;
+  }
+   InInventory Deadshot, 1
+  {
+   DrawImage "DS", 83, -134;
+  }
+   InInventory MuleKick, 1
+  {
+   DrawImage "MK", 108, -134;
+  }
+   InInventory PowerInstantKill, 1
+  {
+   DrawNumber 12, CONFONT, White, PowerupTime InstantKill, -81, 16;
+   Drawimage "IKIC", -96, 26;
+  }
+   InInventory PowerX2Points, 1
+  {
+   DrawNumber 12, CONFONT, White, PowerupTime X2Points, -56, 16;
+   Drawimage "DPIC", -76, 26;
+  }
+  InInventory PowerInfiniteKill, 1
+  {
+   Drawnumber 12, CONFONT, White, PowerupTime InfiniteKill, 429, -48;
+   Drawimage "I_Kill", 386, -36;
+  }
+   
+  /*InInventory Rank_IsPrivate, 1 		 { DrawImage "R_PRIV", 548, -88; }
+  InInventory Rank_IsPrivate1stClass, 1 	 { DrawImage "R_PRIV1C", 548, -88; }
+  InInventory Rank_IsCorporal, 1 		 { DrawImage "R_CORP", 548, -88; }
+  InInventory Rank_IsSergeant, 1 	     { DrawImage "R_SERG", 548, -88; }
+  InInventory Rank_IsStaffSergeant, 1 	 { DrawImage "R_STAF", 548, -88; }
+  InInventory Rank_IsGunnerySergeant, 1 	 { DrawImage "R_GUNN", 548, -88; }
+  InInventory Rank_IsMasterSergeant, 1 	 { DrawImage "R_MAST", 548, -88; }
+  InInventory Rank_IsSergeantMajor, 1 	 { DrawImage "R_MAJ", 548, -88; }
+  InInventory Rank_Is2ndLieutenant, 1 	 { DrawImage "R_2LIEU", 548, -88; }
+  InInventory Rank_Is1stLieutenant, 1 	 { DrawImage "R_1LIEU", 548, -88; }
+  InInventory Rank_IsCaptain, 1 			 { DrawImage "R_CAPT", 548, -88; }
+  InInventory Rank_IsMajor, 1 			 { DrawImage "R_MAJOR", 548, -88; }
+  InInventory Rank_IsLtColonal, 1 	     { DrawImage "R_LTCOL", 548, -88; }
+  InInventory Rank_IsColonal, 1 	  	 	 { DrawImage "R_COLON", 548, -88; }
+  InInventory Rank_IsBrigadierGeneral, 1  { DrawImage "R_BGEN", 548, -88; }
+  InInventory Rank_IsMajorGeneral, 1 	 { DrawImage "R_MGEN", 548, -88; }
+  InInventory Rank_IsLieutenantGeneral, 1 { DrawImage "R_LGEN", 548, -88; }
+  InInventory Rank_IsCommander, 1 		 { DrawImage "R_COMM", 548, -88; }*/
+  
+  // weapon ammo counters
+  DrawNumber 3, CONFONT, White, Ammo2, -85, -38;
+  DrawImage "SEPRATE", -111, -38;
+  DrawNumber 3, CONFONT, White, Ammo1, -112, -38;
+  IsSelected "M1Garand", "Colt45" //, "TT-33", "WaltherP38"
+  {
+   DrawBar "PS8A", "PS8B", Ammo1, Horizontal, Reverse, -154, -38;
+   IsSelected "Colt45" { DrawString CONFONT, White, "Colt M1911", -110, -48; }
+   //IsSelected "TT-33"  { DrawString CONFONT, White, "Tokarev TT-33", -110, -48; }
+   //ISSelected "WaltherP38" { DrawString CONFONT, White, "Walther P38", -110, -48; }
+   IsSelected "M1Garand" { DrawString CONFONT, White, "M1 Garand", -110, -48; }
+  }
+  IsSelected "Nambu"
+  {
+  DrawBar "PS8A", "PS8B", Ammo1, Horizontal, Reverse, -154, -38;
+  IsSelected "Nambu"  { DrawString CONFONT, White, "Type 14 Nambu", -110, -48; }
+  }
+  IsSelected "C-3000b1at-ch35"
+  {
+  DrawBar "PAPPS6A", "PS6B", Ammo1, Horizontal, Reverse, -144, -38;
+  IsSelected "C-3000b1at-ch35" { DrawString CONFONT, White, "C-3000 b1at-ch35", -110, -48; }
+  }
+  IsSelected "Luger", "Armageddon"
+  {
+  DrawBar "PS8A", "PS8B", Ammo1, Horizontal, Reverse, -154, -38;
+  IsSelected "Luger" { DrawString CONFONT, White, "Luger", -110, -48; }
+  IsSelected "Armageddon" { DrawString CONFONT, White, "Armageddon", -110, -48; }
+  }
+  IsSelected "DualColt45s"
+  {
+  DrawBar "AMMO15A", "AMMO15B", Ammo1, Horizontal, Reverse, -190, -38;
+  DrawString CONFONT, White, "Dual Colt", -110, -48;
+  }
+  IsSelected "Gutshot"
+  {
+   DrawBar "PAPSG10A", "PAPSG10B", Ammo1, Horizontal, Reverse, -228, -35;
+   IsSelected "Gutshot" { DrawString CONFONT, White, "Gutshot", -110, -48; }
+  }
+  IsSelected "MustangAndSally", "G115Compressor"
+  {
+  DrawBar "PAPPS12A", "AMMO12B", Ammo1, Horizontal, Reverse, -182, -38;
+  IsSelected "MustangAndSally" { DrawString CONFONT, White, "Mustang and Sally", -110, -48; }
+  IsSelected "G115Compressor" { Drawstring CONFONT, White, "G115 Compressor", -110, -48; }
+  }
+  IsSelected "Glock18"
+  {
+   DrawBar "AMMO17A", "AMMO17B", Ammo1, Horizontal, Reverse, -180, -38;
+   IsSelected "Glock18" { DrawString CONFONT, White, "Glock 18", -110, -48; }
+  }
+    IsSelected "Colt45_LS", "Luger_LS"
+	{
+    DrawBar "PS8A", "PS8B", Ammo1, Horizontal, Reverse, -164, -38;
+    IsSelected "Colt45_LS" { DrawString CONFONT, White, "Colt M1911", -110, -48; }
+	IsSelected "Luger_LS" { DrawString CONFONT, White, "Luger", -110, -48; }
+   }
+  IsSelected "357Magnum"
+  {
+   DrawBar "AMMO6BA", "AMMO6BB", Ammo1, Horizontal, Reverse, -148, -38;
+   DrawString CONFONT, White, ".357 Magnum", -110, -48;
+  }
+  IsSelected "Panzerschreck"
+  {
+   DrawBar "AMMORCKA", "AMMORCKB", Ammo1, Horizontal, Reverse, -154, -37;
+   DrawString CONFONT, White, "Panzerschreck", -110, -48;
+  }
+  IsSelected "Gewehr43", "357Plus1K1L-u"
+  {
+   DrawBar "AMMO10A", "AMMO10B", Ammo1, Horizontal, Reverse, -172, -38;
+   IsSelected "Gewehr43" { DrawString CONFONT, White, "Gewehr 43", -110, -48; }
+   IsSelected "357Plus1K1L-u" { DrawString CONFONT, White, "357 Plus 1 K1L-u", -110, -48; }
+  }
+  IsSelected "Nailgun"
+  {
+   Drawbar "AMMO15A", "AMMO15B", AMMO1, HORIZONTAL, REVERSE, -196, -38;
+   DrawString CONFONT, White, "Nailgun", -110, -48;
+  }
+  IsSelected "M1A1Carbine", "WiddershinsRC-1"
+  {
+   DrawBar "AMMO15A", "Ammo15B", Ammo1, Horizontal, Reverse, -196, -38;
+   IsSelected "M1A1Carbine" { DrawString CONFONT, White, "M1A1 Carbine", -110, -48; }
+   IsSelected "WiddershinsRC-1" { DrawString CONFONT, White, "Widdershins RC-1", -110, -48; }
+  }
+  IsSelected "BrowningA5"
+  {
+   DrawBar "SG5A", "SG5B", Ammo1, Horizontal, Reverse, -182, -36;
+   IsSelected "BrowningA5" { DrawString CONFONT, White, "Browning Auto-5", -110, -48; }
+  }
+  IsSelected "Kar98k"//, "Arisaka", "MosinNagant"
+  {
+   DrawBar "AMMO5A", "AMMO5B", Ammo1, Horizontal, Reverse, -198, -34;
+   IsSelected "Kar98k" { DrawString CONFONT, White, "Kar98k", -110, -48;  }
+   //IsSelected "Arisaka"     { DrawString CONFONT, White, "Arisaka", -110, -48; }
+   //IsSelected "MosinNagant" { DrawString CONFONT, White, "Mosin Nagant", -110, -48; }
+  }
+  IsSelected "DP-28"
+  {
+   DrawBar "AMMO47A", "AMMO47B", Ammo1, Horizontal, Reverse, -272, -36;
+   IsSelected "DP-28" { DrawString CONFONT, White, "DP-28", -110, -48; }
+  }
+  IsSelected "SpringField", "SpringfieldScoped"
+  {
+   DrawBar "AMMO5A", "AMMO5B", Ammo1, Horizontal, Reverse, -198, -34;
+   DrawString CONFONT, White, "Springfield", -110, -48;
+  }
+  IsSelected "Thundergun", "Olympia"
+  {
+  DrawBar "AMMO2A", "AMMO2B", Ammo1, Horizontal, Reverse, -153, -34;
+  IsSelected "Thundergun" { DrawString CONFONT, White, "Thundergun", -110, -48; }
+  IsSelected "Olympia" { DrawString CONFONT, White, "Olympia", -110, -48; }
+  }
+  IsSelected "DoubleBarrel", "SawnOffShotgun"
+  {
+   DrawBar "AMMO2A", "Ammo2B", Ammo1, Horizontal, Reverse, -154, -34;
+   IsSelected "DoubleBarrel" { DrawString CONFONT, White, "Double-Barreled Shotgun", -110, -48; }
+   IsSelected "SawnOffShotgun" { DrawString CONFONT, White, "Sawn-off Shotgun w/ Grip", -110, -48; }
+  }
+  IsSelected "TrenchGun"
+  {
+   DrawBar "AMMO6A", "AMMO6B", Ammo1, Horizontal, Reverse, -192, -35;
+   DrawString CONFONT, White, "M1897 Trench Gun", -110, -48; 
+  }
+  IsSelected "Raygun", "Raygun_LS"
+  {
+  DrawBar "AMMO20A", "AMMO20B", Ammo1, Horizontal, Reverse, -190, -36;
+  IsSelected "Raygun" { DrawString CONFONT, White, "Raygun", -110, -48; }
+  IsSelected "Raygun_LS" { DrawString CONFONT, White, "Raygun", -110, -48; }
+  }
+  IsSelected "AcesNG64"
+  {
+   DrawBar "AMMO20A", "AMMO20B", Ammo1, Horizontal, Reverse, -197, -36;
+   IsSelected "AcesNG64" { DrawString CONFONT, White, "Ace's NG64", -110, -48; }
+  }
+  IsSelected "Gibsomatic"
+  {
+   DrawBar "PAPMG40A", "PAPMG40B", Ammo1, Horizontal, Reverse, -255, -36;
+   DrawString CONFONT, White, "Gibs-o-matic", -110, -48;
+  }
+  IsSelected "Thompson", "BAR"
+  {
+  DrawBar "AMMO20A", "AMMO20B", Ammo1, Horizontal, Reverse, -190, -36;
+   IsSelected "Thompson" { DrawString CONFONT, White, "Thompson", -110, -48; }
+   IsSelected "BAR" { DrawString CONFONT, White, "BAR", -110, -48; }
+  }
+  /*IsSelected "Type100", "Type99"
+  {
+   DrawBar "AMMO30A", "AMMO30B", Ammo1, Horizontal, Reverse, -203, -34;
+   IsSelected "Type100" { DrawString CONFONT, White, "Type 100", -110, -48; }
+   IsSelected "Type99"  { DrawString CONFONT, White, "Type 99", -110, -48; }
+  }*/
+  IsSelected "SterlingL2A3"
+  {
+   DrawBar "AMMO32A", "AMMO32B", Ammo1, Horizontal, Reverse, -226, -36;
+   IsSelected "Sterlingl2a3" { DrawString CONFONT, White, "Sterling L2A3", -110, -48; }
+  }
+  IsSelected "FG42", "MP40"
+  {
+   DrawBar "AMMO32A", "AMMO32B", Ammo1, Horizontal, Reverse, -226, -36;
+   IsSelected "MP40" { DrawString CONFONT, White, "MP40", -110, -48; }
+   IsSelected "FG42" { DrawString CONFONT, White, "FG42", -110, -48; }
+  } 
+  IsSelected "Oh-Sieben"
+  {
+  DrawBar "AMMO32A", "AMMO32B", Ammo1, Horizontal, reverse, -234, -36;
+  IsSelected "Oh-sieben" { DrawString CONFONT, White, "Oh-Sieben", -110, -48; }
+  }
+  IsSelected "TheAfterburner"
+  {
+   DrawBar "PAPMG64A", "PAPMG64B", Ammo1, Horizontal, reverse, -234, -36;
+   DrawString CONFONT, White, "The Afterburner", -110, -48;
+  }
+   IsSelected "STG-44"
+  {
+   DrawBar "AMMO30A", "AMMO30B", Ammo1, Horizontal, Reverse, -220, -36;
+  IsSelected "STG-44" { DrawString CONFONT, White, "StG-44", -110, -48; }
+  }
+  IsSelected "PPSh41"
+  {
+   DrawBar "AMMO71A", "AMMO71B", Ammo1, Horizontal, Reverse, -209, -37;
+   DrawString CONFONT, White, "PPSh-41", -110, -48;
+  }
+  IsSelected "BrowningM1919", "MG42"
+  {
+   DrawBar "AMMOLMGA", "AMMOLMGB", Ammo1, Horizontal, Reverse, -300, -34;
+   IsSelected "BrowningM1919" { DrawString CONFONT, White, "Browning M1919", -110, -48; }
+   IsSelected "MG42"          { DrawString CONFONT, White, "MG42", -110, -48; }
+  }
+  IsSelected "B115Accelerator"
+  {
+   DrawBar "PAPLMGA", "AMMOLMGB", Ammo1, Horizontal, Reverse, -300, -34;
+   IsSelected "B115Accelerator" { DrawString CONFONT, White, "B115 Accelerator", -110, -48; }
+  }
+  IsSelected "M2Flamethrower", "F1WNitrogenCooled"
+  {
+   IsSelected "M2Flamethrower" { DrawString CONFONT, White, "M2 Flamethrower", -110, -48;
+   DrawImage "NFINITY", -108, -38; }
+   IsSelected "F1WNitrogenCooled" { DrawString CONFONT, White, "F1W Nitrogen Cooled", -110, -48; }
+   InInventory M2Flamethrower_Overheat, 1 { DrawBar "AMMOFB", "AMMOFC", Ammo1, Horizontal, Reverse, -192, -38; }
+   InInventory not M2Flamethrower_Overheat, 1 { DrawBar "AMMOFA", "AMMOFC", Ammo1, Horizontal, Reverse, -192, -38; }
+  }  
+ } 
+}

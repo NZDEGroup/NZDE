@@ -1,0 +1,87 @@
+Model QuickReviveMach
+{
+   Path "models"
+   Model 0 "QuickMach.MD2"
+   Skin 0 "QuickMach.pcx"
+   Scale 5.00 5.00 5.00
+   ZOffset 96
+
+   FrameIndex QCRV A 0 0
+}
+
+Model DoubleTapMach
+{
+   Path "models"
+   Model 0 "Double_Tap.MD2"
+   Skin 0 "Double_Tap.pcx"
+   Scale 5.00 5.00 5.00
+   Zoffset 96
+   
+   FrameIndex DBTP A 0 0
+}
+
+Model SpeedColaMach
+{
+    Path "models"
+	Model 0 "Speed_Cola.MD2"
+	Skin 0 "Speed_Cola.pcx"
+	Scale 5.00 5.00 5.00
+	Zoffset 96
+	
+	FrameIndex SPCL A 0 0
+}
+
+Model JuggernogMach
+{
+    Path "models"
+	Model 0 "Juggernog.MD2"
+	Skin 0 "Juggernog.pcx"
+	Scale 5.00 5.00 5.00
+	Zoffset 96
+	
+	FrameIndex JUGN A 0 0
+}
+
+Model StaminUpMach
+{
+   Path "models"
+   Model 0 "Stamin_Up.MD2"
+   Skin 0 "Stamin_Up.pcx"
+   Scale 5.00 5.00 5.00
+   Zoffset 96
+   
+   FrameIndex SMUP A 0 0
+}
+
+Model PHDFlopperMach
+{
+   Path "models"
+   Model 0 "PHD_Flopper.MD2"
+   Skin 0 "PHD_Flopper.PCX"
+   Scale 5.00 5.00 5.00
+   Zoffset 96
+   
+   FrameIndex PDFR A 0 0
+}
+
+Model PAPMach
+{
+   Path "models"
+   Model 0 "PAP.MD2"
+   Skin 0 "PAP.pcx"
+   Scale 5.00 5.00 5.00
+   Zoffset 0
+   
+   FrameIndex PACK A 0 0
+}
+
+Model Tele_Pad
+{
+   Path "models"
+   Model 0 "Teleporter_Pad.MD2"
+   Skin 0 "Teleporter_Pad.PCX"
+   Scale 1.00 1.00 1.00
+   Zoffset 0
+   
+   FrameIndex TPAD A 0 0
+}

@@ -1,0 +1,6 @@
+terrain Slime01
+{
+	footclip		12
+	friction        0.8
+}
+floor Slime01 Slime01
