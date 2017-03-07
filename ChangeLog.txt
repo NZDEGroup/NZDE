@@ -1,0 +1,103 @@
+Changelog 0.8:
+
+Map changes/fixes:
+- Updated Nacht Der Untoten:
+   - Added easter egg song (not original, Cubasy's choice of song)
+   - Made nametags visible in multiplayer
+   - Added in Juggernog into first room (Most likely temp)
+   - Updated barricade heights (Thanks to TankDempsey)
+   - Fixed HUD for multiplayer
+   - Updated parts of the map
+   - Every player (assuming there's 4 or less) can now see each others money in multiplayer
+   - Updated code to latest
+- Remove Blood Party, replaced with Verruckt (Made by TankDempsey)
+- Added in Kino Der Toten (Thanks to MrEnchanter)
+- Added in Der Riese (Thanks to TankDempsey)
+
+Weapon changes/fixes:
+- Added in new M1A1 Carbine sprites (Thanks to Unreal38)
+- Added in DP-28 (Thanks to Sgt. Shivers)
+- Added in Olympia (Thanks to Batandy)
+- Added in Browning Auto-5 (Thanks to WhiteAce for code, unknown who made sprites)
+- Added pickup sprite for Nambu (Thanks to Sgt. Shivers) and added to mystery box
+- Added in Pack a punch sprites for MP40 and Trench gun (Thanks to MrEnchanter)
+- New Flamethrower, ThunderGun sprites also improved Nambu, Colt m1911, STG-44, Browning M1919, Springfield and Trench gun sprites (Thanks to MrEnchanter)
+- Raygun
+   - New sprites (PAP, Reload and replaced original sprites) (Thanks to MrEnchanter)
+   - Improved reload sound
+   - Slightly increased raygun splash radius and majorly increased splash damage
+- Added in aim down sights:
+   - Gewehr 43, Kar98K, Springfield, STG-44, Type 14 Nambu and Colt M1911  (Sprites and code, thanks to MrEnchanter)
+   - Reduced recoil when zoomed and increased recoil slightly when not zoomed
+   - Reduced speed while in ADS mode which also reduces footstep frequency
+- Allowed players to use melee, grenades and special grenades during Trench guns reload state
+- Updated Sterling L2A3 firing sounds
+- Thundergun now has a new sound (Thanks to TankDempsey)
+- Players will no longer be able to drop weapons
+- FG-42 will no longer push back enemies
+- Fixed the molotov not being in the springfields code
+- Trench gun aswell as Browning A5 allow you to use knife, grenades and etc while reloading
+- Bouncing Betty smoke now fades away faster, will now see enemies from further and explode farther
+- Ran into a problem with too many weapons being in one slot causes it to error out so instead Pack a punch weapons will be in 2nd slot
+- Player voices won't play unless the player is actually doing that action (For example, if reloading now, voice will say he is reloading)
+
+General additions/changes/fixes:
+- Gameover screen is now fixed as it was broken for a while
+- File size is now lower, did this to avoid a scenario where someone with low bandwidth couldn't download the wad
+- Players can no longer jump over zombies
+- Nuke will no longer generate how many monsters it has killed, instead it will now just simply kill enemies (Nuke will now also work in GZDoom)
+- Fixed grenade animations not showing on a massive amount of weapons
+- Fixed more than 1 powerup spawning at a time by replacing the dropped items with a RandomSpawner
+- Hud now displays correctly in each resolution and is bigger (Thanks to TheCubasy)
+- Power system now works, players must turn it on before attempting to buy traps and certain perks
+- Players will no longer be able to buy perks should that perk they are trying to buy be in their inventory
+- Runners now attack players slightly faster, not too fast as to not break the game
+- Zombies will now hurt players near a barricade, done to prevent player from exploiting the barricades to an extent
+- Changed players view height, player is now slightly taller
+- Players will now be able to use special grenades in Zandro 3.0 and GZDoom
+- Footsteptime is changed, less footstep noises are heard when the player moves while in ADS
+- Changed Staminup from a powerup to an inventory item which made it easier to tweak players speed more accurately
+- New Instakill and Max Ammo sprites (Thanks to MrEnchanter)
+- Added in new 3D Perk-a-cola machines to see these be in OpenGL and type GL_Use_Models 1 in the console
+- Added in Double points
+- Added Hardcore modes (Take more damage while playing it)
+- Added in Zombie attack sounds which play before zombie attacks player
+- Added in Vanish sound for Instakill
+- New power on sound (Although temporary)
+- Added in HUD icons for Molotov and Sticky grenades
+- New zombie sprites for runners and normal zombies (Thanks to ZioMccall)
+- Added in script for Dog rounds
+- Perk machines now display a "You must turn on the power first!" if power is not on
+- Players will now taunt after killing 8 zombies (Random chance of taunting after 8, wouldn't want it to get too annoying)
+- Fixed gameover health regen spamming the screen and sounds
+- Scoreboard will now update every so often and can be toggled on and off
+- New player voices (Thanks to MrEnchanter for VA)
+   - Includes zombie kill voices
+- Turret now plays a sound when firing (Uses Browning M1919 fire sound, untill I can find a better one)
+
+Removed features:
+- Took out player controlled taunts
+
+Multiplayer fixes: 
+- Fixed points showing incorrectly for second and first player in a multiplayer game
+- Took out clientside effects on a single script, this should stop the players screen from having a fit whilst firing off a round
+- Scoreboard now shows each individuals points and kills (Thanks to TheCubasy)
+- Fixed an issue that occurs when a player leaves the game, causing the money system to not display other players money values
+
+Dev/Mapper notes:
+- More decorate stuff for mappers:
+   - Zombie corpses (Sprites, thanks to ZioMccall)
+   - Bottles, shotglass, meteorite piece, nazi flag stand, gramaphone, decaying corpse, brainjar (Thanks to MrEnchanter)
+   - Hanging soldier (Thanks to TankDemspey)
+   - Grass
+   - Teleporter pad, pack a punch, perk machines (Thanks to NZ:P Team)
+- Fixed the cluttered mess that was NZDE0.8.PK3:
+   - Actors, Sprites and Textures are now organized in files (Organizing textures, thanks to MrEnchanter)
+   - Decorate lump has tags for finding things easier using Ctrl+F
+   - Renamed a few other actor lumps
+- Added a ton of new textures (Including wallitem textures) (Thanks to MrEnchanter and WhiteAce)
+- Removed Titlepic stuff (was unused and I don't think there would be a use for it now)
+- Because weapons are now undroppable, due to this you should probably remove Colt45 at the start of the round in the scripts, should you use an alt weapon otherwise it'll stay in players inventory
+- Had to change Specialgrenades names to SpecGrenades, it was causing issues with Zandro 3.0 and GZDoom
+- Added several scripts, both WIP and scripts within the maps to acssource folder within the PK3, makes it easier for me to find out which code is the latest
+   - This includes the pack a punch code
