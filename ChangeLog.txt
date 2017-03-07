@@ -19,6 +19,7 @@ Weapon changes/fixes:
 - Added in DP-28 (Thanks to Sgt. Shivers)
 - Added in Olympia (Thanks to Batandy)
 - Added in Browning Auto-5 (Thanks to WhiteAce for code, unknown who made sprites)
+- Added in Scoped Springfield (Thanks to JoeyTD)
 - Added pickup sprite for Nambu (Thanks to Sgt. Shivers) and added to mystery box
 - Added in Pack a punch sprites for MP40 and Trench gun (Thanks to MrEnchanter)
 - New Flamethrower, ThunderGun sprites also improved Nambu, Colt m1911, STG-44, Browning M1919, Springfield and Trench gun sprites (Thanks to MrEnchanter)
