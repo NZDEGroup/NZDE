@@ -1,0 +1,111 @@
+Actor Vodka 21111
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		VODK A -1
+		Stop
+	}
+}
+
+Actor PropBottle1 21121
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		BTL1 A -1
+		Stop
+	}
+}
+
+Actor PropBottle2 21122
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		BTL2 A -1
+		Stop
+	}
+}
+
+Actor PropBottle3 21123
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		BTL3 A -1
+		Stop
+	}
+}
+
+Actor PropBottle4 21124
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		BTL4 A -1
+		Stop
+	}
+}
+
+Actor PropBottle5 21125
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		BTL5 A -1
+		Stop
+	}
+}
+
+Actor PropBottle6 21126
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		BTL6 A -1
+		Stop
+	}
+}
+
+Actor MartiniGlass 21127
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		BTL6 A -1
+		Stop
+	}
+}

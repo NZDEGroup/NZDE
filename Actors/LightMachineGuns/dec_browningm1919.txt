@@ -1,0 +1,315 @@
+Actor BrowningM1919 : Weapon 10038
+{
+ Inventory.PickupMessage "Browning M1919"
+ Weapon.SlotNumber 1
+ Weapon.KickBack 0
+ Weapon.AmmoType1 "In_Browning"
+ Weapon.AmmoType2 "Reserve_Browning"
+ Weapon.AmmoUse 1
+ Weapon.AmmoGive1 125
+ Weapon.AmmoGive2 999
+ Weapon.SelectionOrder 3000
+ Weapon.PreferredSkin "MachineGun"
+ +AMMO_OPTIONAL
+ +NOAUTOFIRE
+ Radius 1
+ Height 1
+ states
+ {
+  Ready:
+    B30C A 0 A_JumpIfInventory("reload",1,"Reload")
+	B30C A 0 A_JumpIfInventory("thrownade",1,"ThrowGrenade")
+	B30C A 0 A_JumpIfInventory("throwspec",1,"ThrowSpecial")
+	B30C A 0 A_JumpIfInventory("knife",1,"Knife")
+    B30C A 1 A_WeaponReady
+    Loop
+   Deselect:
+     B30C A 0 A_JumpIfInventory("SpeedCola",1,"Deselect.SpeedSwitch")
+     B30C A 1 A_Lower
+	 B30C A 1 A_Lower
+	 B30C A 1 A_Lower
+     Loop
+   Deselect.SpeedSwitch:
+     B30C A 1 A_Lower
+	 B30C A 0 A_Lower
+	 B30C A 0 A_Lower
+     Loop
+   Select:
+     B30C A 0 A_JumpIfInventory("SpeedCola",1,"Select.SpeedSwitch")
+     B30C A 1 A_Raise
+	 B30C A 1 A_Raise
+	 B30C A 1 A_Raise
+     Loop
+   Select.SpeedSwitch:
+     B30C A 1 A_Raise
+	 B30C A 0 A_Raise
+	 B30C A 0 A_Raise
+	 Loop
+  Fire:
+	B30C A 0 A_JumpIfNoAmmo("Reload")
+	B30C A 0 A_JumpIfInventory("DoubleTap",1,"Fire.DoubleTap")
+	B30C A 0 A_PlaySound("weapons/m1919",1)
+	B30C A 0 ACS_ExecuteAlways(253,0,-1,random(-1,1),0)
+	B30C A 0 A_SpawnItemEx("GunSmoke",12,0,36,1,0,1,0)
+    B30C B 2 BRIGHT A_FireBullets(4,4,-1,19,"GunSmoke")
+    B30C A 1 
+ 	B30C A 4 A_ReFire
+    Goto Ready
+  Fire.DoubleTap:
+	B30C A 0 A_PlaySound("weapons/m1919",1)
+	B30C A 0 ACS_ExecuteAlways(253,0,-1,random(-1,1),0)
+	B30C A 0 A_SpawnItemEx("GunSmoke",12,0,36,1,0,1,0)
+    B30C B 2 BRIGHT A_FireBullets(4,4,-1,26,"GunSmoke")
+    B30C A 1 
+ 	B30C A 3 A_ReFire
+    Goto Ready
+  ThrowGrenade:
+	B30C A 0 A_ZoomFactor(1)
+    B30C A 1 Offset(0,32)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,72)
+	TNT1 A 0 Offset(0,32)
+	TNT1 A 0 A_PlaySound("weapons/grenadepin")
+	NADE ABCDE 1
+	TNT1 A 0 A_SpawnItemEx("Casing_Grenade",6,-1,36,random(4,6),random(-1,-2),0,0)
+	NADE FGH 1
+	TNT1 A 8
+    TNT1 A 0 A_PlaySound("weapons/grenadethr") 
+	NADE IJK 1
+    TNT1 A 0 A_FireCustomMissile("ThrownGrenade",0,0,0,0)
+	NADE LM 1
+	B30C A 1 Offset(0,72)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("thrownade")
+    Goto Ready
+  ThrowSpecial:
+	TNT1 A 0 A_TakeInventory("throwspec")
+	TNT1 A 0 A_JumpIfInventory("SpecGrenade_N74ST",1,"ThrowN74ST")
+	TNT1 A 0 A_JumpIfInventory("SpecGrenade_Molotov",1,"ThrowMolotov")
+	TNT1 A 0 A_JumpIfInventory("SpecGrenade_BouncingBetty",1,"ThrowBouncingBetty")
+	Goto Ready
+  ThrowN74ST:
+    TNT1 A 0 A_JumpIfInventory("N74STAmmo",1,1)
+	Goto Ready
+	TNT1 A 0 A_TakeInventory("N74STAmmo",1)
+    B30C A 0 A_TakeInventory("sights",1)
+	B30C A 0 A_ZoomFactor(1)
+    B30C A 1 Offset(0,32)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,72)
+	TNT1 A 0 Offset(0,32)
+	TNT1 A 0 A_PlaySound("weapons/grenadepin")
+	N74S ABCD 1
+	TNT1 A 2
+	TNT1 A 0 A_PlaySound("weapons/grenadethr")
+	NADE ABCDE 1
+	TNT1 A 0 A_SpawnItemEx("Casing_Grenade",6,-1,36,random(4,6),random(-1,-2),0,0)
+	NADE FGH 1
+	TNT1 A 8
+    TNT1 A 0 A_PlaySound("weapons/grenadethr") 
+	NADE IJK 1
+    TNT1 A 0 A_FireCustomMissile("ThrownN74ST",0,0,0,0)
+	NADE LM 1
+	B30C A 1 Offset(0,72)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,32)
+    Goto Ready
+  ThrowMolotov:
+    TNT1 A 0 A_JumpIfInventory("MolotovAmmo",1,1)
+	Goto Ready
+	TNT1 A 0 A_TakeInventory("MolotovAmmo",1)
+    B30C A 0 A_TakeInventory("sights",1)
+	B30C A 0 A_ZoomFactor(1)
+    B30C A 1 Offset(0,32)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,72)
+	TNT1 A 0 Offset(0,32)
+	TNT1 A 0 A_PlaySound("weapons/grenadepin")
+	NADE ABCDE 1
+	TNT1 A 0 A_SpawnItemEx("Casing_Grenade",6,-1,36,random(4,6),random(-1,-2),0,0)
+	NADE FGH 1
+	TNT1 A 8
+    TNT1 A 0 A_PlaySound("weapons/grenadethr") 
+	NADE IJK 1
+    TNT1 A 0 A_FireCustomMissile("ThrownMolotov",0,0,0,0)
+	NADE LM 1
+	B30C A 1 Offset(0,72)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("thrownade")
+    Goto Ready
+  ThrowBouncingBetty:
+	TNT1 A 0 A_JumpIfInventory("BouncingBettyAmmo",1,1)
+	Goto Ready
+	TNT1 A 0 A_TakeInventory("BouncingBettyAmmo",1)
+    B30C A 0 A_TakeInventory("sights",1)
+	B30C A 0 A_ZoomFactor(1)
+    B30C A 1 Offset(0,32)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,72)
+	TNT1 A 0 Offset(0,32)
+	TNT1 A 0 A_PlaySound("weapons/grenadepin")
+	N74S ABCD 1
+	TNT1 A 2
+	TNT1 A 0 A_PlaySound("weapons/grenadethr")
+	NADE ABCDE 1
+	TNT1 A 0 A_SpawnItemEx("Casing_Grenade",6,-1,36,random(4,6),random(-1,-2),0,0)
+	NADE FGH 1
+	TNT1 A 8
+    TNT1 A 0 A_PlaySound("weapons/grenadethr") 
+	NADE IJK 1
+    TNT1 A 0 A_FireCustomMissile("BouncingBetty_OnGround",0,0,0,0)
+	NADE LM 1
+	B30C A 1 Offset(0,72)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,32)
+    Goto Ready
+  Reload:
+	TNT1 A 0 A_TakeInventory("reload",1)
+	TNT1 A 0 A_JumpIfInventory("In_Browning",125,"Ready")
+	TNT1 A 0 A_JumpIfInventory("Reserve_Browning",1,"ReloadLoop")
+	Goto Ready
+  ReloadLoop:
+    B30C A 0 A_JumpIfInventory("In_Browning",125,"Reloading")
+    B30C A 0 A_JumpIfInventory("Reserve_Browning",1,1)
+	Goto Reloading
+	B30C A 0 A_TakeInventory("Reserve_Browning",1)
+	B30C A 0 A_GiveInventory("In_Browning",1)
+	Loop
+  Reloading:
+    COLT A 0 A_GiveInventory("Reloading",1)
+    B30C A 0 A_TakeInventory("sights",1)
+	B30C A 0 A_JumpIfInventory("SpeedCola",1,"Reloading.SpeedReload")
+	B30C A 0 A_ZoomFactor(1)
+	B30C A 1 Offset(0,36)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,44)
+	B30C A 1 Offset(0,48)
+	B30C A 1 Offset(0,52)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,60)
+	B30C A 1 Offset(0,64)
+	B30C A 1 Offset(0,68)
+	B30C A 1 Offset(0,72)
+	B30C A 105
+	B30C A 1 Offset(0,68)
+	B30C A 1 Offset(0,60)
+	B30C A 1 Offset(0,52)
+	B30C A 1 Offset(0,44)
+	B30C A 1 Offset(0,36)
+	B30C A 1 Offset(0,32)
+    B30C A 0 A_TakeInventory("reload",1)
+	Goto Ready
+  Reloading.SpeedReload:
+    B30C A 0 A_ZoomFactor(1)
+	B30C A 1 Offset(0,36)
+	B30C A 1 Offset(0,40)
+	B30C A 1 Offset(0,44)
+	B30C A 1 Offset(0,48)
+	B30C A 1 Offset(0,52)
+	B30C A 1 Offset(0,56)
+	B30C A 1 Offset(0,60)
+	B30C A 1 Offset(0,64)
+	B30C A 1 Offset(0,68)
+	B30C A 1 Offset(0,72)
+	B30C A 75
+	B30C A 1 Offset(0,68)
+	B30C A 1 Offset(0,60)
+	B30C A 1 Offset(0,52)
+	B30C A 1 Offset(0,44)
+	B30C A 1 Offset(0,36)
+	B30C A 1 Offset(0,32)
+    B30C A 0 A_TakeInventory("reload",1)
+	Goto Ready
+  Knife:
+    B30C A 0 A_JumpIfInventory("Machete",1,"Knife.Machete")
+	B30C A 2 Offset(-16,52)
+	B30C A 2 Offset(-24,60)
+	B30C A 2 Offset(-30,66)
+	B30C A 2 Offset(-32,68)
+	B30C A 2 Offset(-32,84)
+	KNIF A 1 Offset(0,32)
+	KNIF A 1 Offset(-4,32)
+	KNIF A 1 Offset(-12,32)
+	TNT1 A 0 A_CustomPunch(4,0,0,"KnifeSlash")
+	KNIF A 1 Offset(-24,32)
+	KNIF B 1 Offset(-40,32)
+	KNIF B 1 Offset(-64,32)
+	KNIF B 1 Offset(-88,32)
+	TNT1 A 0 A_CustomPunch(4,0,0,"KnifePuff")
+	KNIF C 1 Offset(-112,32)
+	KNIF C 1 Offset(-136,32)
+	KNIF C 1 Offset(-160,32)
+	TNT1 A 0 A_CustomPunch(6,0,0,"KnifeSlash")
+	B30C A 2 Offset(32,80)
+	B30C A 2 Offset(32,64)
+	B30C A 2 Offset(30,62)
+	B30C A 2 Offset(24,56)
+	B30C A 2 Offset(16,48)
+	B30C A 2 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("knife",1)
+	Goto Ready
+   Knife.Machete:
+	B30C A 1 Offset(-16,52)
+	B30C A 1 Offset(-24,60)
+	B30C A 1 Offset(-30,66)
+	B30C A 1 Offset(-32,68)
+	B30C A 1 Offset(-32,84)
+	TNT1 A 0 ACS_ExecuteAlways(253,0,random(0,-1),random(3,6),0)
+	MCHT A 2
+    MCHT B 2
+	TNT1 A 0 A_CustomPunch(38,0,0,"KnifeSlash")
+	MCHT C 2
+	MCHT D 2
+	TNT1 A 0 A_CustomPunch(38,0,0,"MachetePuff")
+	MCHT E 2
+	MCHT F 2
+	TNT1 A 0 A_CustomPunch(40,0,0,"KnifeSlash")
+	B30C A 1 Offset(32,80)
+	B30C A 1 Offset(32,64)
+	B30C A 1 Offset(30,62)
+	B30C A 1 Offset(24,56)
+	B30C A 1 Offset(16,48)
+	B30C A 1 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("knife",1)
+	Goto Ready
+  Flash:
+    TNT1 A 1
+    Stop
+  Spawn:
+    B30C Z -1
+    Stop
+ }
+}
+
+Actor In_Browning : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 125
+ States
+ {
+  Spawn:
+    TNT1 A -1
+	Stop
+ }
+}
+Actor Reserve_Browning : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 500
+ States
+ {
+  Spawn:
+	TNT1 A -1
+	Stop
+ }
+}

@@ -1,0 +1,187 @@
+Actor Zombie_Head 20014
+{
+ Radius 6
+ Height 12
+ Scale 1
+ +SOLID
+ +NOGRAVITY
+ +NOBLOCKMAP
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	NZHE A 1
+	Loop
+ }
+}
+
+Actor Zombie_Statue 20015
+{
+ Radius 14
+ Height 78
+ Scale 1
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	NZST A 1
+	Loop
+ }
+}
+
+Actor Brainjar 26066
+{
+ Radius 6
+ Height 12
+ Scale 1
+ +SOLID
+ +NOGRAVITY
+ +NOBLOCKMAP
+ States
+ {
+  Spawn:
+	BRAN ABCD 6
+	Loop
+ }
+}
+ 
+Actor Meteorite_Piece 20016
+{
+ Radius 6
+ Height 6
+ Scale 1
+ +SOLID
+ +NOGRAVITY
+ +NOBLOCKMAP
+ +FORCEYBILLBOARD
+ States
+ {
+  Spawn:
+	115P ABCD 2
+	Loop
+ }
+}
+
+Actor NaziFlagStand 12505
+{
+	+SOLID
+	radius 8
+	height 132
+	
+	states
+	{
+	spawn:
+		BNR2 A -1
+		Stop
+	}
+}
+
+Actor Gramaphone 12506
+{
+	+SOLID
+	radius 8
+	height 16
+	
+	states
+	{
+	spawn:
+		GRAM A -1
+		Stop
+	}
+}
+
+Actor Hanging_Soldier 10992
+ {
+ Radius 4
+ Height 16
+ Mass 9999
+ -PUSHABLE
+ -SHOOTABLE
+ +NOBLOOD
+ +NOGRAVITY
+ +SPAWNCEILING
+ States
+ {
+  Spawn:
+	HANG A 1
+	Loop
+ }
+}
+
+Actor GrassA 11146
+{
+ Radius 6
+ Height 6
+ Scale 0.5
+ +SOLID
+ +NOGRAVITY
+ +NOBLOCKMAP
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    GRSS A 1
+	Loop
+ }
+}
+
+Actor GrassB 11147
+{
+ Radius 6
+ Height 6
+ Scale 0.75
+ +SOLID
+ +NOGRAVITY
+ +NOBLOCKMAP
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    GRSS A 1
+	Loop
+ }
+}
+
+Actor Tele_Pad 11842
+{
+ Radius 54
+ Height 6
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    TPAD A 1
+	Loop
+ }
+}
+
+Actor Shotglass 21112
+{
+	+SOLID
+	radius 3
+	height 4
+	
+	states
+	{
+	spawn:
+		SGLS A -1
+		Stop
+	}
+}
+
+Actor DecayingCorpse 20029
+{
+ Radius 6
+ Height 12
+ Scale 0.7
+ +SOLID
+ +NOGRAVITY
+ States
+ {
+  Spawn:
+ DICK A 1
+ Loop
+ }
+}

@@ -1,0 +1,104 @@
+Actor StaminUpMach 20017
+{
+ Radius 20
+ Height 78
+ Scale 0.25
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	SMUP A -1
+	Loop
+ }
+}
+
+Actor DoubleTapMach 20010
+{
+ Radius 20
+ Height 78
+ Scale 0.25
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    DBTP A -1
+	Wait
+ }
+}
+
+Actor JuggernogMach 20011
+{
+ Radius 20
+ Height 78
+ Scale 0.25
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    JUGN A -1
+	Wait
+ }
+}
+
+Actor QuickReviveMach 20012
+{
+ Radius 20
+ Height 234
+ Scale 0.25
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    QCRV A -1
+	Wait
+ }
+}
+
+Actor SpeedColaMach 20013
+{
+ Radius 20
+ Height 78
+ Scale 0.25
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    SPCL A -1
+	Wait
+ }
+}
+
+Actor PHDFlopperMach 20054
+{
+ Radius 20
+ Height 78
+ Scale 0.25
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    PDFR A -1
+	Wait
+ }
+}
+
+Actor PAPMach 20055
+{
+ Radius 20
+ Height 78
+ Scale 0.25
+ +SOLID
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    Pack A -1
+	Wait
+ }
+}

@@ -1,0 +1,97 @@
+Actor PhDFlopperBottle 21113
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		PFBT A -1
+		Stop
+	}
+}
+
+Actor DoubleTapBottle 21114
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		DTBT A -1
+		Stop
+	}
+}
+
+Actor QuickReviveBottle 21115
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		QRBT A -1
+		Stop
+	}
+}
+
+Actor JuggernogBottle 21116
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		JGBT A -1
+		Stop
+	}
+}
+
+Actor SpeedColaBottle 21117
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		SCBT A -1
+		Stop
+	}
+}
+
+Actor StaminUpBottle 21118
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		SUBT A -1
+		Stop
+	}
+}
+
+Actor MuleKickBottle 21119
+{
+	+SOLID
+	radius 6
+	height 16
+	
+	states
+	{
+	spawn:
+		MKBT A -1
+		Stop
+	}
+}

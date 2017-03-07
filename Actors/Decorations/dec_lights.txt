@@ -1,0 +1,69 @@
+Actor Lamp_Ceiling 10090
+{
+ Radius 4
+ Height 16
+ Mass 9999
+ Scale 0.5
+ -PUSHABLE
+ -SHOOTABLE
+ +NOBLOOD
+ +NOGRAVITY
+ +SPAWNCEILING
+ States
+ {
+  Spawn:
+	CLMP ABCD 10 BRIGHT
+	Loop
+ }
+}
+
+Actor Lamp_Post 10091
+{
+ Radius 8
+ Height 32
+ Mass 9999
+ -PUSHABLE
+ -SHOOTABLE
+ +NOBLOOD
+ +NOGRAVITY
+ States
+ {
+  Spawn:
+	LITE B -1
+	Stop
+ }
+}
+
+Actor Lamp_Flare 10092
+{
+ Radius 1
+ Height 1
+ +NOBLOCKMAP
+ +NOGRAVITY
+ +SPAWNCEILING
+ Renderstyle Add
+ Alpha 0.8
+ States
+ {
+  Spawn:
+	LITE C -1
+	Stop
+ }
+}
+
+Actor Lantern 11111
+{
+ Radius 6
+ Height 17
+ Scale 0.5
+ -NOBLOCKMAP
+ -LOWGRAVITY
+ +NOGRAVITY
+ +SOLID
+ States
+ {
+  Spawn:
+	LANT A 2
+	Loop
+ }
+}

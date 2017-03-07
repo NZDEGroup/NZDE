@@ -1,0 +1,194 @@
+#library "GAMECODE"
+#include "zcommon.acs"
+
+SCRIPT 253 (int pitchamount, int angleamount)
+{
+ int loops;
+ int multiplier;
+ int input;
+ multiplier=1;
+ loops=0;
+ while(loops<2)
+ {
+  input=GetPlayerInput(0,INPUT_BUTTONS);
+  if(CheckInventory("ColtZoomed")==1
+  || CheckInventory("NambuZoomed")==1
+  || CheckInventory("G43Zoomed")==1
+  || CheckInventory("K98KZoomed")==1
+  || CheckInventory("SpriZoomed")==1
+  || CheckInventory("STGZoomed")==1
+  || CheckInventory("MP40Zoomed")==1) {multiplier=2;}
+  else {multiplier=1;}
+  if(GetActorPitch(0)>-0.25)
+  {
+   SetActorPitch(0,GetActorPitch(0)+(((pitchamount/multiplier)*100)/2));
+  }
+  SetActorAngle(0,GetActorAngle(0)+(((angleamount/multiplier)*0.005)/2));
+  loops+=1;
+  delay(2);
+ }
+ loops=0;
+ while(loops<8)
+ {
+  input=GetPlayerInput(0,INPUT_BUTTONS);
+  if(CheckInventory("ColtZoomed")==1
+  || CheckInventory("NambuZoomed")==1
+  || CheckInventory("G43Zoomed")==1
+  || CheckInventory("K98KZoomed")==1
+  || CheckInventory("SpriZoomed")==1
+  || CheckInventory("STGZoomed")==1
+  || CheckInventory("MP40Zoomed")==1) {multiplier=2;}
+  else {multiplier=1;}
+  SetActorPitch(0,GetActorPitch(0)-(((pitchamount/multiplier)*100)/(loops+4)));//GetActorPitch(0)-((pitchamount/multiplier)*(50-(loops*8))));
+  SetActorAngle(0,GetActorAngle(0)-(((angleamount/multiplier)*0.005)/(loops+4)));//GetActorAngle(0)-((angleamount/multiplier)*(0.00050-(loops*0.00005))));
+  loops+=1;
+  delay(2);
+ }
+}
+
+SCRIPT 270 (void)
+{
+ Thing_Remove(0);
+}
+
+SCRIPT 279 (void)
+{
+ FadeTo(0.0,0.0,0.0,1.0,0.1);
+ delay(3);
+ FadeTo(0.0,0.0,0.0,0.0,1.5);
+}
+
+SCRIPT 275 (int powerup_id)
+{
+ if(powerup_id==0) // max ammo
+ {
+  int MapNumber = GetLevelInfo (LEVELINFO_LEVELNUM);
+  int tid;
+  for(int x=0;x<32;x++)
+  {
+   if(PlayerInGame(x))
+   {
+    tid=x+1000;
+    GiveActorInventory(Tid,"Reserve_M1911",999);
+	GiveActorInventory(Tid,"Reserve_Nambu",999);
+    GiveActorInventory(Tid,"Reserve_M1A1",999);
+    GiveActorInventory(Tid,"Reserve_M1",999);
+    GiveActorInventory(Tid,"Reserve_Kar",999);
+    GiveActorInventory(Tid,"Reserve_Luger",999);
+    GiveActorInventory(Tid,"Reserve_357",999);
+    GiveActorInventory(Tid,"Reserve_DualM1911",999);
+    GiveActorInventory(Tid,"Reserve_Gewehr",999);
+	GiveActorInventory(Tid,"Reserve_Double",999);
+	GiveActorInventory(Tid,"Reserve_Olympia",999);
+    GiveActorInventory(Tid,"Reserve_SawnOff",999);
+	GiveActorInventory(Tid,"Reserve_BrowningA5",999);
+    GiveActorInventory(Tid,"Reserve_TrenchGun",999);
+    GiveActorInventory(Tid,"Reserve_STG",999);
+    GiveActorInventory(Tid,"Reserve_FG",999);
+    GiveActorInventory(Tid,"Reserve_PPSH",999);
+	GiveActorInventory(Tid,"Reserve_DP28",999);
+    GiveActorInventory(Tid,"Reserve_MP40",999);
+    GiveActorInventory(Tid,"Reserve_Thompson",999);
+    GiveActorInventory(Tid,"Reserve_Browning",999);
+    GiveActorInventory(Tid,"Reserve_MG42",999);
+    GiveActorInventory(Tid,"Reserve_Springfield",999);
+    GiveActorInventory(Tid,"Reserve_Panzerschreck",999);
+    GiveActorInventory(Tid,"Reserve_BAR",999);
+    GiveActorInventory(Tid,"Reserve_Thundergun",999);
+    GiveActorInventory(Tid,"Reserve_Nailgun",999);
+    GiveActorInventory(Tid,"Reserve_Raygun",999);
+    GiveActorInventory(Tid,"Reserve_Glock",999);
+    GiveActorInventory(Tid,"Reserve_Sterling",999);
+	//PAP Weapons
+	GiveActorInventory(Tid,"Reserve_PAPM1A1",999);
+	GiveActorInventory(Tid,"Reserve_PAPM1",999);
+	GiveActorInventory(Tid,"Reserve_PAPKar",999);
+	GiveActorInventory(Tid,"Reserve_PAPLuger",999);
+	GiveActorInventory(Tid,"Reserve_PAP357",999);
+	GiveActorInventory(Tid,"Reserve_PAPM1911",999);
+	GiveActorInventory(Tid,"Reserve_PAPGewehr",999);
+	GiveActorInventory(Tid,"Reserve_PAPDouble",999);
+	GiveActorInventory(Tid,"Reserve_PAPSawnOff",999);
+	GiveActorInventory(Tid,"Reserve_PAPTrenchGun",999);
+	GiveActorInventory(Tid,"Reserve_PAPSTG",999);
+	GiveActorInventory(Tid,"Reserve_PAPMP40",999);
+	GiveActorInventory(Tid,"Reserve_PAPBrowning",999);
+	GiveActorInventory(Tid,"Reserve_PAPThompson",999);
+	GiveActorInventory(Tid,"Reserve_PAPNailgun",999);
+    GiveActorInventory(Tid,"GrenadeAmmo",999);
+	If(CheckActorInventory(Tid,"SpecGrenade_BouncingBetty"))
+	{
+     GiveActorInventory(Tid,"BouncingBettyAmmo",999);
+	}
+	Else If(CheckActorInventory(Tid,"SpecGrenade_Molotov"))
+	{
+	 GiveActorInventory(Tid,"MolotovAmmo",999);
+	}
+	 Else If(CheckActorInventory(Tid,"SpecGrenade_N74ST"))
+	{
+	 GiveActorInventory(Tid,"N74STAmmo",999);
+	}
+   }
+   
+  }
+  
+ }
+ else if(powerup_id==1) // Nuke
+ {
+  Thing_Destroy(0,0);
+ }
+ else if(powerup_id==2) // Insta kill
+ {
+  if(PlayerInGame(x))
+  {
+   GiveActorInventory(Tid,"InstantKill",1);
+  }
+ }
+ else if(powerup_id==3) //Double points
+ {
+  if(PlayerInGame(x))
+  {
+   GiveActorInventory(Tid,"X2Points",1);
+  }
+ }
+ /*else if(powerup_id==4) //Carpenter
+ {
+  if(MapNumber==2)
+  {
+   ACS_ExecuteAlways(238,2,0,0,0);
+  }
+ }*/
+}
+
+SCRIPT 277 (VOID)
+{
+ If(ThingCountName("Dog_Normal",0)==0 && ThingCountName("Dog_Flamer",0)==0)
+ {
+  DropItem(0,"MaxAmmo",1,0);
+ }
+}
+  
+
+SCRIPT 667 (int amount)
+{
+ if(amount>-1) 
+ {
+ SetActivatorToTarget(0);
+ }
+ if(amount>-1)
+ {
+  GiveInventory("money",amount);
+  if(CheckInventory("PowerX2Points")==1)
+  {
+   GiveInventory("money",amount);
+  }
+ }
+ if(amount>-1) 
+ {
+  GiveInventory("points",amount);
+  if(CheckInventory("PowerX2Points")==1)
+  {
+   GiveInventory("points",amount);
+  }
+ }
+}

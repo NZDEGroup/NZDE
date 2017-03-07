@@ -1,0 +1,264 @@
+Actor DoubleBarrel : Weapon 10027
+{
+ Weapon.KickBack 0
+ Weapon.SelectionOrder 1300
+ Weapon.SlotNumber 1
+ Weapon.AmmoUse 1
+ Weapon.AmmoGive1 2
+ Weapon.AmmoGive2 999
+ Weapon.AmmoType1 "In_Double"
+ Weapon.AmmoType2 "Reserve_Double"
+ Inventory.PickupMessage "Double Barrel shotgun"
+ Weapon.PreferredSkin "DoubleShotgun"
+ +AMMO_OPTIONAL
+ +NOAUTOFIRE
+ Radius 1
+ Height 1
+ States
+ {
+  Ready:
+    LONG A 0 A_JumpIfInventory("reload",1,"Reload")
+	LONG A 0 A_JumpIfInventory("thrownade",1,"ThrowGrenade")
+	LONG A 0 A_JumpIfInventory("throwspec",1,"ThrowSpecial")
+	LONG A 0 A_JumpIfInventory("knife",1,"Knife")
+    LONG A 1 A_WeaponReady
+    Loop
+   Deselect:
+     LONG A 0 A_JumpIfInventory("SpeedCola",1,"Deselect.SpeedSwitch")
+     LONG A 1 A_Lower
+	 LONG A 1 A_Lower
+	 LONG A 0 A_Lower
+     Loop
+   Deselect.SpeedSwitch:
+     LONG A 1 A_Lower
+	 LONG A 0 A_Lower
+	 LONG A 0 A_Lower
+     Loop
+   Select:
+     LONG A 0 A_JumpIfInventory("SpeedCola",1,"Select.SpeedSwitch")
+     LONG A 1 A_Raise
+	 LONG A 1 A_Raise
+	 LONG A 0 A_Raise
+     Loop
+   Select.SpeedSwitch:
+     LONG A 1 A_Raise
+	 LONG A 0 A_Raise
+	 LONG A 0 A_Raise
+	 Loop
+  Fire:
+ 	LONG A 0 A_JumpIfNoAmmo("Reload")
+	LONG A 0 A_JumpIfInventory("DoubleTap",1,"Fire.DoubleTap")
+    LONG A 3
+	LONG A 0 ACS_ExecuteAlways(253,0,-5,random(-5,5),0)
+	LONG AAAA 0 A_SpawnItemEx("GunSmoke",random(12,16),random(4,-4),random(40,30),random(0,2),0,1,0)
+    LONG B 0 A_FireBullets(6,6,5,13,"GunSmoke")
+	LONG BBBBB 0 A_RailAttack(13,0,0,none,none,1,10,"GunSmoke")
+	LONG B 1 bright
+    LONG B 0 bright A_PlaySound("coachgun/fire",1,0.5)
+	LONG B 0 bright A_PlaySound("coachgun/fire",0,0.5,0,ATTN_NONE)
+	LONG B 0 bright A_Gunflash
+    LONG B 0 bright
+    LONG C 1 bright
+    LONG DE 1
+    LONG A 2 A_WeaponReady
+    Goto Ready
+  Fire.DoubleTap:
+    LONG A 1
+	LONG A 0 ACS_ExecuteAlways(253,0,-5,random(-5,5),0)
+	LONG AAAA 0 A_SpawnItemEx("GunSmoke",random(12,16),random(4,-4),random(40,30),random(0,2),0,1,0)
+    LONG B 0 A_FireBullets(6.3,6.3,5,63,"GunSmoke")
+	LONG B 0 A_RailAttack(10,0,0,none,none,1,10.3,"GunSmoke")
+	LONG B 0 A_RailAttack(10,0,0,none,none,1,10.3,"GunSmoke")
+	LONG B 0 A_RailAttack(10,0,0,none,none,1,10.3,"GunSmoke")
+	LONG B 0 A_RailAttack(10,0,0,none,none,1,10.3,"GunSmoke")
+	LONG B 0 A_RailAttack(10,0,0,none,none,1,10,"GunSmoke")
+	LONG B 1 bright
+    LONG B 0 bright A_PlaySound("coachgun/fire",1)
+	LONG B 0 bright A_Gunflash
+    LONG B 0 bright
+    LONG C 1 bright
+    LONG AAAA 1 A_WeaponReady
+    Goto Ready
+  ThrowGrenade:
+	LONG A 0 A_ZoomFactor(1)
+    LONG A 1 Offset(0,32)
+	LONG A 1 Offset(0,40)
+	LONG A 1 Offset(0,56)
+	LONG A 1 Offset(0,72)
+	TNT1 A 0 Offset(0,32)
+	TNT1 A 0 A_PlaySound("weapons/grenadepin")
+	NADE ABCDE 1
+	TNT1 A 0 A_SpawnItemEx("Casing_Grenade",6,-1,36,random(4,6),random(-1,-2),0,0)
+	NADE FGH 1
+	TNT1 A 8
+    TNT1 A 0 A_PlaySound("weapons/grenadethr") 
+	NADE IJK 1
+    TNT1 A 0 A_FireCustomMissile("ThrownGrenade",0,0,0,0)
+	NADE LM 1
+	LONG A 1 Offset(0,72)
+	LONG A 1 Offset(0,56)
+	LONG A 1 Offset(0,40)
+	LONG A 1 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("thrownade")
+    Goto Ready
+  ThrowSpecial:
+	TNT1 A 0 A_TakeInventory("throwspec")
+	TNT1 A 0 A_JumpIfInventory("SpecGrenade_BouncingBetty",1,"ThrowBouncingBetty")
+	Goto Ready
+  ThrowBouncingBetty:
+	TNT1 A 0 A_JumpIfInventory("BouncingBettyAmmo",1,1)
+	Goto Ready
+    LONG A 0 A_TakeInventory("sights",1)
+	TNT1 A 0 A_TakeInventory("BouncingBettyAmmo",1)
+	LONG A 0 A_ZoomFactor(1)
+    LONG A 1 Offset(0,32)
+	LONG A 1 Offset(0,40)
+	LONG A 1 Offset(0,56)
+	LONG A 1 Offset(0,72)
+	TNT1 A 0 Offset(0,32)
+	TNT1 A 0 A_PlaySound("weapons/grenadepin")
+	N74S ABCD 1
+	TNT1 A 2
+	TNT1 A 0 A_PlaySound("weapons/grenadethr")
+	NADE ABCDE 1
+	TNT1 A 0 A_SpawnItemEx("Casing_Grenade",6,-1,36,random(4,6),random(-1,-2),0,0)
+	NADE FGH 1
+	TNT1 A 8
+    TNT1 A 0 A_PlaySound("weapons/grenadethr") 
+	NADE IJK 1
+    TNT1 A 0 A_FireCustomMissile("BouncingBetty_OnGround",0,0,0,0)
+	NADE LM 1
+	LONG A 1 Offset(0,72)
+	LONG A 1 Offset(0,56)
+	LONG A 1 Offset(0,40)
+	LONG A 1 Offset(0,32)
+    Goto Ready
+  Reload:
+	TNT1 A 0 A_TakeInventory("reload",1)
+	TNT1 A 0 A_JumpIfInventory("In_Double",2,"Ready")
+	TNT1 A 0 A_JumpIfInventory("Reserve_Double",1,"Reloading")
+	Goto Ready
+  Reloading:
+    COLT A 0 A_GiveInventory("Reloading",1)
+    LONG A 0 A_JumpIfInventory("SpeedCola",1,"Reloading.SpeedReload")
+	LONG A 4
+    LONG F 5 ACS_ExecuteAlways(253,0,-1,2,0)
+	TNT1 A 0 ACS_ExecuteAlways(253,0,2,-2,0)
+    TNT1 A 0 A_PlaySound("coachgun/reload1")
+	TNT1 A 0 A_SpawnItemEx("Casing_TrenchGun",8,-4,34,0,random(-1,-2),random(2,3),0)
+	TNT1 A 0 A_SpawnItemEx("Casing_TrenchGun",8,-2,34,0,random(-1,-2),random(2,3),0)
+    TNT1 A 0 A_JumpIfInventory("In_Double",1,7)
+	SAWD GJL 5
+	TNT1 A 0 ACS_ExecuteAlways(253,0,1,-1,0)
+	TNT1 A 0 A_PlaySound("coachgun/reload2")
+	TNT1 A 0 A_TakeInventory("Reserve_Double",1)
+	TNT1 A 0 A_GiveInventory("In_Double",1)
+	SAWD MH 4
+	TNT1 A 0 A_JumpIfInventory("Reserve_Double",1,1)
+	SAWD HKN 5
+	TNT1 A 0 ACS_ExecuteAlways(253,0,1,-1,0)
+	TNT1 A 0 A_PlaySound("coachgun/reload2")
+	SAWD O 4
+	SAWD I 5
+	TNT1 A 0 A_TakeInventory("Reserve_Double",1)
+	TNT1 A 0 A_GiveInventory("In_Double",1)
+    Goto Reloading.Finish
+  Reloading.Finish:
+	LONG A 4 A_PlaySound("coachgun/reload3")
+	TNT1 A 0 A_TakeInventory("reload",1)
+	Goto Ready
+  Reloading.SpeedReload:
+	LONG A 2
+    LONG F 3 ACS_ExecuteAlways(253,0,-1,2,0)
+	TNT1 A 0 ACS_ExecuteAlways(253,0,2,-2,0)
+    TNT1 A 0 A_PlaySound("coachgun/reload1")
+	TNT1 A 0 A_SpawnItemEx("Casing_TrenchGun",8,-4,34,0,random(-1,-2),random(2,3),0)
+	TNT1 A 0 A_SpawnItemEx("Casing_TrenchGun",8,-2,34,0,random(-1,-2),random(2,3),0)
+    TNT1 A 0 A_JumpIfInventory("In_Double",1,7)
+	SAWD GJL 3
+	TNT1 A 0 ACS_ExecuteAlways(253,0,1,-1,0)
+	TNT1 A 0 A_PlaySound("coachgun/reload2")
+	TNT1 A 0 A_TakeInventory("Reserve_Double",1)
+	TNT1 A 0 A_GiveInventory("In_Double",1)
+	SAWD MH 2
+	TNT1 A 0 A_JumpIfInventory("Reserve_Double",1,1)
+	SAWD HKN 3
+	TNT1 A 0 ACS_ExecuteAlways(253,0,1,-1,0)
+	TNT1 A 0 A_PlaySound("coachgun/reload2")
+	SAWD O 2
+	SAWD I 3
+	TNT1 A 0 A_TakeInventory("Reserve_Double",1)
+	TNT1 A 0 A_GiveInventory("In_Double",1)
+    Goto Reloading.Finish
+  Knife:
+    LONG A 0 A_JumpIfInventory("Machete",1,"Knife.Machete")
+	LONG A 1 Offset(-16,52)
+	LONG A 1 Offset(-24,60)
+	LONG A 1 Offset(-30,66)
+	LONG A 1 Offset(-32,68)
+	LONG A 1 Offset(-32,84)
+	KNIF A 1 Offset(0,32)
+	KNIF A 1 Offset(-4,32)
+	KNIF A 1 Offset(-12,32)
+	TNT1 A 0 A_CustomPunch(4,0,0,"KnifeSlash")
+	KNIF A 1 Offset(-24,32)
+	KNIF B 1 Offset(-40,32)
+	KNIF B 1 Offset(-64,32)
+	KNIF B 1 Offset(-88,32)
+	TNT1 A 0 A_CustomPunch(4,0,0,"KnifePuff")
+	KNIF C 1 Offset(-112,32)
+	KNIF C 1 Offset(-136,32)
+	KNIF C 1 Offset(-160,32)
+	TNT1 A 0 A_CustomPunch(6,0,0,"KnifeSlash")
+	LONG A 2 Offset(32,80)
+	LONG A 2 Offset(32,64)
+	LONG A 2 Offset(30,62)
+	LONG A 2 Offset(24,56)
+	LONG A 2 Offset(16,48)
+	LONG A 2 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("knife",1)
+	Goto Ready
+  Knife.Machete:
+	LONG A 1 Offset(-16,52)
+	LONG A 1 Offset(-24,60)
+	LONG A 1 Offset(-30,66)
+	LONG A 1 Offset(-32,68)
+	LONG A 1 Offset(-32,84)
+	TNT1 A 0 ACS_ExecuteAlways(253,0,random(0,-1),random(3,6),0)
+	LONG A 2
+    LONG A 2
+	TNT1 A 0 A_CustomPunch(38,0,0,"KnifeSlash")
+	MCHT C 2
+	MCHT D 2
+	TNT1 A 0 A_CustomPunch(38,0,0,"MachetePuff")
+	MCHT E 2
+	MCHT F 2
+	TNT1 A 0 A_CustomPunch(40,0,0,"KnifeSlash")
+	LONG A 1 Offset(32,80)
+	LONG A 1 Offset(32,64)
+	LONG A 1 Offset(30,62)
+	LONG A 1 Offset(24,56)
+	LONG A 1 Offset(16,48)
+	LONG A 1 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("knife",1)
+	Goto Ready
+  Flash:
+    TNT1 A 4 Bright A_Light1
+    TNT1 A 3 Bright A_Light2
+    Goto LightDone
+  Spawn:
+    COCP A -1
+    Stop
+ }
+}
+
+Actor In_Double : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 2
+}
+Actor Reserve_Double : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 60
+}

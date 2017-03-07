@@ -1,0 +1,102 @@
+Actor Rank_LOGGEDIN : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_XPCOUNT : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 100
+}
+
+
+Actor Rank_IsPrivate : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsPrivate1stClass : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsCorporal : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsSergeant : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsStaffSergeant : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsGunnerySergeant : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsMasterSergeant : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsSergeantMajor : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_Is2ndLieutenant : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_Is1stLieutenant : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsCaptain : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsMajor : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsLtColonal : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsColonal : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsBrigadierGeneral : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsMajorGeneral : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsLieutenantGeneral : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+Actor Rank_IsCommander : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}

@@ -1,0 +1,31 @@
+Actor Zombie1_Corpse 20625
+{
+ Radius 6
+ Height 12
+ Scale 1
+ +NOGRAVITY
+ +NOBLOCKMAP
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	NAZI N 1
+	Loop
+ }
+}
+
+Actor Zombie2_Corpse 20626
+{
+ Radius 6
+ Height 12
+ Scale 1
+ +NOGRAVITY
+ +NOBLOCKMAP
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	NAZO N 1
+	Loop
+ }
+}

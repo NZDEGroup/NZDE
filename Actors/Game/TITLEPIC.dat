@@ -1,0 +1,42 @@
+Actor PlayerWithHandgun 11112
+{
+ Radius 24
+ Height 56
+ -NOBLOCKMAP
+ -NOGRAVITY
+ +SOLID
+ States
+ {
+  Spawn:
+	HGUN F -1
+	Stop
+ }
+}
+Actor PlayerWithShotgun 11113
+{
+ Radius 24
+ Height 56
+ -NOBLOCKMAP
+ -NOGRAVITY
+ +SOLID
+ States
+ {
+  Spawn:
+	DGUN A -1
+	Stop
+ }
+}
+Actor PlayerWithMachinegun 11114
+{
+ Radius 24
+ Height 56
+ -NOBLOCKMAP
+ -NOGRAVITY
+ +SOLID
+ States
+ {
+  Spawn:
+	MGUN E -1
+	Stop
+ }
+}

@@ -1,0 +1,100 @@
+Actor ThrownMolotov
+{
+ Radius 3
+ Height 3
+ Speed 12
+ Damage 0
+ Scale 0.2
+ Gravity 0.3
+ DamageType "grenade"
+   
+ PROJECTILE
+ -NOGRAVITY
+ +RANDOMIZE
+ +FORCERADIUSDMG
+ States
+ {
+  Spawn:
+	HGRN A 0 A_CountDown
+    HGRN ABCDEF 4 A_SpawnItemEx("GunSmoke",0,0,0,0,0,0,0,128)
+    Loop
+  Death:
+    TNT1 A 0 A_PlaySound("sounds/molotovexplode")
+	TNT1 A 0 A_PlaySound("sounds/molotovdistant",0,0.2,0,ATTN_NONE)
+    TNT1 A 0 A_Explode(320,100)
+	TNT1 AAA 0 A_SpawnItemEx("M67Grenade_Smoke",0,0,0,random(-1,1),random(-1,1),random(1,2))
+	TNT1 AAA 0 A_SpawnItemEx("M67Grenade_Smoke",0,0,0,random(-1,1),random(-1,1),random(1,2),128)
+	TNT1 AAAAAAAAAAAAAAAA 0 A_SpawnItemEx("MolotovGas",0,0,0,random(-4,4),random(-4,4),random(0,4))
+	TNT1 A 0 A_SpawnItemEx("MolotovBigFlame",0,0,0,0,0,0,0)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+    Stop
+ }
+}
+
+Actor MolotovBigFlame
+{
+ Radius 1
+ Height 1
+ Gravity 1
+ -NOGRAVITY
+ +NOBLOCKMAP
+ DamageType "Flamethrower"
+ States
+ {
+  Spawn:
+    TNT1 A 0
+	TNT1 A 0 A_PlaySoundEx("sounds/molotovmainfire","SoundSlot5")
+  SpawnLoop:
+	TNT1 A 2
+	TNT1 AAAA 0 A_SpawnItemEx("BarrelFire",random(-4,4),random(-4,4),0,random(-1,1),random(-1,1),random(-1,1),0,64)
+	TNT1 AA 0 A_SpawnItemEx("M67Grenade_Smoke",random(-4,4),random(-4,4),0,random(-1,1),random(-1,1),random(-1,1),0,128)
+	TNT1 A 0 A_Explode(8,60,0)
+	TNT1 A 0 A_Jump(8,"Death")
+	Loop
+  Death:
+	TNT1 A 0 A_StopSoundEx("SoundSlot5")
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+
+Actor MolotovSmallFlame : MolotovBigFlame
+{
+ States
+ {
+  Spawn:
+    TNT1 A 0
+	TNT1 A 0 A_PlaySound("sounds/molotovsmallfire",0)
+  SpawnLoop:
+	TNT1 A 2
+	TNT1 AA 0 A_SpawnItemEx("BarrelFire",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,64)
+	TNT1 A 0 A_SpawnItemEx("M67Grenade_Smoke",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,128)
+	TNT1 A 0 A_Explode(6,30,0)
+	TNT1 A 0 A_Jump(8,"Death")
+	Loop
+  Death:
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+
+Actor MolotovGas
+{
+ Radius 10
+ Height 10
+ Health 10
+ Gravity 0.5
+ -NOGRAVITY
+ +NOBLOCKMAP
+ +SHOOTABLE
+ States
+ {
+  Spawn:
+    TNT1 A 5 A_Jump(32,"Death")
+	Loop
+  Death:
+	TNT1 A 0 A_SpawnItemEx("MolotovSmallFlame",0,0,0,0,0,0,0)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}

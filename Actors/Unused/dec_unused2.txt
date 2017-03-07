@@ -1,0 +1,218 @@
+Actor 9mmRounds : Ammo
+{
+  Inventory.PickupMessage "Box of 9mm Rounds (15) for handgun-based weapons."
+  Inventory.Amount 15
+  Inventory.MaxAmount 200
+  Ammo.BackpackAmount 15
+  Ammo.BackpackMaxAmount 300
+  Inventory.Icon "CLIPA0"
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor 7.62x39mmM43Magazine : Ammo
+{
+  Inventory.PickupMessage "7.62x39mm M43 Magazine (30) for the AK-47."
+  Inventory.Amount 30
+  Inventory.MaxAmount 150
+  Ammo.BackpackAmount 15
+  Ammo.BackpackMaxAmount 300
+  Inventory.Icon "CLIPA0"
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor 5.56x45mmNATO : Ammo
+{
+  Inventory.PickupMessage "5.56x45mm NATO Magazine (20) for the MP5."
+  Inventory.Amount 20
+  Inventory.MaxAmount 180
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 300
+  Inventory.Icon "CLIPA0"
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor 7.62x51mmNATO : Ammo
+{
+  Inventory.PickupMessage "7.62x51mm NATO Magazine (20) for the G3 Assault Rifle."
+  Inventory.Amount 20
+  Inventory.MaxAmount 200
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 250
+  Inventory.Icon "CLIPA0"
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor 7.62x54mmR : Ammo
+{
+  Inventory.Amount 100
+  Inventory.MaxAmount 100
+  Ammo.BackpackAmount 100
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "CLIPA0"
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor ShotgunShell : Ammo
+{
+  Inventory.PickupMessage "12-gauge Shotgun Shells (30) for shotgun-based weapons."
+  Inventory.Amount 30
+  Inventory.MaxAmount 60
+  Ammo.BackpackAmount 15
+  Ammo.BackpackMaxAmount 120
+  Inventory.Icon "SHELA0"
+  States
+  {
+   Spawn:
+     SHEL A -1
+     Stop
+  }
+}
+Actor .30Springfield : Ammo
+{
+  Inventory.PickupMessage ".30 Springfield Rounds (32) for the M1 Garand."
+  Inventory.Amount 8
+  Inventory.MaxAmount 96
+  Ammo.BackpackAmount 8
+  Ammo.BackpackMaxAmount 120
+  Inventory.Icon "CLIPA0"
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor 14.5x114mm : Ammo
+{
+  Inventory.PickupMessage "14.5x114mm"
+  Inventory.Amount 5
+  Inventory.MaxAmount 25
+  Ammo.BackpackAmount 5
+  Ammo.BackpackMaxAmount 50
+  Inventory.Icon "CLIPA0"
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor InMagazine1 : Ammo
+{
+  Inventory.Amount 32
+  Inventory.MaxAmount 32
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor InMagazine2 : Ammo
+{
+  Inventory.Amount 8
+  Inventory.MaxAmount 8
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor InMagazine3 : Ammo
+{
+  Inventory.Amount 30
+  Inventory.MaxAmount 30
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor InMagazine4 : Ammo
+{
+  Inventory.Amount 2
+  Inventory.MaxAmount 2
+  States
+  {
+   Spawn:
+     SHEL A -1
+     Stop
+  }
+}
+Actor InMagazine5 : Ammo
+{
+  Inventory.Amount 8
+  Inventory.MaxAmount 8
+  States
+  {
+   Spawn:
+     SHEL A -1
+     Stop
+  }
+}
+Actor InMagazine6 : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 20
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor InMagazine7 : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 20
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor InMagazine8 : Ammo
+{
+  Inventory.Amount 32
+  Inventory.MaxAmount 32
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor InMagazine9 : Ammo
+{
+  Inventory.Amount 8
+  Inventory.MaxAmount 8
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}

@@ -1,0 +1,100 @@
+Actor SentryTurret 10034
+{
+  obituary "%o jumped into a Sentry Turret's line of fire."
+  health 50
+  Mass 999999
+  Radius 8
+  Height 48
+  speed 0
+  Scale 0.5
+  +FRIENDLY
+  +NOBLOOD
+  -NOBLOCKMAP
+  States
+  {
+  Spawn:
+    CIGN A 6 A_Look
+    Loop
+  See:
+    CIGN B 1 A_FaceTarget
+    CIGN B 1 A_PlaySound("weapons/m1919")
+    CIGN BC 4 A_CustomBulletAttack(15,2,1,7,"BulletPuff")
+	CIGN C 0 ACS_ExecuteAlways(256,0,0,0,0)
+	CIGN C 1 A_ClearTarget
+    Goto Spawn
+  Pain:
+    CIGN A 1 A_ClearTarget
+    goto See
+  Death:  
+    CIHN A 1 A_SpawnItemEx("TeleportFog",0,0,0,0,0,0)
+    stop
+  }
+}
+
+/*Actor Claymore 10035
+{
+  obituary "%o was pelted by a Claymore."
+  health 1
+  Mass 999999
+  Radius 3
+  Height 4
+  speed 0
+  Scale 0.1
+  +FRIENDLY
+  +NOBLOOD
+  -NOBLOCKMAP
+  States
+  {
+  Spawn:
+    CIGN A 6 A_LookEx(LOF_NOSOUNDCHECK,0,128,0,360,"See")
+    Loop
+  See:
+    CIGN B 1 A_FaceTarget
+    CIGN B 1 A_PlaySound("coachgun/fire")
+    CIGN BC 4 A_CustomBulletAttack(16,14,10,5,"BulletPuff")
+	CIGN C 0 ACS_ExecuteAlways(256,0,0,0,0)
+	CIGN C 1 A_ClearTarget
+    Goto Spawn
+  Pain:
+    CIGN A 1 A_ClearTarget
+    goto See
+  Death:  
+    CIHN A 1 
+	CIHN A 0
+    stop
+  }
+}
+
+Actor BouncingBetty 10036
+{
+  obituary "%o triggered a bouncing betty."
+  health 1
+  Mass 999999
+  Radius 3
+  Height 4
+  speed 0
+  Scale 0.1
+  +FRIENDLY
+  +NOBLOOD
+  -NOBLOCKMAP
+  States
+  {
+  Spawn:
+    CIGN A 6 A_LookEx(LOF_NOSOUNDCHECK,0,16,0,360,"See")
+    Loop
+  See:
+    CIGN B 1 A_FaceTarget
+    CIGN B 1 A_PlaySound("coachgun/fire")
+    CIGN BC 4 A_CustomBulletAttack(64,64,15,2,"BulletPuff")
+	CIGN C 0 ACS_ExecuteAlways(256,0,0,0,0)
+	CIGN C 1 A_ClearTarget
+    Goto Spawn
+  Pain:
+    CIGN A 1 A_ClearTarget
+    goto See
+  Death:  
+    CIHN A 1 
+	CIHN A 0
+    stop
+  }
+}*/

@@ -1,0 +1,119 @@
+//Trap activation code, written by WhiteAce
+
+//Don't compile this! It goes into the map, I also know where this goes don't
+//go putting it just anywhere either, you are free to use the scripts however
+
+#define DEF_COUNT_TRAPS                 2
+
+//-------------------------------------------------------------------------
+ 
+int TRAP_active[2] ={ 0, 0 };
+int TRAP_tids[2] ={ 47, 48 };
+int TRAP_prices[2] ={ 1000, 2000 };
+int TRAP_type[2] ={ 0, 1 };
+
+//-------------------------------------------------------------------------
+
+   TEMP_for_mode=4; //Traps
+   }
+   else if(TEMP_for_mode==4)
+  {
+   for(int forE=0;forE<DEF_COUNT_TRAPS;forE++)
+  {
+   If(ThingCountSector(T_NONE,ActivatorTID(),TRAP_tids[forE])==1 && POWER==0)
+   {
+    if(!DEBUG_enabled)	
+    {
+     SetFont("SMALLFONT");
+     SetHudSize(800,600,0);
+     if(TRAP_tids[forE]) {HudMessage(s:" You must turn on the power first!";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+     }
+   }
+   Else if(ThingCountSector(T_NONE,ActivatorTID(),TRAP_tids[forE])==1 && POWER==1 && TRAP_active[forE]==0)
+   {
+   ThingCountSector(AAPTR_PLAYER1
+    if(!DEBUG_enabled)	
+    {
+     SetFont("SMALLFONT");
+     SetHudSize(800,600,0);
+     if(TRAP_type[forE]==0) {HudMessage(s:"hold \cfUSE \c-to activate lockdown [price: ",d:TRAP_prices[forE],s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+     else {HudMessage(s:"hold \cfUSE \c-to activate turrets [price: ",d:TRAP_prices[forE],s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+    }
+    if(TEMP_player_input & BT_USE)
+    {
+     TEMP_player_buytime+=1;
+     if(TEMP_player_buytime>10)
+     {
+      TEMP_player_buytime=0;
+      if(PLAYER_money[PlayerNumber()]>=TRAP_prices[forE])
+      {
+       ACS_Execute(forE+210,0,0,0,0); // create your own scripts for activating traps
+       TRAP_active[forE]=1;
+       ActivatorSound("game/PURCHASE",127);
+       PLAYER_money[PlayerNumber()]-=TRAP_prices[forE];
+      }
+     }
+    }
+   }
+  }
+
+//-------------------------------------------------------------------------
+  
+//Before you go copying and pasting this, you might want to consider making your
+//own traps, this is done specifically for Blood Party (Map03)
+
+Script 210 (Void) //1st Trap, locks zombies out of map
+{
+  If(GAME_round_doground==0)
+  {
+   Thing_Deactivate(5);
+   Thing_Activate(4);
+   Line_SetBlocking(40,BLOCKF_MONSTERS,0);
+   TranslucentLine(40,255,0);
+   SetLineTexture(212, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLR1"); //Changes trap light texture to red
+   Delay(35*60);
+   Line_SetBlocking(40,0,BLOCKF_MONSTERS);
+   TranslucentLine(40,0,0);
+   Thing_Activate(5); 
+   SetLineTexture(212, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLS1"); //sets trap light texture to yellow
+   Delay(35*60);
+   Thing_DeActivate(4);
+   SetLineTexture(212, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLG1");
+   TRAP_active[0]=0;
+  }
+  else
+  {
+   Thing_Deactivate(5);
+   Thing_Activate(4);
+   SetLineTexture(212, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLR1"); //Changes trap light texture to red
+   TranslucentLine(40,255,0);
+   Delay(35*60);
+   Thing_Activate(5); 
+   TranslucentLine(40,0,0);
+   SetLineTexture(212, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLS1"); //sets trap light texture to yellow
+   Delay(35*60);
+   Thing_DeActivate(4);
+   SetLineTexture(212, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLG1");
+   TRAP_active[0]=0;
+  }
+}
+
+Script 211 (Void) //2nd Trap, turrets activate in courtyard
+{
+ Thing_Deactivate(3); //Trap is activated, green light away
+ Thing_Activate(2); //Trap is activated, red light on
+ SetLineTexture(211, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLR1"); //Changes trap light texture to red
+ Ceiling_RaiseByValue(25,8,64); //Turrets is activated and raised
+ Floor_RaiseByValue(25,8,64);
+ Floor_RaiseByValue(26,8,64);
+ Delay(35*60); //Waits 60 seconds before...
+ Floor_LowerByValue(26,8,64); //Turrets are lowered and then...
+ Floor_LowerByValue(25,8,64);
+ Ceiling_LowerByValue(25,8,64);
+ Thing_Activate(3); //Trap is De-activated, Red light is on with green to create yellow or "Standby"
+ SetLineTexture(211, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLS1"); //sets trap light texture to yellow
+ Delay(35*60); //Put into a cooldown period
+ Thing_DeActivate(2); //Trap is ready to use again
+ SetLineTexture(211, SIDE_FRONT, TEXTURE_MIDDLE, "TRPLG1"); //sets trap light texture to green
+ TRAP_active[1]=0; //The trap is the 2nd trap but since it starts from 0, trap 2 uses 1 as array
+}

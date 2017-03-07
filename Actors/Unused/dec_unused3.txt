@@ -1,0 +1,108 @@
+Actor BatteryV.115 : Ammo
+{
+  Inventory.PickupMessage "Cell Battery, Version 1.15 (60) for the Porter Ray Gun."
+  Inventory.Amount 20
+  Inventory.MaxAmount 160
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 200
+  Inventory.Icon "CELLA0"
+  States
+  {
+   Spawn:
+     CELL A -1
+     Stop
+  }
+}
+Actor .30Caliber : Ammo
+{
+  Inventory.PickupMessage ".30 Caliber box magazine (500) for the Browning M1919."
+  Inventory.Amount 125
+  Inventory.MaxAmount 500
+  Ammo.BackpackAmount 125
+  Ammo.BackpackMaxAmount 500
+  Inventory.Icon "CLIPA0"
+  States
+  {
+   Spawn:
+     CLIP A -1
+     Stop
+  }
+}
+Actor InMagazine10 : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 20
+  States
+  {
+   Spawn:
+     CELL A -1
+     Stop
+  }
+}
+
+Actor InMagazine11 : Ammo
+{
+ Inventory.Amount 15
+ Inventory.MaxAmount 15
+ States 
+ {
+  Spawn:
+     CLIP A -1
+	 Stop
+ }
+}
+Actor InMagazine12 : Ammo
+{
+ Inventory.Amount 20
+ Inventory.MaxAmount 20
+ States 
+ {
+  Spawn:
+     CLIP A -1
+	 Stop
+ }
+}
+Actor InMagazine13 : Ammo
+{
+ Inventory.Amount 5
+ Inventory.MaxAmount 5
+ States 
+ {
+  Spawn:
+     CLIP A -1
+	 Stop
+ }
+}
+Actor InMagazine14 : Ammo
+{
+ Inventory.Amount 125
+ Inventory.MaxAmount 125
+ States 
+ {
+  Spawn:
+     CLIP A -1
+	 Stop
+ }
+}
+Actor InMagazine15 : Ammo
+{
+ Inventory.Amount 5
+ Inventory.MaxAmount 5
+ States 
+ {
+  Spawn:
+     CLIP A -1
+	 Stop
+ }
+}
+Actor InMagazine16 : Ammo
+{
+ Inventory.Amount 2
+ Inventory.MaxAmount 2
+ States 
+ {
+  Spawn:
+     SHEL A -1
+	 Stop
+ }
+}

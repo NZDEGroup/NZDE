@@ -1,0 +1,392 @@
+Actor Gore_ replaces Blood
+{
+ Radius 1
+ Height 2
+ Speed 0
+ Scale 2.0
+ +CLIENTSIDEONLY
+ +NOBLOCKMAP
+ +NOGRAVITY
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    TNT1 A 0 A_SpawnItemEx("Gore_Spray",0,0,0,random(1,3),random(-1,1),random(1,0),0,SXF_CLIENTSIDE,128)
+	TNT1 A 0 A_SpawnItemEx("Gore_Splat",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE)
+	GIBB ABCD 2
+  Death:
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor Gore_Gibbed
+{
+ Radius 2
+ Height 4
+ Speed 0
+ Scale 2.0
+ PROJECTILE
+ +CLIENTSIDEONLY
+ +NOBLOCKMAP
+ -NOGRAVITY
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	GIBB ABCD 2 A_JumpIf(z>ceilingz-16,"Hang")
+	TNT1 A 0 A_SpawnItemEx("Gore_Spray",0,0,0,random(1,3),random(-1,1),random(1,0),0,SXF_CLIENTSIDE,128)
+	TNT1 A 0 A_JumpIf(z==floorz,"Death")
+	Loop
+  Hang:
+	TNT1 A 0 A_SpawnItemEx("Gore_Gibbed_Hang",0,0,0,0,0,0,0,SXF_CLIENTSIDE)
+	Goto Death_RemoveActor
+  Death:
+    TNT1 A 0 A_JumpIf(z==ceilingz,"Hang")
+	TNT1 AA 0 A_SpawnItemEx("Gore_Knife",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE)
+	TNT1 AAAA 0 A_SpawnItemEx("Gore_",0,0,0,random(-4,4),random(-4,4),random(4,0),0,SXF_CLIENTSIDE)
+  Death_RemoveActor:
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor Gore_Gibbed_Hang
+{
+ Radius 1
+ Height 1
+ Gravity 0
+ +NOBLOCKMAP
+ +NOGRAVITY
+ States
+ {
+  Spawn:
+	TNT1 A 0 A_SpawnItemEx("Gore_Knife",0,0,0,0,0,0,0,SXF_CLIENTSIDE)
+	MEAT AAAAAAAAAAAAAAAA 4 A_SpawnItemEx("Gore_Gibbed_Drop",0,0,0,0,0,random(0,-2),0,SXF_CLIENTSIDE,192)
+	TNT1 A 0 A_Jump(128,"Death_RemoveActor")
+	MEAT AAAAAAAAAAAAAAAA 4 A_SpawnItemEx("Gore_Gibbed_Drop",0,0,0,0,0,random(0,-2),0,SXF_CLIENTSIDE,192)
+	TNT1 A 0 A_Jump(128,"Death_RemoveActor")
+	MEAT AAAAAAAAAAAAAAAA 4 A_SpawnItemEx("Gore_Gibbed_Drop",0,0,0,0,0,random(0,-2),0,SXF_CLIENTSIDE,192)
+	TNT1 A 0 A_Jump(128,"Death_RemoveActor")
+	MEAT AAAAAAAAAAAAAAAA 4 A_SpawnItemEx("Gore_Gibbed_Drop",0,0,0,0,0,random(0,-2),0,SXF_CLIENTSIDE,192)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+  Death_RemoveActor:
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor Gore_Gibbed_Drop
+{
+ Radius 1
+ Height 2
+ Damage 0
+ Speed 0
+ Scale 2.0
+ PROJECTILE
+ -NOGRAVITY
+ +NOBLOCKMAP
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	CLOT A 1 A_JumpIf(z==floorz,"Death")
+	Loop
+  Death:
+    TNT1 AAAA 0 A_SpawnItemEx("Gore_Puddle",0,0,0,random(-1,1),random(-1,1),random(0,4),0,SXF_CLIENTSIDE)
+	CLOT BCDE 2
+	MEAT A 256
+	MEAT AAAAAAAAAA 4 A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor Gore_Knife
+{
+ Radius 1
+ Height 2
+ Speed 0
+ Scale 2.0
+ +NOBLOCKMAP
+ +NOGRAVITY
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+    TNT1 A 0 A_SpawnItemEx("Gore_Spray",0,0,0,random(1,3),random(-1,1),random(1,0),0,SXF_CLIENTSIDE)
+	TNT1 AAA 0 A_SpawnItemEx("Gore_Splat",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE)
+	GIBB ABCD 2
+  Death:
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+
+Actor Gore_Splat
+{
+ Radius 1
+ Height 2
+ Speed 0
+ Scale 2.0
+ +NOBLOCKMAP
+ +NOGRAVITY
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	GIBB ABCD 3 A_FadeOut(0.20)
+  Death:
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor Gore_Spray
+{
+ Radius 1
+ Height 2
+ Damage 0
+ Speed 0
+ Scale 2.0
+ PROJECTILE
+ -NOGRAVITY
+ +NOBLOCKMAP
+ +FORCEXYBILLBOARD
+ States
+ {
+  Spawn:
+	CLOT A 1
+	Loop
+  Death:
+    TNT1 A 0 A_SpawnItemEx("Gore_Puddle",0,0,0,0,0,0,0,SXF_CLIENTSIDE,128)
+	CLOT BCDE 2
+	CLOT E 256
+	CLOT EEEEEEEEEE 4 A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor Gore_Puddle
+{
+ Radius 2
+ Height 3
+ Speed 0
+ Scale 2.0
+ -NOGRAVITY
+ +NOBLOCKMAP
+ States
+ {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_Jump(200,5)
+	MEAT A 256
+	MEAT AAAAAAAAAA 4 A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+	TNT1 A 0 A_Jump(200,5)
+	MEAT B 256
+	MEAT BBBBBBBBBB 4 A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+	TNT1 A 0 A_Jump(200,5)
+	MEAT C 256
+	MEAT CCCCCCCCCC 4 A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+	MEAT D 256
+	MEAT DDDDDDDDDD 4 A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+
+
+Actor Gore1
+{
+   Radius 2
+   Height 2
+   Speed 0
+   Gravity 1.0
+   -NOGRAVITY
+   +HEXENBOUNCE
+   +FORCEXYBILLBOARD
+   States
+   {
+   Spawn:
+      BLUD C 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+      Goto ShedGore1
+   ShedGore1:
+      BLUD C 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+      Goto ShedGore2
+   ShedGore2:
+      BLUD B 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD B 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD B 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD B 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+      Goto ShedGore3
+   ShedGore3:
+      BLUD A 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD A 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD A 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD A 4 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+      Goto OnGround
+   OnGround:
+      BLUD A 8 A_FadeOut(0.1)
+      TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+      Stop
+   }
+}
+
+Actor Gore2
+{
+   Radius 2
+   Height 2
+   Speed 0
+   
+   PROJECTILE
+   -NOGRAVITY
+   +FORCEXYBILLBOARD
+   States
+   {
+   Spawn:
+      BLUD CBA 16
+      Goto Death
+   Death:
+      BLUD A 8 A_FadeOut(0.1)
+      TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+      Stop
+   }
+}
+
+Actor Gore3
+{
+   Radius 2
+   Height 2
+   Speed 0
+   +NOGRAVITY
+   +HEXENBOUNCE
+   +FORCEXYBILLBOARD
+   States
+   {
+   Spawn:
+      BLUD C 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+      Goto ShedGore1
+   ShedGore1:
+      BLUD C 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD C 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+      Goto ShedGore2
+   ShedGore2:
+      BLUD B 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD B 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD B 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+	  BLUD B 2 A_SpawnItemEx("Gore2",0,0,0,0,0,0,SXF_CLIENTSIDE)
+      Goto Death
+   Death:
+      TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+      Stop
+   }
+}
+
+Actor Gibbed
+{
+   Radius 1
+   Height 1
+   Speed 0
+   
+   PROJECTILE
+   +LOWGRAVITY
+   States
+   {
+   Spawn:
+	  BLUD C 1 A_SpawnItemEx("GibArm",4,0,4,random(-2,2),random(-2,2),random(-2,2))
+	  BLUD C 1 A_SpawnItemEx("GibArm",-4,0,4,random(-2,2),random(-2,2),random(-2,2))
+	  BLUD C 1 A_SpawnItemEx("GibLeg",4,0,0,random(-2,2),random(-2,2),random(-2,2))
+	  BLUD C 1 A_SpawnItemEx("GibLeg",-4,0,0,random(-2,2),random(-2,2),random(-2,2))	 
+      Goto Death
+   Death:
+      TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+      Stop
+   }
+}
+Actor GibArm
+{
+   Radius 2
+   Height 8
+   Mass 20
+   Gravity 1
+   Speed 0
+   -NOGRAVITY
+   +FLOORCLIP
+   +HEXENBOUNCE
+   +PUSHABLE
+   States
+   {
+   Spawn:
+     GIBA A 512
+	 Goto Death
+   Death:
+     TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+     Stop
+   }
+}
+Actor GibLeg
+{
+   Radius 2
+   Height 8
+   Mass 20
+   Gravity 1
+   Speed 0
+   -NOGRAVITY
+   +FLOORCLIP
+   +HEXENBOUNCE
+   +PUSHABLE
+   States
+   {
+   Spawn:
+     GIBL A 512
+	 Goto Death
+   Death:
+     TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+     Stop
+   }
+}
+Actor GoreFlesh
+{
+ Radius 2
+ Height 2
+ Gravity 1
+ -NOGRAVITY
+ +NOBLOCKMAP
+ States
+ {
+  Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_Jump(200,4)
+	MEAT A 256
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+	TNT1 A 0 A_Jump(200,4)
+	MEAT B 256
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+	TNT1 A 0 A_Jump(200,4)
+	MEAT C 256
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+	TNT1 A 0 A_Jump(200,4)
+	MEAT D 256
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+	MEAT E 256
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}

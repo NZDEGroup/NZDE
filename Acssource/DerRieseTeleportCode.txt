@@ -1,0 +1,237 @@
+/*WIP Der Riese teleport code, Written by WhiteAce
+P.s, this was a massive amount of work, make sure to give credit if you use
+the code*/
+
+//Don't compile this! It goes into the map, I also know where this goes so
+//don't go putting it just anywhere either
+
+#define DEF_COUNT_TELEPORTERS        3 
+
+//-------------------------------------------------------------------------
+ 
+ int TELEPORTER_linked[3] ={ 0,0,0 };
+ int TELEPORTER_linking[3] ={ 0,0,0 };
+ int TELEPORTER_cooled[3] ={ 1,1,1 }; 
+ int TELEPORTER_tids[3] ={ 80,81,82 };
+ int TELEPORTER_prices[3] ={ 1500,1500,1500};
+ int TELEPORTER_firstuse[3] ={ 0,0,0};
+ 
+ int TELEPORTER_mainframe=79;
+ int TELEPORTER_countdown=1575;
+ int TELEPORTER_cooldown=1050;
+ 
+ int PAPDOOR=0;
+
+//-------------------------------------------------------------------------
+ 
+ SetLineBlocking(80,BLOCKF_PLAYERS); //This is for the pack a punch door
+ 
+//-------------------------------------------------------------------------
+ 
+   TEMP_for_mode=5; //Teleporters
+ }
+  else if(TEMP_for_mode==5)
+  {
+   for(int forF=0;forF<DEF_COUNT_TELEPORTERS;forF++)
+   {
+  if(ThingCountSector(T_NONE,ActivatorTID(),TELEPORTER_tids[ForF])==1 && Power==1 && TELEPORTER_cooled[ForF]==1 && TELEPORTER_linking[ForF]==0 && TELEPORTER_linked[ForF]==0)
+  {
+   SetFont("SMALLFONT");
+   SetHudSize(800,600,0);
+    HudMessage(s:"hold \cfUSE \c-for to link teleporter";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
+   if(TEMP_player_input & BT_USE)
+   {
+    ActivatorSound("game/PURCHASE",127);
+    TELEPORTER_countdown=1575;
+    TELEPORTER_linking[ForF]=1;
+   }
+  }
+  if(ThingCountSector(T_NONE,ActivatorTID(),TELEPORTER_mainframe)==1 && TELEPORTER_linking[ForF]==1 && TELEPORTER_linked[ForF]==0)
+  {
+   SetFont("SMALLFONT");
+   SetHudSize(800,600,0);
+   HudMessage(s:"hold \cfUSE \c-for to link to mainframe";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
+   If(TEMP_player_input & BT_USE)
+   {
+    ActivatorSound("game/PURCHASE",127);
+    TELEPORTER_firstuse[ForF]=1;
+    TELEPORTER_linked[ForF]=1;
+    TELEPORTER_linking[ForF]=0;
+    ACS_ExecuteAlways(ForF+240,0,0,0,0);
+   }
+  }
+  if(ThingCountSector(T_NONE,ActivatorTID(),TELEPORTER_tids[ForF])==1 && Power==1 && TELEPORTER_linked[ForF]==1 && TELEPORTER_cooled[ForF]==1 && TELEPORTER_linking[ForF]==0)
+  {
+  SetFont("SMALLFONT");
+  SetHudSize(800,600,0);
+  HudMessage(s:"hold \cfUSE \c-for to activate teleporter [price: ",d:TELEPORTER_prices[forF],s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
+   if(TEMP_player_input & BT_USE)
+    {
+     TEMP_player_buytime+=1;
+     if(TEMP_player_buytime>10)
+     {
+      TEMP_player_buytime=0;
+      if(PLAYER_money[PlayerNumber()]>=TELEPORTER_prices[forF])
+      {
+       ActivatorSound("game/PURCHASE",127);
+       PLAYER_money[PlayerNumber()]-=TELEPORTER_prices[forF];
+       ACS_ExecuteAlways(ForF+240,0,0,0,0);
+       TELEPORTER_cooled[ForF]=0;
+      }
+     }
+    }
+  }
+}
+
+//-------------------------------------------------------------------------
+
+ If(TELEPORTER_cooled[0]==0) //This needs to be pasted into a loop
+  {
+   TELEPORTER_cooldown-=1;
+   if(TELEPORTER_cooldown<=0)
+   {
+    TELEPORTER_cooled[0]=1;
+    TELEPORTER_cooldown=1050;
+   }
+  }
+  If(TELEPORTER_cooled[1]==0)
+  {
+   TELEPORTER_cooldown-=1;
+   if(TELEPORTER_cooldown<=0)
+   {
+    TELEPORTER_cooled[1]=1;
+    TELEPORTER_cooldown=1050;
+   }
+  }
+  If(TELEPORTER_cooled[2]==0)
+  {
+   TELEPORTER_cooldown-=1;
+   if(TELEPORTER_cooldown<=0)
+   {
+    TELEPORTER_cooled[2]=1;
+    TELEPORTER_cooldown=1050;
+   }
+  }
+
+  if(TELEPORTER_linking[0]==1)
+  {
+   TELEPORTER_linking[1]=0;
+   TELEPORTER_linking[2]=0;
+   TELEPORTER_countdown-=1;
+   if(TELEPORTER_countdown<=0)
+   {
+    TELEPORTER_countdown=1575;
+    TELEPORTER_linking[0]=0;
+   }
+  }
+  if(TELEPORTER_linking[1]==1)
+  {
+   TELEPORTER_linking[0]=0;
+   TELEPORTER_linking[2]=0;
+   TELEPORTER_countdown-=1;
+   if(TELEPORTER_countdown<=0)
+   {
+   TELEPORTER_countdown=1575;
+    TELEPORTER_linking[1]=0;
+   }
+  }
+  if(TELEPORTER_linking[2]==1)
+  {
+   TELEPORTER_linking[0]=0;
+   TELEPORTER_linking[1]=0;
+   TELEPORTER_countdown-=1;
+   if(TELEPORTER_countdown<=0)
+   {
+   TELEPORTER_countdown=1575;
+    TELEPORTER_linking[2]=0;
+   }
+  }
+  
+//-------------------------------------------------------------------------
+  
+Script 240 (Void) //Teleport script, 240+
+{
+ if(ThingCountSector(T_NONE,1000,TELEPORTER_tids[0])==1)
+ {
+  Thing_Move(1000,8,0);
+ }
+ if(ThingCountSector(T_NONE,1001,TELEPORTER_tids[0])==1)
+ {
+  Thing_Move(1001,9,0);
+ }
+ if(ThingCountSector(T_NONE,1002,TELEPORTER_tids[0])==1)
+ {
+  Thing_Move(1002,10,0);
+ }
+ if(ThingCountSector(T_NONE,1003,TELEPORTER_tids[0])==1)
+ {
+  Thing_Move(1003,11,0);
+ }
+  If(TELEPORTER_firstuse[0]==1)
+ {
+  Ceiling_RaiseByValue(24,8,20);
+  TELEPORTER_firstuse[0]=0;
+  PAPDOOR+=1;
+  if(PAPDOOR==3)
+  {
+   SetLineBlocking(80,OFF);
+  }
+ }
+}
+Script 241 (Void)
+{
+ if(ThingCountSector(T_NONE,1000,TELEPORTER_tids[1])==1)
+ {
+  Thing_Move(1000,8,0);
+ }
+ if(ThingCountSector(T_NONE,1001,TELEPORTER_tids[1])==1)
+ {
+  Thing_Move(1001,9,0);
+ }
+ if(ThingCountSector(T_NONE,1002,TELEPORTER_tids[1])==1)
+ {
+  Thing_Move(1002,10,0);
+ }
+ if(ThingCountSector(T_NONE,1003,TELEPORTER_tids[1])==1)
+ {
+  Thing_Move(1003,11,0);
+ }
+ If(TELEPORTER_firstuse[1]==1)
+ {
+  Ceiling_RaiseByValue(24,8,20);
+  TELEPORTER_firstuse[1]=0;
+  PAPDOOR+=1;
+  if(PAPDOOR==3)
+  {
+    SetLineBlocking(80,OFF);
+  }
+ }
+}
+Script 242 (Void)
+{
+ if(ThingCountSector(T_NONE,1000,TELEPORTER_tids[2])==1)
+ {
+  Thing_Move(1000,8,0);
+ }
+ if(ThingCountSector(T_NONE,1001,TELEPORTER_tids[2])==1)
+ {
+  Thing_Move(1001,9,0);
+ }
+ if(ThingCountSector(T_NONE,1002,TELEPORTER_tids[2])==1)
+ {
+  Thing_Move(1002,10,0);
+ }
+ if(ThingCountSector(T_NONE,1003,TELEPORTER_tids[2])==1)
+ {
+  Thing_Move(1003,11,0);
+ }
+If(TELEPORTER_firstuse[2]==1)
+ {
+  Ceiling_RaiseByValue(24,8,20);
+  TELEPORTER_firstuse[2]=0;
+  PAPDOOR+=1;
+  if(PAPDOOR==3)
+  {
+    SetLineBlocking(80,OFF);
+  }
+ }

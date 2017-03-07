@@ -1,0 +1,117 @@
+Actor 115Phantom 11102
+{
+  health 500 
+  radius 20
+  height 56
+  mass 999999
+  speed 7
+  meleedamage 8
+  painchance 200
+  Painsound ""
+  DeathSound "monster/zmbdie"
+  Obituary "%o was scared to death."
+  Alpha 0.5
+  //Translation "51:73=83:105"
+  MONSTER
+  +FLOORCLIP
+  +ISMONSTER
+  +STEALTH
+  +NOPAIN
+  states
+  {
+  Spawn:
+    PEAS AA 1 A_Look
+	PEAS AABBCCDD 2 A_Wander
+    Goto See
+  See:
+    PEAS AABBCCDD 8 A_Chase
+	PEAS D 0 A_PlaySound("game/heart")
+    Loop
+  Pain:
+    PEAS O 0 A_GiveToTarget("money",30)
+	PEAS O 0 A_GiveToTarget("points",60)
+    PEAS O 4
+    PEAS O 4 A_Pain
+	//PEAS O 0 A_Jump(86,"hurt1")
+    goto See
+  Melee:
+	PEAS A 8 A_FaceTarget
+	PEAS A 8 A_MeleeAttack
+	Goto See
+  Death:
+    PEAS O 1 A_Scream
+    PEAS O 1 A_GiveToTarget("money",500)
+	PEAS O 1 A_GiveToTarget("points",1000)
+    PEAS G 2
+    PEAS H 2
+    PEAS I 2
+    PEAS J 2 
+    PEAS K 2
+    PEAS L 2
+    PEAS M 2
+    PEAS N 2 A_NoBlocking
+	PEAS N 512 
+	PEAS N 0
+    stop
+  XDeath:
+    PEAG A 0 A_GiveToTarget("money",20)
+	PEAG A 0 A_GiveToTarget("points",40)
+    PEAG A 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+    PEAG B 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+    PEAG C 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+    PEAG D 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+    PEAG E 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+    PEAG F 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+    PEAG G 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+    PEAG H 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+    PEAG I 2 A_SpawnItemEx("Gore1",0,0,8,random(0,2),random(0,2),random(0,3),SXF_CLIENTSIDE)
+	PEAG J 2 A_NoBlocking
+	PEAG J 512
+	PEAG J 0
+    stop
+   see1:
+    PEAG A 0 A_Jump(20,"see2")
+	PEAG A 0 A_PlaySound("zombie/see1")
+	Goto See
+   see2:
+    PEAG A 0 A_Jump(20,"see3")
+	PEAG A 0 A_PlaySound("zombie/see2")
+	Goto See
+   see3:
+    PEAG A 0 A_PlaySound("zombie/see3")
+	Goto See
+   hurt1:
+    PEAG A 0 A_Jump(20,"hurt2")
+	PEAG A 0 A_PlaySound("zombie/hit1")
+	Goto See
+   hurt2:
+    PEAG A 0 A_Jump(20,"hurt3")
+	PEAG A 0 A_PlaySound("zombie/hit2")
+	Goto See
+   hurt3:
+    PEAG A 0 A_PlaySound("zombie/hit3")
+	Goto See
+   dead1:
+    PEAG A 0 A_Jump(20,"dead2")
+	PEAG A 0 A_PlaySound("zombie/dead1")
+	Stop
+   dead2:
+    PEAG A 0 A_PlaySound("zombie/dead2")
+	Stop
+   follow1:
+    PEAG A 0 A_Jump(20,"follow2")
+	PEAG A 0 A_PlaySound("zombie/follow1")
+	Goto See
+   follow2:
+    PEAG A 0 A_Jump(20,"follow3")
+	PEAG A 0 A_PlaySound("zombie/follow2")
+	Goto See
+   follow3:
+    PEAG A 0 A_Jump(20,"follow3")
+	PEAG A 0 A_PlaySound("zombie/follow3")
+	Goto See
+   follow4:
+    PEAG A 0 A_PlaySound("zombie/follow4")
+	Goto See
+  }
+}

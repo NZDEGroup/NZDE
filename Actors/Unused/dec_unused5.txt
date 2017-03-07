@@ -1,0 +1,8 @@
+Actor Trap_ElecTop
+{
+ Radius 1
+ Height 1
+ Mass 1
+ +NOGRAVITY
+ +NOBLOCKMAP
+}

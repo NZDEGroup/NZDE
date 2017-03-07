@@ -1,0 +1,16 @@
+Actor money : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 99999
+}
+Actor points : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1000000
+}
+
+Actor kills : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1000000
+}

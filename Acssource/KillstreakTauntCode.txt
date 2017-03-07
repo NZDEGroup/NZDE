@@ -1,0 +1,21 @@
+//Killstreak taunt code, written by TheCubasy, edited by WhiteAce
+
+//Don't compile this! It's supposed to have a while loop aswell, this is just so
+//I can paste it anywhere when I need to, code is free to use so knock yourself
+//out
+
+int TEMP_player_killstreak;
+TEMP_player_killstreak=1;
+
+//-------------------------------------------------------------------------
+
+ If(CheckInventory("Kills")>=8)
+ {
+  TEMP_player_killstreak-=1;
+ }
+ if(TEMP_player_killstreak<=0)
+ {
+  TakeInventory("Kills",8); //Used to reset it so it doesn't spam sounds
+  TEMP_player_Killstreak=1;
+  ActivatorSound(Random(" ","playersnds/kill"),127);
+ }

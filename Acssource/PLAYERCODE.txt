@@ -1,0 +1,118 @@
+#library "PLAYERCODE"
+#include "zcommon.acs"
+
+SCRIPT 254 (void) NET
+{ // Knifing code
+ //TakeInventory("sprinting",1);
+ TakeInventory("Reloading",1);
+ GiveInventory("knife",1);
+}
+
+SCRIPT 255 (void) NET
+{ // Grenade code
+ if(CheckInventory("GrenadeAmmo")<1)
+ {
+  SetFont("SMALLFONT");
+  HudMessage(s:"no lethal grenades remaining";HUDMSG_FADEINOUT,99,CR_WHITE,1.5,0.3,3.0,0.1,0.1);
+  terminate;
+ }
+ if(CheckInventory("thrownade")==0 && CheckInventory("reload")==0 && CheckInventory("knife")==0)
+ {
+  TakeInventory("GrenadeAmmo",1);
+  TakeInventory("sprinting",1);
+  GiveInventory("thrownade",1);
+  int randomValue5;
+  randomValue5=random(0,1);
+  if(randomValue5==0 && !CheckInventory("PlayerVoiceTime") && CheckInventory("ThrowingNade")==1) 
+  {ActivatorSound("playersnds/grenade",127); TakeInventory("ThrowingNade",1);															 GiveInventory("PlayerVoiceTime",70);}
+ }
+}
+
+SCRIPT 256 (void) NET
+{ // Special Grenade code
+ if((!CheckInventory("SpecGrenade_N74ST") && !CheckInventory("SpecGrenade_Molotov") && !CheckInventory("SpecGrenade_BouncingBetty"))
+    || (CheckInventory("SpecGrenade_N74ST") && !CheckInventory("N74STAmmo"))
+	|| (CheckInventory("SpecGrenade_Molotov") && !CheckInventory("MolotovAmmo"))
+	|| (CheckInventory("SpecGrenade_BouncingBetty") && !CheckInventory("BouncingBettyAmmo")))
+ {
+  SetFont("SMALLFONT");
+  HudMessage(s:"no special grenades remaining";HUDMSG_FADEINOUT,99,CR_WHITE,1.5,0.3,3.0,0.1,0.1);
+  terminate;
+ }
+ if(CheckInventory("thrownade")==0 && CheckInventory("reload")==0 && CheckInventory("knife")==0)
+ {
+  GiveInventory("throwspec",1);
+  int randomValue5;
+  randomValue5=random(0,1);
+  if(randomValue5==0 && !CheckInventory("PlayerVoiceTime") && CheckInventory("ThrowingSpec")==1) 
+  {ActivatorSound("playersnds/betty",127); TakeInventory("ThrowingSpec",1);														 GiveInventory("PlayerVoiceTime",70);}
+ }
+}
+
+/*SCRIPT 257 (Void) NET
+{ // Sprinting code
+ TakeInventory("Reload",1);
+ GiveInventory("Sprinting",1);
+}*/
+
+SCRIPT 259 (void) NET 
+{ // Reload code
+ int randomValue;
+ randomValue=random(0,1);
+ TakeInventory("sprinting",1);
+ GiveInventory("reload",1);
+ if(randomValue==0 && !CheckInventory("PlayerVoiceTime") && CheckInventory("Reloading")==1) 
+ {ActivatorSound("playersnds/reload",127); TakeInventory("Reloading",1);													   GiveInventory("PlayerVoiceTime",45);}
+}
+
+/*Script 260 (void) NET
+{ // Switch weapon mode code
+ TakeInventory("Reload",1);
+ GiveInventory("ModeSwitch",1);
+}*/
+
+Script 262 (VOID) NET
+{
+ If(CheckActorInventory(ActivatorTID(),"Scoreboard")==0)
+ {
+ GiveInventory("Scoreboard",1);
+ ACS_ExecuteAlways(263,0,0,0,0);
+ }
+ Else If(CheckActorInventory(ActivatorTID(),"Scoreboard")==1)
+ {
+ TakeInventory("Scoreboard",1);
+ }
+}
+
+Script 263 (void) NET
+{ //scoreboard base code written by WhiteAce, edited by TheCubasy
+ While(True)
+ {
+  if(CheckActorInventory(ActivatorTID(),"Scoreboard")==1)
+  {
+   SetHudSize(320,240,0);
+   SetFont("SMALLFONT");
+   HudMessage(s:"name";HUDMSG_FADEINOUT,0,CR_WHITE,32.1,48.1,0.1,1.0);
+   HudMessage(s:"points";HUDMSG_FADEINOUT,0,CR_WHITE,136.1,48.1,0.1,1.0);
+   HudMessage(s:"kills";HUDMSG_FADEINOUT,0,CR_WHITE,240.1,48.1,0.1,1.0);
+   if(PlayerCount()>0) {HudMessage(n:1;HUDMSG_FADEINOUT,0,CR_WHITE,32.1,63.1,0.1,1.0);
+   HudMessage(d:CheckActorInventory(1000,"Killcount");HUDMSG_FADEINOUT,0,CR_WHITE,240.1,63.1,0.1,1.0);
+   HudMessage(d:CheckActorInventory(1000,"Points");HUDMSG_FADEINOUT,0,CR_WHITE,136.1,63.1,0.1,1.0);}
+   if(PlayerCount()>1) {HudMessage(n:2;HUDMSG_FADEINOUT,0,CR_WHITE,32.1,78.1,0.1,1.0);
+   HudMessage(d:CheckActorInventory(1001,"Killcount");HUDMSG_FADEINOUT,0,CR_WHITE,240.1,78.1,0.1,1.0);
+   HudMessage(d:CheckActorInventory(1001,"Points");HUDMSG_FADEINOUT,0,CR_WHITE,136.1,78.1,0.1,1.0);}
+   if(PlayerCount()>2) {HudMessage(n:3;HUDMSG_FADEINOUT,0,CR_WHITE,32.1,93.1,0.1,1.0);
+   HudMessage(d:CheckActorInventory(1002,"Killcount");HUDMSG_FADEINOUT,0,CR_WHITE,240.1,93.1,0.1,1.0);
+   HudMessage(d:CheckActorInventory(1002,"Points");HUDMSG_FADEINOUT,0,CR_WHITE,136.1,93.1,0.1,1.0);}
+   if(PlayerCount()>3) {HudMessage(n:4;HUDMSG_FADEINOUT,0,CR_WHITE,32.1,108.1,0.1,1.0,1.0);
+   HudMessage(d:CheckActorInventory(1003,"Killcount");HUDMSG_FADEINOUT,0,CR_WHITE,240.1,108.1,0.1,1.0);
+   HudMessage(d:CheckActorInventory(1003,"Points");HUDMSG_FADEINOUT,0,CR_WHITE,136.1,108.1,0.1,1.0);}
+   SetHudSize(0,0,0);
+  }
+  Delay(15); //15 because if 1, laggs player
+ }
+}
+
+SCRIPT 22 (void) {FadeTo(255,100,100,0.5,0.1);delay(4);FadeTo(0.0,0.0,0.0,0.0,0.8);}
+SCRIPT 23 (void) {FadeTo(255,55,55,0.6,0.1);delay(4);FadeTo(0.0,0.0,0.0,0.0,2.0);}
+SCRIPT 24 (void) {LocalAmbientSound("game/ringing",127);FadeTo(255,255,255,0.7,0.2);delay(35);FadeTo(0.0,0.0,0.0,0.0,2.0);}

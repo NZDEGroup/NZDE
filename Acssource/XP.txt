@@ -1,0 +1,966 @@
+#library "XP"
+#include "zcommon.acs"
+
+world int 0: player_xp[];
+world int 1: player_loggedin[];
+world int 2: server_player_xp[];
+world int 3: server_player_xptil[];
+world int 4: server_player_rank[];
+world int 30:server_player_credits[];
+world str 21:server_player_username[];
+world int 5: server_player_password[];
+world int 6: server_player_loggedin[];
+world int 7: server_player_prestige[];
+world int 8: server_player_xpbonus[];
+world int 28:server_player_wagermatch[];
+world int 29:server_player_wageramount[];
+world int 9: server_slot;
+world int 10:server_ach_killerPISTOL[];
+world int 11:server_ach_killerBOLTACTION[];
+world int 12:server_ach_killerRIFLE[];
+world int 13:server_ach_killerSMG[];
+world int 14:server_ach_killerLMG[];
+world int 15:server_ach_killerSHOTGUN[];
+world int 16:server_ach_killerKNIFE[];
+world int 17:server_ach_killerGRENADE[];
+world int 18:server_ach_killerLAUNCHER[];
+world int 19:server_ach_killerFLAMETHROWER[];
+world int 20:server_ach_killerWONDER[];
+world int 22:server_ach_elitePISTOLSO[];
+world int 23:server_ach_eliteSHOTGUNSO[];
+world int 24:server_stat_boxuses[];
+world int 25:server_stat_wallpurchases[];
+world int 26:server_stat_roundssurvived[];
+world int 27:server_stat_barricadesrepaired[];
+str weapon_names[40] = { "Colt M1911", "Nambu", "Walther P38", "Tokarev TT-33", ".357 Magnum",
+						"Springfield", "Arisaka", "Mosin Nagant", "Kar98k", "PTRS-41",
+						"SVT-40", "Gewehr 43", "M1 Garand", "STG-44", "M1A1 Carbine",
+						"Thompson", "MP40", "Type 100", "PPSh-41",
+						"Type 99", "BAR", "DP28", "MG42", "FG42", "Browning M1919",
+						"M1897 Trench Gun", "Double-Barreled Shotgun", "Sawn-Off Shotgun",
+						"M9A1 Bazooka", "Panzerschreck",
+						"Frag Grenade", "N*74ST Grenade", "Molotov Cocktail", "Monkey Bomb", "Bouncing Betty",
+						"M2 Flamethrower",
+						"Knife", "Bowie Knife",
+						"Ray Gun", "Wunderwaffe DG-2" };
+str RankNames[65] = { "Private", "Private I", "Private II",
+					"Private 1st Class", "Private 1st Class I", "Private 1st Class II",
+					"Corporal", "Corporal I", "Corporal II",
+					"Sergeant", "Sergeant I", "Sergeant II",
+					"Staff Sergeant", "Staff Sergeant I", "Staff Sergeant II", "Staff Sergeant III", 
+					"Gunnery Sergeant", "Gunnery Sergeant I", "Gunnery Sergeant II", "Gunnery Sergeant III", 
+					"Master Sergeant", "Master Sergeant I", "Master Sergeant II", "Master Sergeant III", 
+					"Sergeant Major", "Sergeant Major I", "Sergeant Major II", "Sergeant Major III", 
+					"2nd Lieutenant", "2nd Lieutenant I", "2nd Lieutenant II", "2nd Lieutenant III", 
+					"1st Lieutenant", "1st Lieutenant I", "1st Lieutenant II", "1st Lieutenant III", 
+					"Captain", "Captain I", "Captain II", "Captain III", 
+					"Major", "Major I", "Major II", "Major III", 
+					"Lt. Colonal", "Lt. Colonal I", "Lt. Colonal II", "Lt. Colonal III", 
+					"Colonal", "Colonal I", "Colonal II", "Colonal III", 
+					"Brigadier General", "Brigadier General I", "Brigadier General II", "Brigadier General III", 
+					"Major General", "Major General I", "Major General II", "Major General III", 
+					"Lieutenant General", "Lieutenant General I", "Lieutenant General II", "Lieutenant General III", 
+					"Commander" };
+str RankItems[65] = { "Rank_IsPrivate", "Rank_IsPrivate", "Rank_IsPrivate", 
+					  "Rank_IsPrivate1stClass", "Rank_IsPrivate1stClass", "Rank_IsPrivate1stClass", 
+					  "Rank_IsCorporal", "Rank_IsCorporal", "Rank_IsCorporal", 
+					  "Rank_IsSergeant", "Rank_IsSergeant", "Rank_IsSergeant", 
+					  "Rank_IsStaffSergeant", "Rank_IsStaffSergeant", "Rank_IsStaffSergeant", "Rank_IsStaffSergeant", 
+					  "Rank_IsGunnerySergeant", "Rank_IsGunnerySergeant", "Rank_IsGunnerySergeant", "Rank_IsGunnerySergeant", 
+					  "Rank_IsMasterSergeant", "Rank_IsMasterSergeant", "Rank_IsMasterSergeant", "Rank_IsMasterSergeant", 
+					  "Rank_IsSergeantMajor", "Rank_IsSergeantMajor", "Rank_IsSergeantMajor", "Rank_IsSergeantMajor", 
+					  "Rank_Is2ndLieutenant", "Rank_Is2ndLieutenant", "Rank_Is2ndLieutenant", "Rank_Is2ndLieutenant", 
+					  "Rank_Is1stLieutenant", "Rank_Is1stLieutenant", "Rank_Is1stLieutenant", "Rank_Is1stLieutenant", 
+					  "Rank_IsCaptain", "Rank_IsCaptain", "Rank_IsCaptain", "Rank_IsCaptain", 
+					  "Rank_IsMajor", "Rank_IsMajor", "Rank_IsMajor", "Rank_IsMajor", 
+					  "Rank_IsLtColonal", "Rank_IsLtColonal", "Rank_IsLtColonal", "Rank_IsLtColonal", 
+					  "Rank_IsColonal", "Rank_IsColonal", "Rank_IsColonal", "Rank_IsColonal", 
+					  "Rank_IsBrigadierGeneral", "Rank_IsBrigadierGeneral", "Rank_IsBrigadierGeneral", "Rank_IsBrigadierGeneral", 
+					  "Rank_IsMajorGeneral", "Rank_IsMajorGeneral", "Rank_IsMajorGeneral", "Rank_IsMajorGeneral", 
+					  "Rank_IsLieutenantGeneral", "Rank_IsLieutenantGeneral", "Rank_IsLieutenantGeneral", "Rank_IsLieutenantGeneral", 
+					  "Rank_IsCommander" };
+int challenge_marksman_completed[32][40];
+int challenge_marksman[32][40];
+int challenge_killer[32][10];
+					
+
+SCRIPT 268 OPEN
+{
+ if(!server_slot) {server_slot=1;}
+}
+
+SCRIPT 500 (int id, int pass) net // log in
+{
+ if(player_loggedin[PlayerNumber()]) {terminate;}
+ SetFont("CONFONT");
+ if(!id || !pass)
+ {
+  HudMessage(s:"script usage:\n \n  \cdscript 500\n  \cgint id  : \c-account ID\n  \cgint pass: \c-account Password\n \nfree player slot: ",d:server_slot,s:"\n \n\c-other uses:\n \n  \cgchallenges:\c--1, -1";
+  HUDMSG_TYPEON,69,CR_WHITE,0.3,0.3,8.0,0.05,2.0);
+  terminate;
+ }
+ else
+ {
+  if(id==-1 && pass==-1)
+  {
+   
+  }
+  else {
+  if(!server_player_rank[id] && id==server_slot)
+  {
+   //create account
+   server_player_rank[id]=1;
+   server_player_xp[id]=0;
+   server_player_xptil[id]=25;
+   server_player_credits[id]=0;
+   server_player_password[id]=pass;
+   server_player_loggedin[id]=1;
+   server_player_prestige[id]=0;
+   server_player_xpbonus[id]=126000; // Double XP for one hour
+   server_player_wagermatch[id]=-1;
+   server_player_wageramount[id]=0;
+   
+   //achievements
+   server_ach_killerPISTOL[id]=1; // get X kills with Pistols
+   server_ach_killerBOLTACTION[id]=1; // get X kills with Bolt-action rifles
+   server_ach_killerRIFLE[id]=1; // get X kills with Rifles
+   server_ach_killerSMG[id]=1; // get X kills with SMGs
+   server_ach_killerLMG[id]=1; // get X kills with LMGs
+   server_ach_killerSHOTGUN[id]=1; // get X kills with Shotguns
+   server_ach_killerKNIFE[id]=1; // get X knife kills
+   server_ach_killerGRENADE[id]=1; // get X grenade kills
+   server_ach_killerLAUNCHER[id]=1; // get X kills with Panzerschreck/Bazooka
+   server_ach_killerFLAMETHROWER[id]=1; // get X kills with M2 Flamethrower
+   server_ach_killerWONDER[id]=1; // get X kills with Wonder weapons
+   
+   //random stats (like Black Ops)
+   server_stat_boxuses[id]=0; // used the mystery box X times
+   server_stat_wallpurchases[id]=0; // purchased X wall weapons/items
+   server_stat_roundssurvived[id]=0; // survived X rounds in total
+   server_stat_barricadesrepaired[id]=0; // repaired X barricades
+   
+   player_loggedin[PlayerNumber()]=id;
+   player_xp[PlayerNumber()]=0;
+   server_slot+=1;
+   GiveInventory("Rank_LOGGEDIN",1);
+  }
+  else
+  {
+   if(!pass==server_player_password[id])
+   {
+    HudMessage(s:"error:\n \n  \cginvalid password.";HUDMSG_TYPEON,69,CR_WHITE,0.3,0.3,5.0,0.05,2.0);
+    terminate;
+   }
+   if(server_player_loggedin[id])
+   {
+    HudMessage(s:"error:\n \n  \cgaccount already in use.";HUDMSG_TYPEON,69,CR_WHITE,0.3,0.3,5.0,0.05,2.0);
+    terminate;
+   }
+   if(id>server_slot)
+   {
+    HudMessage(s:"error\n \n   \cginvalid id.\n   use \cd",d:server_slot;HUDMSG_TYPEON,69,CR_WHITE,0.3,0.3,5.0,0.05,2.0);
+	terminate;
+   }
+   // log in
+   player_loggedin[PlayerNumber()]=id;
+   player_xp[PlayerNumber()]=server_player_xp[id];
+   server_player_loggedin[id]=1;
+   GiveInventory("Rank_LOGGEDIN",1);
+   
+  }}
+
+ }
+}
+
+SCRIPT 505 (void) NET // prestige
+{
+ if(player_loggedin[PlayerNumber()])
+ {
+  SetFont("CONFONT");
+  if(server_player_prestige[player_loggedin[PlayerNumber()]]==10)
+  {
+   HudMessage(s:"error:\n \n  \cgreached maximum prestige.";HUDMSG_TYPEON,69,CR_WHITE,0.3,0.3,5.0,0.05,2.0);
+   terminate;
+  }
+  if(server_player_rank[player_loggedin[PlayerNumber()]]==65)
+  {
+   SetFont("BIGFONT");
+   HudMessage(s:"prestiging...";HUDMSG_TYPEON,0,CR_GREEN,1.5,0.2,5.0,0.05,1.0);
+   delay(35*5);
+   server_player_rank[player_loggedin[PlayerNumber()]]=1;
+   server_player_xp[player_loggedin[PlayerNumber()]]=0;
+   server_player_xptil[player_loggedin[PlayerNumber()]]=25;
+   server_player_prestige[player_loggedin[PlayerNumber()]]+=1;
+   server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerSMG[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerLMG[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerKNIFE[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerGRENADE[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerLAUNCHER[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerFLAMETHROWER[player_loggedin[PlayerNumber()]]=1;
+   server_ach_killerWONDER[player_loggedin[PlayerNumber()]]=1;
+   player_xp[PlayerNumber()]=0;
+  }
+  else
+  {
+   HudMessage(s:"error:\n \n  \cgnot rank 65.";HUDMSG_TYPEON,69,CR_WHITE,0.3,0.3,5.0,0.05,2.0);
+   terminate;
+  }
+  
+ }
+ else
+ {
+  HudMessage(s:"error:\n \n  \cgnot logged in.";HUDMSG_TYPEON,69,CR_WHITE,0.3,0.3,5.0,0.05,2.0);
+  terminate;
+ }
+ 
+}
+
+SCRIPT 501 ENTER
+{
+ int a;
+ int killcount;
+ int achievement_time;
+ int tempStatisticsMode;
+ int tempStatisticsTime;
+ 
+ killcount=CheckInventory("killcount");
+ achievement_time=0;
+ tempStatisticsMode=0;
+ tempStatisticsTime=35*10;
+ 
+ for(int F501_A=0;F501_A<40;F501_A++)
+ {
+  challenge_marksman_completed[PlayerNumber()][F501_A]=1;
+  challenge_marksman[PlayerNumber()][F501_A]=0;
+ }
+ for(F501_A=0;F501_A<10;F501_A++) {challenge_killer[PlayerNumber()][F501_A]=0;}
+
+ while(!player_loggedin[PlayerNumber()])
+ {
+  TakeInventory("PlayerVoiceTime",1);
+  if(!CheckInventory("InLastStand")) {
+  if(CheckWeapon("Colt45") 
+  || CheckWeapon("DualColt45s")
+  || CheckWeapon("Nambu") 
+  || CheckWeapon("Luger")
+  || CheckWeapon("Glock18")
+  || CheckWeapon("Raygun")
+  //|| CheckWeapon("WaltherP38") 
+  //|| CheckWeapon("TT-33")
+  //PAP First Tier
+  || CheckWeapon("357Magnum")
+  || CheckWeapon("MustangAndSally")
+  || CheckWeapon("Oh-Sieben")
+  || CheckWeapon("357Plus1K1L-u")) 
+  {if (CheckInventory("Staminup")==0){SetActorProperty(0,APROP_SPEED,0.50);}
+  Else if(CheckInventory("Staminup")==1){SetActorProperty(0,APROP_SPEED,0.55);}}
+  else if(CheckWeapon("Springfield")
+	   //|| CheckWeapon("Arisaka")
+	   //|| CheckWeapon("MosinNagant")
+	   || CheckWeapon("Kar98k")
+	   || CheckWeapon("Nailgun")
+	   //|| CheckWeapon("SVT40")
+	   || CheckWeapon("Gewehr43")
+	   || CheckWeapon("SawnOffShotgun")
+	   || CheckWeapon("M1Garand")
+	   || CheckWeapon("M1A1Carbine")
+	   //PAP Second Tier
+	   || CheckWeapon("M1000")
+	   || CheckWeapon("G115Compressor")
+	   || CheckWeapon("Armageddon")
+	   || CheckWeapon("AcesNG64")
+	   || CheckWeapon("TheSnuffBox")
+	   || CheckWeapon("WiddershinsRC-1")) 
+  {if (CheckInventory("Staminup")==0){SetActorProperty(0,APROP_SPEED,0.49);}
+  Else if(CheckInventory("Staminup")==1){SetActorProperty(0,APROP_SPEED,0.54);}}
+  else if(CheckWeapon("STG-44")
+	   || CheckWeapon("Thompson")
+	   || CheckWeapon("MP40")
+	   || CheckWeapon("SterlingL2A3")
+	   //|| CheckWeapon("Type100")
+	   || CheckWeapon("Olympia")
+	   || CheckWeapon("PPSh41")
+	   || CheckWeapon("TrenchGun")
+	   || CheckWeapon("BrowningA5")
+	   || CheckWeapon("DoubleBarrel")
+	   || CheckWeapon("BAR")
+	   || CheckWeapon("FG42")
+	   //PAP Third Tier
+	   || CheckWeapon("Spatz-447+")
+	   || CheckWeapon("GibsOMatic")
+	   || CheckWeapon("TheAfterBurner")
+	   || CheckWeapon("GutShot")
+	   || CheckWeapon("24BoreLongRange"))   
+  {if (CheckInventory("Staminup")==0){SetActorProperty(0,APROP_SPEED,0.48);}
+  Else if(CheckInventory("Staminup")==1){SetActorProperty(0,APROP_SPEED,0.53);}}
+  else if(CheckWeapon("DP28")
+	   || CheckWeapon("MG42")
+	   || CheckWeapon("BrowningM1919")
+	   || CheckWeapon("ThunderGun")
+	   //|| CheckWeapon("Type99")
+	   //|| CheckWeapon("PTRS41")
+	   //|| CheckWeapon("Bazooka")
+	   || CheckWeapon("Panzerschreck")
+	   || CheckWeapon("M2Flamethrower")
+	   //PAP Fourth Tier
+	   || CheckWeapon("B115Accelerator")
+	   || CheckWeapon("F1WNitrogenCooled"))  
+  {if (CheckInventory("Staminup")==0){SetActorProperty(0,APROP_SPEED,0.47);}
+  Else if(CheckInventory("Staminup")==1){SetActorProperty(0,APROP_SPEED,0.52);}}}
+  else {SetActorProperty(0,APROP_SPEED,0.05);}
+  if (CheckInventory("ColtZoomed")==1
+   || CheckInventory("NambuZoomed")==1)
+  {SetActorProperty(0,APROP_SPEED,0.40);}
+  else if(CheckInventory("G43Zoomed")==1
+	   || CheckInventory("K98KZoomed")==1
+	   || CheckInventory("SpriZoomed")==1) 
+	   {SetActorProperty(0,APROP_SPEED,0.39);}
+  else if(CheckInventory("STGZoomed")==1
+       || CheckInventory("MP40Zoomed")==1) 
+       {SetActorProperty(0,APROP_SPEED,0.38);}
+  delay(1);
+ }
+ SetHudSize(640,480,0);
+ SetFont("MENUSTAT");
+ HudMessage(s:"A";HUDMSG_PLAIN,79,CR_UNTRANSLATED,0.1,0.1,0.2);
+ SetFont("SMALLFONT");
+ HudMessage(s:"welcome back, \c*",n:PlayerNumber(),s:"\c-!";
+ HUDMSG_FADEINOUT,0,CR_GREEN,4.1,4.1,10.0,0.5,0.5);
+ HudMessage(s:"\ccuser #\c-",d:player_loggedin[PlayerNumber()];
+ HUDMSG_FADEINOUT,0,CR_GREEN,320.0,4.1,10.0,0.5,0.5);
+ HudMessage(s:"\ccpassword: \c-",d:server_player_password[player_loggedin[PlayerNumber()]];
+ HUDMSG_FADEINOUT,0,CR_GREEN,636.2,4.1,10.0,0.5,0.5);
+ SetHudSize(0,0,0);
+ 
+ // prepare for a wager match
+ if(!server_player_wagermatch[player_loggedin[PlayerNumber()]]==-1)
+ {
+  LocalAmbientSound("game/WAGERBEGIN",127);
+  SetHudSize(320,240,0);
+  SetFont("SMALLFONT");
+  HudMessage(s:"wager match imminent";HUDMSG_TYPEON,0,CR_RED,160.0,32.1,10.0,0.05,1.0);
+  SetHudSize(640,480,0);
+  HudMessage(s:"antagonist: \cu#",d:server_player_wagermatch[player_loggedin[PlayerNumber()]];HUDMSG_TYPEON,0,CR_RED,256.1,96.1,10.0,0.05,1.0);
+  SetFont("BIGFONT");
+  HudMessage(s:"C";HUDMSG_PLAIN,0,CR_GRAY,256.1,108.1,11.0,1.0);
+  SetFont("SMALLFONT");
+  HudMessage(d:server_player_wageramount[player_loggedin[PlayerNumber()]];HUDMSG_TYPEON,0,CR_GREEN,272.1,100.1,10.0,0.05,1.0);
+ }
+ 
+ while(player_loggedin[PlayerNumber()])
+ {
+  TakeInventory("PlayerVoiceTime",5);
+ 
+  player_xp[PlayerNumber()]=server_player_xp[player_loggedin[PlayerNumber()]];
+  
+  if(server_player_xpbonus[player_loggedin[PlayerNumber()]]>0) {server_player_xpbonus[player_loggedin[PlayerNumber()]]-=5;}
+  if(achievement_time>0) {achievement_time-=5;}
+  if(server_player_rank[player_loggedin[PlayerNumber()]]==65) {server_player_xp[player_loggedin[PlayerNumber()]]=0;server_player_xptil[player_loggedin[PlayerNumber()]]=0;}
+  
+  GiveInventory(RankItems[server_player_rank[player_loggedin[PlayerNumber()]]-1],1);
+
+  //if(achievement_time<1)
+  //{
+   SetFont("CONFONT");
+   SetFont("SMALLFONT");
+   SetHudSize(320,240,0);
+   HudMessage(s:"rank ",d:server_player_rank[player_loggedin[PlayerNumber()]];
+   HUDMSG_PLAIN,76,CR_GREEN,278.2,16.1,0.5);
+   SetHudSize(640,480,0);
+   HudMessage(s:RankNames[server_player_rank[player_loggedin[PlayerNumber()]]-1];
+   HUDMSG_PLAIN,77,CR_WHITE,556.2,32.1+16.0,0.5);
+   if(server_player_rank[player_loggedin[PlayerNumber()]]<65)
+   {
+    HudMessage(d:server_player_xp[player_loggedin[PlayerNumber()]],s:"XP";
+    HUDMSG_PLAIN,75,CR_WHITE,556.2,40.1+16.0,0.5);
+	HudMessage(s:"next: ",d:(server_player_xptil[player_loggedin[PlayerNumber()]]-server_player_xp[player_loggedin[PlayerNumber()]]);
+	HUDMSG_PLAIN,78,CR_WHITE,556.2,48.1+16.0,0.5);
+   }
+   
+   SetHudSize(640,480,0);
+   SetFont("MENUSTAT");
+   HudMessage(s:"A";HUDMSG_PLAIN,79,CR_UNTRANSLATED,0.1,0.1,0.2);
+   
+   SetFont("SMALLFONT");
+   tempStatisticsTime-=5;
+   if(tempStatisticsTime<1) 
+   {
+    tempStatisticsTime=(35*10)+17; 
+	if(tempStatisticsMode==0) 
+	{
+	 tempStatisticsMode=1;
+	 ACS_ExecuteAlways(503,0,0,0,0);
+	}
+	else if(tempStatisticsMode==1)			  
+	{
+	 tempStatisticsMode=2;
+	 ACS_ExecuteAlways(503,0,1,0,0);
+	}
+	else if(tempStatisticsMode==2)
+	{
+	 if(ACS_ExecuteWithResult(503,2,0,0)==0) {ACS_ExecuteAlways(503,0,0,0,0); tempStatisticsMode=1;}
+	 else {tempStatisticsMode=3;}
+	}
+	else if(tempStatisticsMode==3)
+	{
+	 if(ACS_ExecuteWithResult(503,3,0,0)==0) {ACS_ExecuteAlways(503,0,5,0,0); tempStatisticsMode=6;}
+	 else {tempStatisticsMode=4;}
+	}
+	else if(tempStatisticsMode==4)
+	{
+	 if(ACS_ExecuteWithResult(503,4,0,0)==0) {ACS_ExecuteAlways(503,0,6,0,0); tempStatisticsMode=0;}
+	 else {tempStatisticsMode=5;}
+	}
+	else if(tempStatisticsMode==5)
+	{
+	 if(ACS_ExecuteWithResult(503,5,0,0)==0) {ACS_ExecuteAlways(503,0,0,0,0); tempStatisticsMode=1;}
+	 else {tempStatisticsMode=6;}
+	}
+	else if(tempStatisticsMode==6)
+	{
+	 if(ACS_ExecuteWithResult(503,6,0,0)==0) {ACS_ExecuteAlways(503,0,0,0,0); tempStatisticsMode=1;}
+	 else {tempStatisticsMode=0;}
+	}
+   }
+   SetHudSize(0,0,0);
+
+   //if(server_player_prestige[player_loggedin[PlayerNumber()]]==0) {SetFont("R_BACK");}
+   //else if(server_player_prestige[player_loggedin[PlayerNumber()]]==1) {SetFont("R_BAK2");}
+   //else {SetFont("R_BAK3");}
+   //SetHudSize(2048,1536,0);
+   //HudMessage(s:"A";HUDMSG_PLAIN,94,CR_UNTRANSLATED,928.0,704.0,1.0);
+   SetHudSize(640,480,0);
+   if(CheckInventory("Rank_IsPrivate")) 			      {SetFont("R_PRIV");}
+   if(CheckInventory("Rank_IsPrivate1stClass"))   {SetFont("R_PRIV1C");}
+   if(CheckInventory("Rank_IsCorporal")) 		  {SetFont("R_CORP");}
+   if(CheckInventory("Rank_IsSergeant")) 	      {SetFont("R_SERG");}
+   if(CheckInventory("Rank_IsStaffSergeant")) 	  {SetFont("R_STAF");}
+   if(CheckInventory("Rank_IsGunnerySergeant"))   {SetFont("R_GUNN");}
+   if(CheckInventory("Rank_IsMasterSergeant")) 	  {SetFont("R_MAST");}
+   if(CheckInventory("Rank_IsSergeantMajor")) 	  {SetFont("R_MAJ");}
+   if(CheckInventory("Rank_Is2ndLieutenant")) 	  {SetFont("R_2LIEU");}
+   if(CheckInventory("Rank_Is1stLieutenant")) 	  {SetFont("R_1LIEU");}
+   if(CheckInventory("Rank_IsCaptain")) 	      {SetFont("R_CAPT");}
+   if(CheckInventory("Rank_IsMajor")) 			  {SetFont("R_MAJOR");}
+   if(CheckInventory("Rank_IsLtColonal")) 	      {SetFont("R_LTCOL");}
+   if(CheckInventory("Rank_IsColonal")) 	   	  {SetFont("R_COLON");}
+   if(CheckInventory("Rank_IsBrigadierGeneral"))  {SetFont("R_BGEN");}
+   if(CheckInventory("Rank_IsMajorGeneral")) 	  {SetFont("R_MGEN");}
+   if(CheckInventory("Rank_IsLieutenantGeneral")) {SetFont("R_LGEN");}
+   if(CheckInventory("Rank_IsCommander")) 		  {SetFont("R_COMM");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==1) {SetFont("R_PRES1");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==2) {SetFont("R_PRES2");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==3) {SetFont("R_PRES3");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==4) {SetFont("R_PRES4");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==5) {SetFont("R_PRES5");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==6) {SetFont("R_PRES6");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==7) {SetFont("R_PRES7");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==8) {SetFont("R_PRES8");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==9) {SetFont("R_PRES9");}
+   if(server_player_prestige[player_loggedin[PlayerNumber()]]==10){SetFont("R_PRES10");}
+   HudMessage(s:"A";HUDMSG_PLAIN,93,CR_UNTRANSLATED,640.2,16.1,1.0);
+   SetHudSize(0,0,0);
+  //}
+  
+  if(achievement_time<1)
+  {
+   if(server_player_xp[player_loggedin[PlayerNumber()]]>server_player_xptil[player_loggedin[PlayerNumber()]]-1 && server_player_rank[player_loggedin[PlayerNumber()]]<65)
+   {
+    TakeInventory(RankItems[server_player_rank[player_loggedin[PlayerNumber()]]],1);
+    server_player_xp[player_loggedin[PlayerNumber()]]-=server_player_xptil[player_loggedin[PlayerNumber()]];
+    server_player_xptil[player_loggedin[PlayerNumber()]]+=(10*server_player_rank[player_loggedin[PlayerNumber()]]);//=server_player_xptil[player_loggedin[PlayerNumber()]]*2;
+    server_player_rank[player_loggedin[PlayerNumber()]]+=1;
+    GiveInventory(RankItems[server_player_rank[player_loggedin[PlayerNumber()]]],1);
+    LocalAmbientSound("game/RANK",127);
+    SetFont("SMALLFONT");
+    HudMessage(s:"You have been promoted\nRank ",d:server_player_rank[player_loggedin[PlayerNumber()]];HUDMSG_FADEINOUT,69,CR_WHITE,1.5,0.1,8.0,1.0,2.0);
+    SetFont("SMALLFONT");
+    SetHudSize(320,240,0);
+    HudMessage(s:RankNames[server_player_rank[player_loggedin[PlayerNumber()]]-1];HUDMSG_FADEINOUT,0,CR_WHITE,160.0,32.1,8.0,2.0,2.0);
+    /*SetHudSize(1024,768,0);
+    if(CheckInventory("Rank_IsPrivate")) 			      {SetFont("R_PRIV");}
+    else if(CheckInventory("Rank_IsPrivate1stClass"))   {SetFont("R_PRIV1C");}
+    else if(CheckInventory("Rank_IsCorporal")) 		  {SetFont("R_CORP");}
+    else if(CheckInventory("Rank_IsSergeant")) 	      {SetFont("R_SERG");}
+    else if(CheckInventory("Rank_IsStaffSergeant")) 	  {SetFont("R_STAF");}
+    else if(CheckInventory("Rank_IsGunnerySergeant"))   {SetFont("R_GUNN");}
+    else if(CheckInventory("Rank_IsMasterSergeant")) 	  {SetFont("R_MAST");}
+    else if(CheckInventory("Rank_IsSergeantMajor")) 	  {SetFont("R_MAJ");}
+    else if(CheckInventory("Rank_Is2ndLieutenant")) 	  {SetFont("R_2LIEU");}
+    else if(CheckInventory("Rank_Is1stLieutenant")) 	  {SetFont("R_1LIEU");}
+    else if(CheckInventory("Rank_IsCaptain")) 	      {SetFont("R_CAPT");}
+    else if(CheckInventory("Rank_IsMajor")) 			  {SetFont("R_MAJOR");}
+    else if(CheckInventory("Rank_IsLtColonal")) 	      {SetFont("R_LTCOL");}
+    else if(CheckInventory("Rank_IsColonal")) 	   	  {SetFont("R_COLON");}
+    else if(CheckInventory("Rank_IsBrigadierGeneral"))  {SetFont("R_BGEN");}
+    else if(CheckInventory("Rank_IsMajorGeneral")) 	  {SetFont("R_MGEN");}
+    else if(CheckInventory("Rank_IsLieutenantGeneral")) {SetFont("R_LGEN");}
+    else if(CheckInventory("Rank_IsCommander")) 		  {SetFont("R_COMM");}
+    HudMessage(s:"A";HUDMSG_FADEINOUT,0,CR_UNTRANSLATED,512.0,256.0,8.5,2.0,2.0);*/
+    SetHudSize(0,0,0);
+	achievement_time=13*35;
+   }
+  }
+  
+  // challenges
+  
+  if(CheckInventory("killcount")>killcount) 
+  {
+   challenge_marksman[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]+=(CheckInventory("killcount")-killcount);
+   if(challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]==5) {challenge_marksman[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]=0;}
+   
+   // update "killer" challenge.
+   
+   int w;
+   w=ACS_ExecuteWithResult(451,0,0,0);
+   if(w>=0 && w<=4) {challenge_killer[PlayerNumber()][0]+=(CheckInventory("killcount")-killcount);} // pistol
+   else if(w>=5 && w<=9) {challenge_killer[PlayerNumber()][1]+=(CheckInventory("killcount")-killcount);} // bolt action
+   else if(w>=10 && w<=14) {challenge_killer[PlayerNumber()][2]+=(CheckInventory("killcount")-killcount);} // rifle
+   else if(w>=15 && w<=18) {challenge_killer[PlayerNumber()][3]+=(CheckInventory("killcount")-killcount);} // sub-machine gun
+   else if(w>=19 && w<=24) {challenge_killer[PlayerNumber()][4]+=(CheckInventory("killcount")-killcount);} // light-machine gun
+   else if(w>=25 && w<=27) {challenge_killer[PlayerNumber()][5]+=(CheckInventory("killcount")-killcount);} // shotgun
+   
+   killcount+=(CheckInventory("killcount")-killcount);
+  }
+  if(achievement_time<1)
+  {
+   if(challenge_marksman[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]>challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]*25 && challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]<5)
+   {
+    LocalAmbientSound("game/CHALLENGE",127);
+    SetFont("SMALLFONT");
+    HudMessage(s:"marksman challenge ",d:challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)],s:" completed";
+    HUDMSG_TYPEON,0,CR_WHITE,1.5,0.2,4.0,0.05,2.0);
+    if(challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]==1)
+    {
+     HudMessage(s:"reward: 100XP";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);
+  	 ACS_ExecuteAlways(502,0,100,0,0);
+    }
+    else if(challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]==2)
+    {
+     HudMessage(s:"reward: 500XP";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);
+	 ACS_ExecuteAlways(502,0,500,0,0);
+    }
+    else if(challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]==3)
+    {
+     HudMessage(s:"reward: 1000XP";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);
+ 	 ACS_ExecuteAlways(502,0,1000,0,0);
+    }
+    else if(challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]==3)
+    {
+     HudMessage(s:"reward: 2500XP";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);
+ 	 ACS_ExecuteAlways(502,0,2500,0,0);
+    }
+    SetFont("SMALLFONT");
+	SetHudSize(320,240,0);
+    HudMessage(s:weapon_names[ACS_ExecuteWithResult(451,0,0,0)];HUDMSG_FADEINOUT,0,CR_GREEN,160.0,32.1,4.0,2.0);
+    SetHudSize(0,0,0);
+    
+    challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]+=1;
+	achievement_time=6*35;
+  
+   }
+
+   SetFont("SMALLFONT");
+   if(challenge_killer[PlayerNumber()][0]>server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]*200 && achievement_time<1)
+   {
+    if(server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]==4) {challenge_killer[PlayerNumber()][0]=0;}
+    else
+    {
+	 LocalAmbientSound("game/CHALLENGE",127);
+     HudMessage(s:"killer challenge ",d:server_ach_killerPISTOL[player_loggedin[PlayerNumber()]],s:" completed";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.2,4.0,0.05,2.0);
+	 if(server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]==1) {HudMessage(s:"reward: 1000XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,1000,0,0);}
+     else if(server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]==2) {HudMessage(s:"reward: 2500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,2500,0,0);}
+     else if(server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]==3) {HudMessage(s:"reward: 5000XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,5000,0,0);}
+     server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]+=1;
+	 SetFont("SMALLFONT");
+	 SetHudSize(320,240,0);
+	 HudMessage(s:"Pistol";HUDMSG_FADEINOUT,0,CR_GREEN,160.0,32.1,4.0,2.0);
+	 SetHudSize(0,0,0);
+	 achievement_time=7*35;
+    }
+   
+   }
+   if(challenge_killer[PlayerNumber()][1]>server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]*200 && achievement_time<1)
+   {
+    if(server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]==4) {challenge_killer[PlayerNumber()][1]=0;}
+    else
+    {
+	 LocalAmbientSound("game/CHALLENGE",127);
+     HudMessage(s:"killer challenge ",d:server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]],s:" completed";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.2,4.0,0.05,2.0);
+ 	 if(server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]==1) {HudMessage(s:"reward: 500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,500,0,0);}
+     else if(server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]==2) {HudMessage(s:"reward: 1000XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,1000,0,0);}
+     else if(server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]==3) {HudMessage(s:"reward: 2500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,2500,0,0);}
+     server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]+=1;
+	 SetFont("SMALLFONT");
+	 SetHudSize(320,240,0);
+	 HudMessage(s:"Bolt-action rifle";HUDMSG_FADEINOUT,0,CR_GREEN,160.0,32.1,4.0,2.0);
+	 SetHudSize(0,0,0);
+	 achievement_time=7*35;
+    }
+   
+   }
+   if(challenge_killer[PlayerNumber()][2]>server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]*200 && achievement_time<1)
+   {
+    if(server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]==4) {challenge_killer[PlayerNumber()][2]=0;}
+    else
+    {
+	 LocalAmbientSound("game/CHALLENGE",127);
+     HudMessage(s:"killer challenge ",d:server_ach_killerRIFLE[player_loggedin[PlayerNumber()]],s:" completed";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.2,4.0,0.05,2.0);
+	 if(server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]==1) {HudMessage(s:"reward: 500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,500,0,0);}
+     else if(server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]==2) {HudMessage(s:"reward: 1000XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,1000,0,0);}
+     else if(server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]==3) {HudMessage(s:"reward: 2500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,2500,0,0);}
+	 server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]+=1;
+	 SetFont("SMALLFONT");
+	 SetHudSize(320,240,0);
+	 HudMessage(s:"Rifle";HUDMSG_FADEINOUT,0,CR_GREEN,160.0,32.1,4.0,2.0);
+	 SetHudSize(0,0,0);
+	 achievement_time=7*35;
+    }
+   
+   }
+   if(challenge_killer[PlayerNumber()][3]>server_ach_killerSMG[player_loggedin[PlayerNumber()]]*200 && achievement_time<1)
+   {
+    if(server_ach_killerSMG[player_loggedin[PlayerNumber()]]==4) {challenge_killer[PlayerNumber()][3]=0;}
+    else
+    {
+	 LocalAmbientSound("game/CHALLENGE",127);
+     HudMessage(s:"killer challenge ",d:server_ach_killerSMG[player_loggedin[PlayerNumber()]],s:" completed";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.2,4.0,0.05,2.0);
+	 if(server_ach_killerSMG[player_loggedin[PlayerNumber()]]==1) {HudMessage(s:"reward: 500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,500,0,0);}
+     else if(server_ach_killerSMG[player_loggedin[PlayerNumber()]]==2) {HudMessage(s:"reward: 1000XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,1000,0,0);}
+     else if(server_ach_killerSMG[player_loggedin[PlayerNumber()]]==3) {HudMessage(s:"reward: 2500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,2500,0,0);}
+	 server_ach_killerSMG[player_loggedin[PlayerNumber()]]+=1;
+	 SetFont("SMALLFONT");
+	 SetHudSize(320,240,0);
+	 HudMessage(s:"Submachine gun";HUDMSG_FADEINOUT,0,CR_GREEN,160.0,32.1,4.0,2.0);
+	 SetHudSize(0,0,0);
+	 achievement_time=7*35;
+    }
+   
+   }
+   if(challenge_killer[PlayerNumber()][4]>server_ach_killerLMG[player_loggedin[PlayerNumber()]]*200 && achievement_time<1)
+   {
+    if(server_ach_killerLMG[player_loggedin[PlayerNumber()]]==4) {challenge_killer[PlayerNumber()][4]=0;}
+    else
+    {
+	 LocalAmbientSound("game/CHALLENGE",127);
+     HudMessage(s:"killer challenge ",d:server_ach_killerLMG[player_loggedin[PlayerNumber()]],s:" completed";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.2,4.0,0.05,2.0);
+	 if(server_ach_killerLMG[player_loggedin[PlayerNumber()]]==1) {HudMessage(s:"reward: 1000XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,1000,0,0);}
+     else if(server_ach_killerLMG[player_loggedin[PlayerNumber()]]==2) {HudMessage(s:"reward: 2500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,2500,0,0);}
+     else if(server_ach_killerLMG[player_loggedin[PlayerNumber()]]==3) {HudMessage(s:"reward: 5000XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,5000,0,0);}
+	 server_ach_killerLMG[player_loggedin[PlayerNumber()]]+=1;
+	 SetFont("SMALLFONT");
+	 SetHudSize(320,240,0);
+	 HudMessage(s:"Machine gun";HUDMSG_FADEINOUT,0,CR_GREEN,160.0,32.1,4.0,2.0);
+	 SetHudSize(0,0,0);
+	 achievement_time=7*35;
+    }
+   
+   }
+   if(challenge_killer[PlayerNumber()][5]>server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]*200 && achievement_time<1)
+   {
+    if(server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]==4) {challenge_killer[PlayerNumber()][5]=0;}
+    else
+    {
+	 LocalAmbientSound("game/CHALLENGE",127);
+     HudMessage(s:"killer challenge ",d:server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]],s:" completed";
+     HUDMSG_TYPEON,0,CR_WHITE,1.5,0.2,4.0,0.05,2.0);
+	 if(server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]==1) {HudMessage(s:"reward: 500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,500,0,0);}
+     else if(server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]==2) {HudMessage(s:"reward: 1000XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,1000,0,0);}
+     else if(server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]==3) {HudMessage(s:"reward: 2500XP";HUDMSG_TYPEON,0,CR_WHITE,1.5,0.3,3.0,0.05,2.0);ACS_ExecuteAlways(502,0,2500,0,0);}
+	 server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]+=1;
+	 SetFont("SMALLFONT");
+	 SetHudSize(320,240,0);
+	 HudMessage(s:"Shotgun";HUDMSG_FADEINOUT,0,CR_GREEN,160.0,32.1,4.0,2.0);
+	 SetHudSize(0,0,0);
+	 achievement_time=7*35;
+    }
+   
+   }
+  }
+  
+  delay(5);
+ }
+ delay(35);
+ restart;
+
+}
+SCRIPT 504 (int ID) DISCONNECT
+{
+ player_loggedin[ID]=-1;
+ /*if(!server_player_wagermatch[ID]==-1)
+ {
+  // player was in a wager match and (we'll assume) rage-quit.
+  // give the opposing player the winning share.
+  server_player_credits[server_player_wagermatch[ID]]+=server_player_wageramount[ID];
+  server_player_credits[ID]-=server_player_wageramount[ID];
+  SetActivator(server_player_wagermatch[ID]);
+  LocalAmbientSound("game/WAGER",127);
+ }*/
+}
+
+SCRIPT 451 (void)
+{
+						//"MkII Grenade", "N*72ST Grenade", "Molotov Cocktail", "Monkey Bomb", "Bouncing Betty",
+						//"M2 Flamethrower",
+						//"Knife", "Bowie Knife",
+						//"Ray Gun", "Wunderwaffe DG-2"
+ if(CheckWeapon("Colt45")) {SetResultValue(0);}
+ //else if(CheckWeapon("Nambu")) {SetResultValue(1);}
+ //else if(CheckWeapon("WaltherP38")) {SetResultValue(2);}
+ //else if(CheckWeapon("TT-33")) {SetResultValue(3);}
+ else if(CheckWeapon("357Magnum")) {SetResultValue(4);}
+ else if(CheckWeapon("Springfield")) {SetResultValue(5);}
+ //else if(CheckWeapon("Arisaka")) {SetResultValue(6);}
+ //else if(CheckWeapon("MosinNagant")) {SetResultValue(7);}
+ else if(CheckWeapon("Kar98k")) {SetResultValue(8);} 
+ //else if(CheckWeapon("PTRS41")) {SetResultValue(9);}
+ //else if(CheckWeapon("SVT40")) {SetResultValue(10);}
+ else if(CheckWeapon("Gewehr43")) {SetResultValue(11);}
+ else if(CheckWeapon("M1Garand")) {SetResultValue(12);}
+ else if(CheckWeapon("STG-44")) {SetResultValue(13);}
+ else if(CheckWeapon("M1A1Carbine")) {SetResultValue(14);}
+ else if(CheckWeapon("Thompson")) {SetResultValue(15);}
+ else if(CheckWeapon("MP40")) {SetResultValue(16);}
+ //else if(CheckWeapon("Type100")) {SetResultValue(17);}
+ else if(CheckWeapon("PPSh41")) {SetResultValue(18);}
+ //else if(CheckWeapon("Type99")) {SetResultValue(19);}
+ else if(CheckWeapon("BAR")) {SetResultValue(20);}
+ //else if(CheckWeapon("DP28")) {SetResultValue(21);}
+ else if(CheckWeapon("MG42")) {SetResultValue(22);}
+ else if(CheckWeapon("FG42")) {SetResultValue(23);}
+ else if(CheckWeapon("BrowningM1919")) {SetResultValue(24);}
+ else if(CheckWeapon("TrenchGun")) {SetResultValue(25);}
+ else if(CheckWeapon("ElephantGun")) {SetResultValue(26);}
+ else if(CheckWeapon("SawnOffShotgun")) {SetResultValue(27);}
+ else if(CheckWeapon("Bazooka")) {SetResultValue(28);}
+ else if(CheckWeapon("Panzerschreck")) {SetResultValue(29);}
+ else if(CheckWeapon("M2Flamethrower")) {SetResultValue(35);}
+ 
+}
+
+SCRIPT 502 (int xp, int tid, int mode)
+{
+ if(tid==0) {SetActivatorToTarget(0);}
+ else		{SetActivator(tid);}
+ if(!player_loggedin[PlayerNumber()]) {terminate;}
+ if(mode==0)
+ {
+  SetFont("CONFONT");
+  if(server_player_xpbonus[player_loggedin[PlayerNumber()]]>0)
+  {
+   server_player_xp[player_loggedin[PlayerNumber()]]+=xp*2;
+  }
+  else
+  {
+   server_player_xp[player_loggedin[PlayerNumber()]]+=xp;
+  }
+ }
+ else if(mode==1) {server_stat_boxuses[player_loggedin[PlayerNumber()]]+=xp;}
+ else if(mode==2) {server_stat_wallpurchases[player_loggedin[PlayerNumber()]]+=xp;}
+ else if(mode==3) {server_stat_roundssurvived[player_loggedin[PlayerNumber()]]+=xp;}
+ else if(mode==4) {server_stat_barricadesrepaired[player_loggedin[PlayerNumber()]]+=xp;}
+}
+
+SCRIPT 503 (int mode)
+{
+ int dtime;
+ SetFont("SMALLFONT");
+ SetHudSize(640,480,0);
+ if(mode==0)
+ {
+  HudMessage(s:weapon_names[ACS_ExecuteWithResult(451,0,0,0)];
+  HUDMSG_FADEINOUT,0,CR_GREEN,4.1,4.1,1.0,0.5,0.5);
+  HudMessage(s:"marksman challenge \cd",d:challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)];
+  HUDMSG_FADEINOUT,0,CR_GRAY,320.0,4.1,1.0,0.5,0.5);
+  HudMessage(d:challenge_marksman[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)],s:"\cc/\c-",d:challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]*25;
+  HUDMSG_FADEINOUT,0,CR_GREEN,636.2,4.1,1.0,0.5,0.5);
+  delay(17);
+  dtime=0;
+  while(dtime<35*10)
+  {
+   HudMessage(s:weapon_names[ACS_ExecuteWithResult(451,0,0,0)];
+   HUDMSG_FADEOUT,0,CR_GREEN,4.1,4.1,0.1,0.5);
+   HudMessage(s:"marksman challenge \cd",d:challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)];
+   HUDMSG_FADEOUT,0,CR_GRAY,320.0,4.1,0.1,0.5);
+   HudMessage(d:challenge_marksman[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)],s:"\cc/\c-",d:challenge_marksman_completed[PlayerNumber()][ACS_ExecuteWithResult(451,0,0,0)]*25;
+   HUDMSG_FADEOUT,0,CR_GREEN,636.2,4.1,0.1,0.5);
+   dtime++;
+   delay(1);
+  }
+ }
+ else if(mode==1)
+ {
+  int draww;
+  draww=ACS_ExecuteWithResult(451,0,0,0);
+  if(draww>=0 && draww<=4) {HudMessage(s:"Pistol";HUDMSG_FADEINOUT,0,CR_GREEN,4.1,4.1,10.0,0.5,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerPISTOL[player_loggedin[PlayerNumber()]];HUDMSG_FADEINOUT,0,CR_GRAY,320.0,4.1,10.0,0.5,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][0],s:"\cc/\c-",d:server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEINOUT,0,CR_GREEN,636.2,4.1,1.0,0.5,0.5);} // pistol
+  else if(draww>=5 && draww<=9) {HudMessage(s:"Bolt-action rifle";HUDMSG_FADEINOUT,0,CR_GREEN,4.1,4.1,10.0,0.5,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]];HUDMSG_FADEINOUT,0,CR_GRAY,320.0,4.1,10.0,0.5,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][1],s:"\cc/\c-",d:server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEINOUT,0,CR_GREEN,636.2,4.1,1.0,0.5,0.5);} // bolt action
+  else if(draww>=10 && draww<=14) {HudMessage(s:"Rifle";HUDMSG_FADEINOUT,0,CR_GREEN,4.1,4.1,10.0,0.5,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerRIFLE[player_loggedin[PlayerNumber()]];HUDMSG_FADEINOUT,0,CR_GRAY,320.0,4.1,10.0,0.5,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][2],s:"\cc/\c-",d:server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEINOUT,0,CR_GREEN,636.2,4.1,1.0,0.5,0.5);} // rifle
+  else if(draww>=15 && draww<=18) {HudMessage(s:"Submachine gun";HUDMSG_FADEINOUT,0,CR_GREEN,4.1,4.1,10.0,0.5,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerSMG[player_loggedin[PlayerNumber()]];HUDMSG_FADEINOUT,0,CR_GRAY,320.0,4.1,10.0,0.5,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][3],s:"\cc/\c-",d:server_ach_killerSMG[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEINOUT,0,CR_GREEN,636.2,4.1,1.0,0.5,0.5);} // sub-machine gun
+  else if(draww>=19 && draww<=24) {HudMessage(s:"Light machine gun";HUDMSG_FADEINOUT,0,CR_GREEN,4.1,4.1,10.0,0.5,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerLMG[player_loggedin[PlayerNumber()]];HUDMSG_FADEINOUT,0,CR_GRAY,320.0,4.1,10.0,0.5,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][4],s:"\cc/\c-",d:server_ach_killerLMG[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEINOUT,0,CR_GREEN,636.2,4.1,1.0,0.5,0.5);} // light-machine gun
+  else if(draww>=25 && draww<=27) {HudMessage(s:"Shotgun";HUDMSG_FADEINOUT,0,CR_GREEN,4.1,4.1,10.0,0.5,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]];HUDMSG_FADEINOUT,0,CR_GRAY,320.0,4.1,10.0,0.5,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][5],s:"\cc/\c-",d:server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEINOUT,0,CR_GREEN,636.2,4.1,1.0,0.5,0.5);} // shotgun
+  delay(17);
+  dtime=0;
+  while(dtime<35*10)
+  {
+   if(draww>=0 && draww<=4) {HudMessage(s:"Pistol";HUDMSG_FADEOUT,0,CR_GREEN,4.1,4.1,0.1,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerPISTOL[player_loggedin[PlayerNumber()]];HUDMSG_FADEOUT,0,CR_GRAY,320.0,4.1,0.1,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][0],s:"\cc/\c-",d:server_ach_killerPISTOL[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEOUT,0,CR_GREEN,636.2,4.1,0.1,0.5);} // pistol
+   else if(draww>=5 && draww<=9) {HudMessage(s:"Bolt-action rifle";HUDMSG_FADEOUT,0,CR_GREEN,4.1,4.1,0.1,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]];HUDMSG_FADEOUT,0,CR_GRAY,320.0,4.1,0.1,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][1],s:"\cc/\c-",d:server_ach_killerBOLTACTION[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEOUT,0,CR_GREEN,636.2,4.1,0.1,0.5);} // bolt action
+   else if(draww>=10 && draww<=14) {HudMessage(s:"Rifle";HUDMSG_FADEOUT,0,CR_GREEN,4.1,4.1,0.1,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerRIFLE[player_loggedin[PlayerNumber()]];HUDMSG_FADEOUT,0,CR_GRAY,320.0,4.1,0.1,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][2],s:"\cc/\c-",d:server_ach_killerRIFLE[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEOUT,0,CR_GREEN,636.2,4.1,0.1,0.5);} // rifle
+   else if(draww>=15 && draww<=18) {HudMessage(s:"Submachine gun";HUDMSG_FADEOUT,0,CR_GREEN,4.1,4.1,0.1,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerSMG[player_loggedin[PlayerNumber()]];HUDMSG_FADEOUT,0,CR_GRAY,320.0,4.1,0.1,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][3],s:"\cc/\c-",d:server_ach_killerSMG[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEOUT,0,CR_GREEN,636.2,4.1,0.1,0.5);} // sub-machine gun
+   else if(draww>=19 && draww<=24) {HudMessage(s:"Light machine gun";HUDMSG_FADEOUT,0,CR_GREEN,4.1,4.1,0.1,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerLMG[player_loggedin[PlayerNumber()]];HUDMSG_FADEOUT,0,CR_GRAY,320.0,4.1,0.1,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][4],s:"\cc/\c-",d:server_ach_killerLMG[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEOUT,0,CR_GREEN,636.2,4.1,0.1,0.5);} // light-machine gun
+   else if(draww>=25 && draww<=27) {HudMessage(s:"Shotgun";HUDMSG_FADEOUT,0,CR_GREEN,4.1,4.1,0.1,0.5);
+	                           HudMessage(s:"killer challenge \cd",d:server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]];HUDMSG_FADEOUT,0,CR_GRAY,320.0,4.1,0.1,0.5);
+							   HudMessage(d:challenge_killer[PlayerNumber()][5],s:"\cc/\c-",d:server_ach_killerSHOTGUN[player_loggedin[PlayerNumber()]]*200;
+							   HUDMSG_FADEOUT,0,CR_GREEN,636.2,4.1,0.1,0.5);} // shotgun
+   dtime++;
+   delay(1);
+  }
+ }
+ else if(mode==2)
+ {
+  if(random(0,1)==0 || server_player_xpbonus[player_loggedin[PlayerNumber()]]<1) {SetResultValue(0);}
+  else
+  {
+   if(server_player_xpbonus[player_loggedin[PlayerNumber()]]<31500) {HudMessage(s:"\cfwarning: \cd",d:((server_player_xpbonus[player_loggedin[PlayerNumber()]])/60)/35,s:" \ccminutes remaining for double XP";
+																		HUDMSG_FADEINOUT,0,CR_GRAY,4.1,4.1,10.0,0.5,0.5);}
+   else {HudMessage(s:"\ccnotice: \cd",d:((server_player_xpbonus[player_loggedin[PlayerNumber()]])/60)/35,s:" \ccminutes remaining for double XP";
+		HUDMSG_FADEINOUT,0,CR_GRAY,4.1,4.1,10.0,0.5,0.5);}
+   delay(17);
+   dtime=0;
+   while(dtime<35*10)
+   {
+    if(server_player_xpbonus[player_loggedin[PlayerNumber()]]<31500) {HudMessage(s:"\cfwarning: \cd",d:((server_player_xpbonus[player_loggedin[PlayerNumber()]])/60)/35,s:" \ccminutes remaining for double XP";
+ 																		HUDMSG_FADEOUT,0,CR_GRAY,4.1,4.1,0.1,0.5);}
+    else {HudMessage(s:"\ccnotice: \cd",d:((server_player_xpbonus[player_loggedin[PlayerNumber()]])/60)/35,s:" \ccminutes remaining for double XP";
+		HUDMSG_FADEOUT,0,CR_GRAY,4.1,4.1,0.1,0.5);}
+    dtime++;
+    delay(1);
+   }
+  }
+ }
+ else if(mode==3)
+ {
+  if(random(0,1)==0) {SetResultValue(0);}
+  else
+  {
+   HudMessage(s:"\cdgambler: ",d:server_stat_boxuses[player_loggedin[PlayerNumber()]],s:" \c-mystery box uses";
+   HUDMSG_FADEINOUT,0,CR_GRAY,4.1,4.1,0.1,0.5,0.5);
+   delay(17);
+   dtime=0;
+   while(dtime<35*10)
+   {
+    HudMessage(s:"\cdgambler: ",d:server_stat_boxuses[player_loggedin[PlayerNumber()]],s:" \c-mystery box uses";
+	HUDMSG_FADEOUT,0,CR_GRAY,4.1,4.1,0.1,0.5);
+	dtime++;
+    delay(1);
+   }
+  }
+ }
+ else if(mode==4)
+ {
+  if(random(0,1)==0) {SetResultValue(0);}
+  else
+  {
+   HudMessage(s:"\cdheavy spender: ",d:server_stat_wallpurchases[player_loggedin[PlayerNumber()]],s:" \c-wall items purchased";
+   HUDMSG_FADEINOUT,0,CR_GRAY,4.1,4.1,0.1,0.5,0.5);
+   delay(17);
+   dtime=0;
+   while(dtime<35*10)
+   {
+    HudMessage(s:"\cdheavy spender: ",d:server_stat_wallpurchases[player_loggedin[PlayerNumber()]],s:" \c-wall items purchased";
+	HUDMSG_FADEOUT,0,CR_GRAY,4.1,4.1,0.1,0.5);
+	dtime++;
+    delay(1);
+   }
+  }
+ }
+ else if(mode==5)
+ {
+  if(random(0,1)==0) {SetResultValue(0);}
+  else
+  {
+   HudMessage(s:"\cdsurvivalist: ",d:server_stat_roundssurvived[player_loggedin[PlayerNumber()]],s:" \c-rounds survived";
+   HUDMSG_FADEINOUT,0,CR_GRAY,4.1,4.1,0.1,0.5,0.5);
+   delay(17);
+   dtime=0;
+   while(dtime<35*10)
+   {
+    HudMessage(s:"\cdsurvivalist: ",d:server_stat_wallpurchases[player_loggedin[PlayerNumber()]],s:" \c-rounds survived";
+	HUDMSG_FADEOUT,0,CR_GRAY,4.1,4.1,0.1,0.5);
+	dtime++;
+    delay(1);
+   }
+  }
+ }
+ else if(mode==6)
+ {
+  if(random(0,1)==0) {SetResultValue(0);}
+  else
+  {
+   HudMessage(s:"\cdcarpenter: ",d:server_stat_barricadesrepaired[player_loggedin[PlayerNumber()]],s:" \c-barricades repaired";
+   HUDMSG_FADEINOUT,0,CR_GRAY,4.1,4.1,0.1,0.5,0.5);
+   delay(17);
+   dtime=0;
+   while(dtime<35*10)
+   {
+    HudMessage(s:"\cdcarpenter: ",d:server_stat_barricadesrepaired[player_loggedin[PlayerNumber()]],s:" \c-barricades repaired";
+	HUDMSG_FADEOUT,0,CR_GRAY,4.1,4.1,0.1,0.5);
+	dtime++;
+    delay(1);
+   }
+  }
+ }
+ SetHudSize(0,0,0);
+}
+
+
+
+function int floor(int fixedNumber)
+{
+	return ((fixedNumber*65536) + 0.5) >> 16;
+}

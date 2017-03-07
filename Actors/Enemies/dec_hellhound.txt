@@ -1,0 +1,484 @@
+Actor DogFire_FireTrail
+{
+ Radius 2
+ Height 4
+ Alpha 0.4
+ Scale 0.5
+ Damage 0
+ Renderstyle Add
+ 
+ +NOGRAVITY
+ 
+ States
+ {
+  Spawn:
+    FIRE ABCDEFGHIJKLMN 2 BRIGHT
+	TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+   	Stop
+ }
+}
+Actor DogFire_Blaze
+{
+ Radius 1
+ Height 1
+ Gravity 0.5
+ 
+ -NOBLOCKMAP
+ +NOGRAVITY
+ 
+ States
+ {
+  Spawn:
+    TNT1 A 2
+	TNT1 AA 0 A_SpawnItemEx("BarrelFire",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,64)
+	TNT1 A 0 A_SpawnItemEx("M67Grenade_Smoke",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	TNT1 A 0 A_Jump(32,"Death")
+	Loop
+  Death:
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor DogSpawn_Lightning
+{
+ Radius 1
+ Height 1
+ Gravity 0
+ 
+ +NOBLOCKMAP
+ +NOGRAVITY
+ 
+ States
+ {
+  Spawn:
+	THUN A 2 BRIGHT
+	TNT1 A 0 A_FadeOut(0.4)
+	THUN AAAAAA 2 BRIGHT A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor DogSpawn_RippleA
+{
+ Radius 1
+ Height 1
+ Gravity 0
+ 
+ Scale 5.0
+ 
+ +NOBLOCKMAP
+ +NOGRAVITY
+ +FORCEXYBILLBOARD
+ 
+ States
+ {
+  Spawn:
+	THUN B 4 BRIGHT
+	THUN BBBBBBBBBB 2 BRIGHT A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor DogSpawn_RippleB : DogSpawn_RippleA
+{
+ Scale 3.0
+ 
+ States
+ {
+  Spawn:
+	THUN B 12 BRIGHT
+	THUN BBBBBBBBBB 2 BRIGHT A_FadeOut(0.1)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+Actor DogSpawn_ 10999
+{
+ Radius 1
+ Height 1
+ 
+ +NOGRAVITY
+ +NOBLOCKMAP
+ 
+ States
+ {
+  Spawn:
+    TNT1 A 0 A_PlaySound("dog/teleporttarget")
+	TNT1 A 0 A_PlaySound("dog/teleporttarget",0,0.3,0,ATTN_NONE)
+	TNT1 A 0 A_SpawnItemEx("DogSpawn_RippleB",0,0,24,0,0,0,0,SXF_CLIENTSIDE)
+	TNT1 A 35
+	TNT1 A 0 A_SpawnItemEx("DogSpawn_RippleA",0,0,24,0,0,0,0,SXF_CLIENTSIDE)
+	TNT1 A 0 A_SpawnItemEx("DogSpawn_RippleB",0,0,24,0,0,0,0,SXF_CLIENTSIDE)
+	TNT1 A 35
+	TNT1 A 0 A_PlaySound("dog/teleportin")
+	TNT1 A 0 A_PlaySound("distant/grenadeexp",0,0.5,0,ATTN_NONE)
+	TNT1 A 0 A_SpawnItemEx("DogSpawn_Lightning",0,0,0,0,0,0,0,SXF_CLIENTSIDE)
+	TNT1 AAAAAA 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,random(-2,2),random(-2,2),random(0,2),0,SXF_CLIENTSIDE,32)
+    TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	Stop
+ }
+}
+
+Actor Dog_Normal
+{
+ Obituary "%o died."
+ Health 100 
+ Radius 14
+ Height 54
+ Mass 180
+ Speed 12
+ DamageType "ZombieMelee"
+  
+ DamageFactor "grenade", 1.2
+ DamageFactor "Betty", 1.2
+ DamageFactor "Knife", 0.8
+ DamageFactor "Flamethrower", 0.5
+ DamageFactor "UpgFlamethrower", 1.0
+ DamageFactor "Flamethrower_Ablaze", 0.4
+ PainChance "Knife", 255
+ PainChance "Flamethrower", 60
+ PainChance "UpgFlamethrower", 60
+ PainChance "Flamethrower_Ablaze", 100
+ PainChance 255
+ 
+ ActiveSound "dog/see"
+ PainSound "zombie/inj"
+ DeathSound "dog/death"
+  
+ MONSTER
+ -DONTHURTSPECIES
+ +FLOORCLIP
+ +NOBLOOD
+ +NEVERRESPAWN
+ +NOINFIGHTING
+ 
+  
+ States
+ {
+  Spawn:
+    TNT1 A 70
+    HHND A 1 A_Look
+	HHND AABB 2 A_Wander
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.5)
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.1,0,ATTN_NONE)
+	HHND CCDD 2 A_Wander
+    Goto See
+  See:
+    TNT1 A 0 ACS_ExecuteAlways(50,0,0,0,0)
+    HHND AABB 2 A_Chase
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,SXF_CLIENTSIDE,192)
+	TNT1 A 0 A_PlaySound("dog/walk")
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.1,0,ATTN_NONE)
+	HHND CCDD 2 A_Chase
+    Loop
+  CheckSight:
+	TNT1 A 0 A_CheckSight("ZombieRespawn")
+	TNT1 A 0 ACS_ExecuteAlways(50,0,2,0,0)
+	Goto See	
+  ZombieRespawn:
+	TNT1 A 0 ACS_ExecuteAlways(50,0,3,0,0)
+	Stop
+  AtBarricade:
+    TNT1 A 0 A_FaceTarget
+    HHND A 4
+	TNT1 A 0 ACS_ExecuteAlways(50,0,1,0,0)
+  AtBarricade.Attack:
+    HHND EF 4 A_FaceTarget
+	HHND F 3 A_MeleeAttack
+	HHND FE 4 A_FaceTarget
+	Goto AtBarricade
+  Pain:
+    HHND H 0 A_PlaySound("zombie/shot",1,0.3)
+	HHND H 0 A_SpawnItemEx("Gore_",10,random(-2,2),random(2,12),random(0,1),0,0,SXF_CLIENTSIDE)
+    HHND H 0 ACS_ExecuteAlways(667,0,10,0,0)
+    HHND H 0 A_Pain
+    Goto See
+  Pain.Knife:
+	HHND H 0 ACS_ExecuteAlways(667,0,15,0,0)//A_GiveToTarget("money",15)
+    HHND HHHH 0 A_SpawnItemEx("Gore_Knife",12,random(-2,2),random(2,12),random(1,2),random(-1,1),0,SXF_CLIENTSIDE)
+	HHND H 0 A_Pain
+	Goto See
+  Pain.Flamethrower:
+	HHND A 0 ACS_ExecuteAlways(667,0,5,0,0)
+    HHND AAAA 0 A_SpawnItemEx("BarrelFire",random(0,4),random(-4,4),random(-4,4),random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	HHND A 1
+	Goto See
+  Pain.UpgFlamethrower:
+	HHND A 0 ACS_ExecuteAlways(667,0,5,0,0)
+    HHND AAAA 0 A_SpawnItemEx("UpgM2_Fire",random(0,4),random(-4,4),random(-4,4),random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	HHND A 1
+	Goto See
+  Melee:
+    TNT1 A 0 A_Recoil(-4)
+	TNT1 A 0 ThrustThingZ(0,24,0,0)
+	HHND EF 4 A_FaceTarget
+	HHND F 3 A_CustomMeleeAttack(8,none,none,"ZombieMelee")
+	TNT1 A 0 A_PlaySound("dog/attack")
+	TNT1 A 0 A_Recoil(8)
+	HHND FE 4 A_FaceTarget
+	Goto See
+  Death:
+    TNT1 A 0 A_PlaySound("zombie/crack",0)
+    HHND H 4 A_Scream
+	TNT1 A 0 A_SpawnItemEx("Gore_Knife",10,random(-2,2),random(2,12),random(0,1),0,0,SXF_CLIENTSIDE)
+    HHND I 4 ACS_ExecuteAlways(667,0,50,0,0)
+	TNT1 A 0 ACS_ExecuteAlways(502,0,20,0,0)
+	TNT1 A 0 A_GiveToTarget("kills",1)
+	TNT1 A 0 A_GiveToTarget("killcount",1)
+    HHND JK 4
+	TNT1 AA 0 A_SpawnItemEx("Gore_Knife",random(1,4),random(-1,1),random(0,6),random(-1,1),random(-1,1),random(1,2),SXF_CLIENTSIDE)
+	TNT1 A 0 A_PlaySound("zombie/fall",0,0.4)
+    HHND K 1 A_NoBlocking
+	HHND K 12
+	TNT1 A 0 A_PlaySound("dog/explode")
+	TNT1 A 0 A_PlaySound("dog/explode",0,0.2,0,ATTN_NONE)
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,128)
+	TNT1 AAAAAAAA 0 A_SpawnItemEx("BarrelFire",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	TNT1 A 0 ACS_ExecuteAlways(277,0,0,0,0)
+    Stop
+ }
+}
+
+Actor Dog_Flamer
+{
+ Obituary "%o died."
+ Health 100 
+ Radius 14
+ Height 54
+ Mass 180
+ Speed 12
+ DamageType "ZombieMelee"
+  
+ DamageFactor "grenade", 1.2
+ DamageFactor "Betty", 1.2
+ DamageFactor "Knife", 0.8
+ DamageFactor "Flamethrower", 0.5
+ DamageFactor "UpgFlamethrower", 1.0
+ DamageFactor "Flamethrower_Ablaze", 0.4
+ PainChance "Knife", 255
+ PainChance "Flamethrower", 60
+ PainChance "UpgFlamethrower", 60
+ PainChance "Flamethrower_Ablaze", 100
+ PainChance 255
+ 
+ ActiveSound "dog/see"
+ PainSound "zombie/inj"
+ DeathSound "dog/death"
+  
+ MONSTER
+ -DONTHURTSPECIES
+ +FLOORCLIP
+ +NOBLOOD
+ +NEVERRESPAWN
+ +NOINFIGHTING
+ 
+  
+ States
+ {
+  Spawn:
+    TNT1 A 70
+    HHND A 1 A_Look
+	HHND AABB 2 A_Wander
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.5)
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.1,0,ATTN_NONE)
+	HHND CCDD 2 A_Wander
+    Goto See
+  See:
+    TNT1 A 0 ACS_ExecuteAlways(50,0,0,0,0)
+    HHND AA 2 A_Chase
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,SXF_CLIENTSIDE,64)
+	HHND BB 2 A_Chase
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,SXF_CLIENTSIDE,64)
+	TNT1 A 0 A_PlaySound("dog/walk")
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.1,0,ATTN_NONE)
+	HHND CC 2 A_Chase
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,SXF_CLIENTSIDE,64)
+	HHND DD 2 A_Chase
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,SXF_CLIENTSIDE,64)
+    Loop
+  CheckSight:
+	TNT1 A 0 A_CheckSight("ZombieRespawn")
+	TNT1 A 0 ACS_ExecuteAlways(50,0,2,0,0)
+	Goto See	
+  ZombieRespawn:
+	TNT1 A 0 ACS_ExecuteAlways(50,0,3,0,0)
+	Stop
+  AtBarricade:
+    TNT1 A 0 A_FaceTarget
+    HHND A 4
+	TNT1 A 0 ACS_ExecuteAlways(50,0,1,0,0)
+  AtBarricade.Attack:
+    HHND EF 4 A_FaceTarget
+	HHND F 3 A_MeleeAttack
+	HHND FE 4 A_FaceTarget
+	Goto AtBarricade
+  Pain:
+    HHND H 0 A_PlaySound("zombie/shot",1,0.3)
+	HHND H 0 A_SpawnItemEx("Gore_",10,random(-2,2),random(2,12),random(0,1),0,0,SXF_CLIENTSIDE)
+    HHND H 0 ACS_ExecuteAlways(667,0,10,0,0)
+    HHND H 0 A_Pain
+    Goto See
+  Pain.Knife:
+	HHND H 0 ACS_ExecuteAlways(667,0,15,0,0)//A_GiveToTarget("money",15)
+    HHND HHHH 0 A_SpawnItemEx("Gore_Knife",12,random(-2,2),random(2,12),random(1,2),random(-1,1),0,SXF_CLIENTSIDE)
+	HHND H 0 A_Pain
+	Goto See
+  Pain.Flamethrower:
+	HHND A 0 ACS_ExecuteAlways(667,0,5,0,0)
+    HHND AAAA 0 A_SpawnItemEx("BarrelFire",random(0,4),random(-4,4),random(-4,4),random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	HHND A 1
+	Goto See
+  Pain.UpgFlamethrower:
+	HHND A 0 ACS_ExecuteAlways(667,0,5,0,0)
+    HHND AAAA 0 A_SpawnItemEx("UpgM2_Fire",random(0,4),random(-4,4),random(-4,4),random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	HHND A 1
+	Goto See
+  Melee:
+    TNT1 A 0 A_Recoil(-4)
+	TNT1 A 0 ThrustThingZ(0,24,0,0)
+	HHND EF 4 A_FaceTarget
+	HHND F 3 A_CustomMeleeAttack(8,none,none,"ZombieMelee")
+	TNT1 A 0 A_PlaySound("dog/attack")
+	TNT1 A 0 A_Recoil(8)
+	HHND FE 4 A_FaceTarget
+	Goto See
+  Death:
+    TNT1 A 0 A_PlaySound("zombie/crack",0)
+    HHND H 4 A_Scream
+	TNT1 A 0 A_SpawnItemEx("Gore_Knife",10,random(-2,2),random(2,12),random(0,1),0,0,SXF_CLIENTSIDE)
+    TNT1 A 0 ACS_ExecuteAlways(667,0,50,0,0)
+	TNT1 A 0 ACS_ExecuteAlways(502,0,20,0,0)
+	TNT1 A 0 A_GiveToTarget("kills",1)
+	TNT1 A 0 A_GiveToTarget("killcount",1)
+	TNT1 A 0 A_NoBlocking
+	TNT1 A 0 A_PlaySound("dog/explode")
+	TNT1 A 0 A_PlaySound("dog/explode",0,0.2,0,ATTN_NONE)
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,128)
+	TNT1 AAAAAAAA 0 A_SpawnItemEx("BarrelFire",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	TNT1 A 0 ACS_ExecuteAlways(277,0,0,0,0)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+    Stop
+ }
+}
+
+Actor Dog_LastNormal : MorphedMonster
+{
+ Obituary "%o died."
+ Health 100 
+ Radius 14
+ Height 54
+ Mass 180
+ Speed 12
+ DamageType "ZombieMelee"
+  
+ DamageFactor "grenade", 1.2
+ DamageFactor "Betty", 1.2
+ DamageFactor "Knife", 0.8
+ DamageFactor "Flamethrower", 0.5
+ DamageFactor "UpgFlamethrower", 1.0
+ DamageFactor "Flamethrower_Ablaze", 0.4
+ PainChance "Knife", 255
+ PainChance "Flamethrower", 60
+ PainChance "UpgFlamethrower", 60
+ PainChance "Flamethrower_Ablaze", 100
+ PainChance 255
+ 
+ ActiveSound "dog/see"
+ PainSound "zombie/inj"
+ DeathSound "dog/death"
+  
+ MONSTER
+ -DONTHURTSPECIES
+ +FLOORCLIP
+ +NOBLOOD
+ +NEVERRESPAWN
+ +NOINFIGHTING
+ 
+  
+ States
+ {
+  Spawn:
+    TNT1 A 70
+    HHND A 1 A_Look
+	HHND AABB 2 A_Wander
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.5)
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.1,0,ATTN_NONE)
+	HHND CCDD 2 A_Wander
+    Goto See
+  See:
+    TNT1 A 0 ACS_ExecuteAlways(50,0,0,0,0)
+    HHND AABB 2 A_Chase
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,SXF_CLIENTSIDE,192)
+	TNT1 A 0 A_PlaySound("dog/walk")
+	TNT1 A 0 A_PlaySound("dog/walk",0,0.1,0,ATTN_NONE)
+	HHND CCDD 2 A_Chase
+    Loop
+  CheckSight:
+	TNT1 A 0 A_CheckSight("ZombieRespawn")
+	TNT1 A 0 ACS_ExecuteAlways(50,0,2,0,0)
+	Goto See	
+  ZombieRespawn:
+	TNT1 A 0 ACS_ExecuteAlways(50,0,3,0,0)
+	Stop
+  AtBarricade:
+    TNT1 A 0 A_FaceTarget
+    HHND A 4
+	TNT1 A 0 ACS_ExecuteAlways(50,0,1,0,0)
+  AtBarricade.Attack:
+    HHND EF 4 A_FaceTarget
+	HHND F 3 A_MeleeAttack
+	HHND FE 4 A_FaceTarget
+	Goto AtBarricade
+  Pain:
+    HHND H 0 A_PlaySound("zombie/shot",1,0.3)
+	HHND H 0 A_SpawnItemEx("Gore_",10,random(-2,2),random(2,12),random(0,1),0,0,SXF_CLIENTSIDE)
+    HHND H 0 ACS_ExecuteAlways(667,0,10,0,0)
+    HHND H 0 A_Pain
+    Goto See
+  Pain.Knife:
+	HHND H 0 ACS_ExecuteAlways(667,0,15,0,0)//A_GiveToTarget("money",15)
+    HHND HHHH 0 A_SpawnItemEx("Gore_Knife",12,random(-2,2),random(2,12),random(1,2),random(-1,1),0,SXF_CLIENTSIDE)
+	HHND H 0 A_Pain
+	Goto See
+  Pain.Flamethrower:
+	HHND A 0 ACS_ExecuteAlways(667,0,5,0,0)
+    HHND AAAA 0 A_SpawnItemEx("BarrelFire",random(0,4),random(-4,4),random(-4,4),random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	HHND A 1
+	Goto See
+  Pain.UpgFlamethrower:
+	HHND A 0 ACS_ExecuteAlways(667,0,5,0,0)
+    HHND AAAA 0 A_SpawnItemEx("UpgM2_Fire",random(0,4),random(-4,4),random(-4,4),random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	HHND A 1
+	Goto See
+  Melee:
+    TNT1 A 0 A_Recoil(-4)
+	TNT1 A 0 ThrustThingZ(0,24,0,0)
+	HHND EF 4 A_FaceTarget
+	HHND F 3 A_CustomMeleeAttack(8,none,none,"ZombieMelee")
+	TNT1 A 0 A_PlaySound("dog/attack")
+	TNT1 A 0 A_Recoil(8)
+	HHND FE 4 A_FaceTarget
+	Goto See
+  Death:
+    TNT1 A 0 A_PlaySound("zombie/crack",0)
+    HHND H 4 A_Scream
+	TNT1 A 0 A_SpawnItemEx("Gore_Knife",10,random(-2,2),random(2,12),random(0,1),0,0,SXF_CLIENTSIDE)
+    HHND I 4 ACS_ExecuteAlways(667,0,50,0,0)
+	TNT1 A 0 ACS_ExecuteAlways(502,0,20,0,0)
+	TNT1 A 0 A_GiveToTarget("kills",1)
+	TNT1 A 0 A_GiveToTarget("killcount",1)
+    HHND JK 4
+	TNT1 AA 0 A_SpawnItemEx("Gore_Knife",random(1,4),random(-1,1),random(0,6),random(-1,1),random(-1,1),random(1,2),SXF_CLIENTSIDE)
+	TNT1 A 0 A_PlaySound("zombie/fall",0,0.4)
+    HHND K 1 A_NoBlocking
+	HHND K 12
+	TNT1 A 0 A_PlaySound("dog/explode")
+	TNT1 A 0 A_PlaySound("dog/explode",0,0.2,0,ATTN_NONE)
+	TNT1 A 0 A_SpawnItemEx("DogFire_Blaze",0,0,0,0,0,0,0,128)
+	TNT1 AAAAAAAA 0 A_SpawnItemEx("BarrelFire",0,0,0,random(-1,1),random(-1,1),random(-1,1),0,SXF_CLIENTSIDE,128)
+	TNT1 A 0 ACS_ExecuteAlways(270,0,0,0,0)
+	TNT1 A 0 A_SpawnItemEx("MaxAmmo",0,0,0,0,0,0,0,0)
+    Stop
+ }
+}

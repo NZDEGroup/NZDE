@@ -1,0 +1,186 @@
+Actor QckRvve : Weapon 12841
+ {
+ States
+ {
+   Deselect:
+         TNT1 A 1 A_Lower
+         TNT1 A 0 A_Lower
+         Loop
+   Select:
+         TNT1 A 1 A_Raise
+         TNT1 A 0 A_Raise
+		 TNT1 A 0 A_Playsound("game/revive")
+         Loop
+   Ready:
+   Fire:
+         TNT1 A 0 A_JumpIfInventory("MaxQuickRevive",3,"Fire.DontUseMax")
+         TNT1 A 0 A_JumpIfInventory("PowerQuickRevive",1,"Fire.DontUse")
+		 PERK A 2
+         PERK ABCD 3
+		 TNT1 A 0 A_Playsound("playersnds/perkopen")
+		 PERK EF 3
+		 PERK G 2
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 TNT1 A 0 A_GiveInventory("Quickrevive",1)
+		 TNT1 A 0 A_GiveInventory("MaxQuickRevive",1)
+		 TNT1 A 0 A_Playsound("playersnds/perkburp")
+		 PERK I 20
+         PERK I 4 A_PlaySound("playersnds/perkbreak")
+         TNT1 A 0 A_TakeInventory("QckRvve",1)
+         Goto Ready
+   Fire.DontUseMax:
+         TNT1 A 0 A_GiveInventory("Money",500)
+         TNT1 A 0 A_TakeInventory("QckRvve",1)
+		 Goto Ready
+   Fire.DontUse:
+         TNT1 A 0 A_GiveInventory("Money",500)
+         TNT1 A 0 A_TakeInventory("QckRvve",1)
+		 Goto Ready
+   }
+ }
+
+Actor DoubTap : Weapon 12842
+ {
+ States
+ {
+   Deselect:
+         TNT1 A 1 A_Lower
+         TNT1 A 0 A_Lower
+         Loop
+   Select:
+         TNT1 A 1 A_Raise
+         TNT1 A 0 A_Raise
+         Loop
+   Ready:
+   Fire:
+         TNT1 A 0 A_JumpIfInventory("DoubleTap",1,"Fire.DontUse")
+		 PERK A 2
+         PERK ABCD 3
+		 TNT1 A 0 A_Playsound("playersnds/perkopen")
+		 PERK EF 3
+		 PERK G 2
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 TNT1 A 0 A_GiveInventory("DoubleTap",1)
+		 TNT1 A 0 A_Playsound("playersnds/perkburp")
+		 PERK I 20
+         PERK I 4 A_PlaySound("playersnds/perkbreak")
+         TNT1 A 0 A_TakeInventory("DoubTap",1)
+         Goto Ready
+   Fire.DontUse:
+   		 TNT1 A 0 A_GiveInventory("Money",2000)
+		 TNT1 A 0 A_TakeInventory("DoubTap",1)
+		 Goto Ready
+   }
+ }
+
+Actor Jugg : Weapon 12843
+ {
+ States
+ {
+   Deselect:
+         TNT1 A 1 A_Lower
+         TNT1 A 0 A_Lower
+         Loop
+   Select:
+         TNT1 A 1 A_Raise
+         TNT1 A 0 A_Raise
+         Loop
+   Ready:
+   Fire:
+         TNT1 A 0 A_JumpIfInventory("PowerJuggernog",1,"Fire.DontUse")
+		 PERK A 2
+         PERK ABCD 3
+		 TNT1 A 0 A_Playsound("playersnds/perkopen")
+		 PERK EF 3
+		 PERK G 2
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 TNT1 A 0 A_GiveInventory("Juggernog",1)
+		 TNT1 A 0 A_Playsound("playersnds/perkburp")
+		 PERK I 20
+         PERK I 4 A_PlaySound("playersnds/perkbreak")
+         TNT1 A 0 A_TakeInventory("Jugg",1)
+         Goto Ready
+   Fire.DontUse:
+   		 TNT1 A 0 A_GiveInventory("Money",2500)
+		 TNT1 A 0 A_TakeInventory("Jugg",1)
+		 Goto Ready
+   }
+ }
+
+Actor SpdCola : Weapon 12844
+ {
+ States
+ {
+   Deselect:
+         TNT1 A 1 A_Lower
+         TNT1 A 0 A_Lower
+         Loop
+   Select:
+         TNT1 A 1 A_Raise
+         TNT1 A 0 A_Raise
+         Loop
+   Ready:
+   Fire:
+         TNT1 A 0 A_JumpIfInventory("SpeedCola",1,"Fire.DontUse")
+		 PERK A 2
+         PERK ABCD 3
+		 TNT1 A 0 A_Playsound("playersnds/perkopen")
+		 PERK EF 3
+		 PERK G 2
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 TNT1 A 0 A_GiveInventory("SpeedCola",1)
+		 TNT1 A 0 A_Playsound("playersnds/perkburp")
+		 PERK I 20
+         PERK I 4 A_PlaySound("playersnds/perkbreak")
+         TNT1 A 0 A_TakeInventory("SpdCola",1)
+         Goto Ready
+   Fire.DontUse:
+   		 TNT1 A 0 A_GiveInventory("Money",3000)
+		 TNT1 A 0 A_TakeInventory("SpdCola",1)
+		 Goto Ready
+   }
+ }
+
+Actor StamUp : Weapon 12845
+{
+ States
+  {
+   Deselect:
+         TNT1 A 1 A_Lower
+         TNT1 A 0 A_Lower
+         Loop
+   Select:
+         TNT1 A 1 A_Raise
+         TNT1 A 0 A_Raise
+         Loop
+   Ready:
+   Fire:
+         TNT1 A 0 A_JumpIfInventory("StaminUp",1,"Fire.DontUse")
+		 PERK A 2
+         PERK ABCD 3
+		 TNT1 A 0 A_Playsound("playersnds/perkopen")
+		 PERK EF 3
+		 PERK G 2
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 PERK H 15 A_Playsound("Playersnds/perkdrink")
+		 TNT1 A 0 A_GiveInventory("StaminUp",1)
+		 TNT1 A 0 A_Playsound("playersnds/perkburp")
+		 PERK I 20
+         PERK I 4 A_PlaySound("playersnds/perkbreak")
+         TNT1 A 0 A_TakeInventory("StamUp",1)
+         Goto Ready
+   Fire.DontUse:
+   		 TNT1 A 0 A_GiveInventory("Money",2000)
+		 TNT1 A 0 A_TakeInventory("StamUp",1)
+		 Goto Ready
+   }
+ }

@@ -1,0 +1,93 @@
+Actor MuleKick : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+
+Actor PHDFlopper : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+
+Actor DeadShot : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+
+Actor ThirdSlot : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+
+Actor StaminUp : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+
+Actor PowerJuggernog : PowerProtection
+{
+  DamageFactor "ZombieMelee", 0.6
+  DamageFactor "RaygunSplash", 0.9
+  DamageFactor "Normal", 0.0
+}
+
+Actor Juggernog : PowerupGiver
+{
+  Inventory.PickupMessage "Why do you even have this?..."
+  Inventory.MaxAmount 0
+  Powerup.Type "Juggernog"
+  Powerup.Duration 0x7FFFFFF
+  Translation "128:143=104:111"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    TNT1 ABCD 4 Bright
+    Loop
+  }
+}
+
+Actor SpeedCola : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+
+Actor DoubleTap : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
+}
+
+Actor MaxQuickRevive : Inventory
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 3
+}
+
+//This script here should stop the player from taking 3 hits then being put into last stand
+Actor PowerQuickRevive : PowerProtection
+{
+ DamageFactor "ZombieMelee", 0.9
+}
+
+Actor QuickRevive : PowerupGiver
+{
+  Inventory.PickupMessage "Why do you even have this?..."
+  Inventory.MaxAmount 0
+  Powerup.Type "QuickRevive"
+  Powerup.Duration 0x7FFFFFF
+  Translation "128:143=104:111"
+  +INVENTORY.AUTOACTIVATE
+  States
+  {
+  Spawn:
+    TNT1 ABCD 4 Bright
+    Loop
+  }
+}
+

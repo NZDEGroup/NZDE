@@ -1,0 +1,179 @@
+Actor 357Plus1K1L-u : Weapon 10050
+{
+ Inventory.Pickupmessage ".357 Plus 1 K1L-u"
+ Weapon.SelectionOrder 1500
+ Weapon.SlotNumber 1
+ Scale 0.6
+ Weapon.AmmoUse 1
+ Weapon.AmmoGive1 6
+ Weapon.AmmoGive2 999
+ Weapon.AmmoType1 "In_pap357"
+ Weapon.AmmoType2 "Reserve_pap357"
+ Weapon.PreferredSkin "Pistol"
+ +NOAUTOFIRE
+ +AMMO_OPTIONAL
+ States
+ {
+  Ready:
+    REVO A 0 A_JumpIfInventory("reload",1,"Reload")
+	REVO A 0 A_JumpIfInventory("thrownade",1,"ThrowGrenade")
+	REVO A 0 A_JumpIfInventory("knife",1,"Knife")
+    REVO A 1 A_WeaponReady
+    Loop
+  Deselect:
+    REVO A 1 A_Lower
+	REVO A 0 A_Lower
+	REVO A 0 A_Lower
+	REVO A 0 A_TakeInventory("sights",1)
+	REVO A 0 A_ZoomFactor(1)
+    Loop
+  Select:
+    REVO A 1 A_Raise
+	REVO A 0 A_Raise
+	REVO A 0 A_Raise
+    Loop
+  Fire:
+    REVO A 0 A_JumpIfNoAmmo("Reload")
+	REVO A 0 A_JumpIfInventory("Doubletap",1,"Fire.Doubletap")
+	REVO A 0 A_PlaySound("weapons/mag",1)
+	REVO A 0 A_PlaySound("pap_sound/laser",2)
+	REVO A 0 A_ZoomFactor(0.98)
+	REVO A 0 ACS_ExecuteAlways(253,0,-4,random(-4,4),0)
+	REVO A 0 A_SpawnItemEx("GunSmoke",12,0,36,1,0,1,0,SXF_CLIENTSIDE)
+	REVO A 1 A_FireBullets(2.5,2.5,-1,252,"GunSmoke")
+	REVO A 0 A_ZoomFactor(0.99)
+	REVO B 1 A_Light2
+	REVO B 0 A_ZoomFactor(1)
+	REVO A 1 A_Light1
+	REVO A 1 A_Light0
+	REVO A 4 A_WeaponReady
+    Goto Ready
+  Fire.Doubletap:
+	REVO A 0 A_PlaySound("weapons/mag",1)
+	REVO A 0 A_PlaySound("pap_sound/laser",2)
+	REVO A 0 A_ZoomFactor(0.98)
+	REVO A 0 ACS_ExecuteAlways(253,0,-4,random(-4,4),0)
+	REVO A 0 A_SpawnItemEx("GunSmoke",12,0,36,1,0,1,0,SXF_CLIENTSIDE)
+	REVO A 1 A_FireBullets(2.5,2.5,-1,255,"GunSmoke")
+	REVO A 0 A_ZoomFactor(0.99)
+	REVO B 1 A_Light2
+	REVO B 0 A_ZoomFactor(1)
+	REVO A 1 A_Light1
+	REVO A 1 A_Light0
+	REVO A 4 A_WeaponReady
+    Goto Ready
+  Reload:
+	TNT1 A 0 A_TakeInventory("reload",1)
+	TNT1 A 0 A_JumpIfInventory("In_pap357",6,"Ready")
+	TNT1 A 0 A_JumpIfInventory("Reserve_pap357",1,"ReloadLoop")
+	Goto Ready
+  ReloadLoop:
+    REVO A 0 A_JumpIfInventory("In_pap357",6,"Reloading")
+    REVO A 0 A_JumpIfInventory("Reserve_pap357",1,1)
+	Goto Reloading
+	REVO A 0 A_TakeInventory("Reserve_pap357",1)
+	REVO A 0 A_GiveInventory("In_pap357",1)
+	Loop
+  Reloading:
+    REVO A 0 A_JumpIfInventory("Speedcola",1,"Reloading.SpeedReload")
+	REVO A 1 Offset(0,32)
+	REVO A 1 Offset(4,32)
+	REVO A 1 Offset(24,32)
+	REVO F 1 Offset(0,32)
+	REVO F 0 ACS_ExecuteAlways(253,0,1,1,0)
+	REVO F 10 A_PlaySound("weapons/threl")
+	REVO F 0 ACS_ExecuteAlways(253,0,-2,-2,0)
+	REVO FGHF 3 Offset(0,32)
+	REVO F 4 Offset(0,32)
+	REVO FIJKF 10 Offset(0,32)
+	REVO F 0 ACS_ExecuteAlways(253,0,-7,-4,0)
+	REVO F 2 Offset(0,32)
+	REVO A 1 Offset(24,32)
+	REVO A 1 Offset(4,32)
+	REVO A 1 Offset(0,32)
+	REVO A 0 A_TakeInventory("reload",1)
+	Goto Ready
+  Reloading.SpeedReload:
+  	REVO A 1 Offset(0,32)
+	REVO A 1 Offset(4,32)
+	REVO A 1 Offset(24,32)
+	REVO F 1 Offset(0,32)
+	REVO F 0 ACS_ExecuteAlways(253,0,1,1,0)
+	REVO F 5 A_PlaySound("weapons/threl")
+	REVO F 0 ACS_ExecuteAlways(253,0,-2,-2,0)
+	REVO FGHF 3 Offset(0,32)
+	REVO F 4 Offset(0,32)
+	REVO FIJKF 5 Offset(0,32)
+	REVO F 0 ACS_ExecuteAlways(253,0,-7,-4,0)
+	REVO F 2 Offset(0,32)
+	REVO A 1 Offset(24,32)
+	REVO A 1 Offset(4,32)
+	REVO A 1 Offset(0,32)
+	REVO A 0 A_TakeInventory("reload",1)
+	Goto Ready
+  ThrowGrenade:
+    REVO A 0 A_TakeInventory("sights",1)
+	REVO A 0 A_ZoomFactor(1)
+    HNDG BCD 1
+    HNDG E 1 A_PlaySound("weapons/grenadepin")
+    HNDG FGHH 1
+    HNDG I 1 A_PlaySound("weapons/grenadethr") 
+    HNDG J 0 A_FireCustomMissile("ThrownGrenade",0,0,0,0)
+    HNDG J 0 A_PlaySound("weapons/grenadethr")
+    HNDG JKLMNOPQ 1
+	HNDG Q 0 A_TakeInventory("thrownade")
+    Goto Ready
+  Knife:
+	REVO A 1 Offset(-16,52)
+	REVO A 1 Offset(-24,60)
+	REVO A 1 Offset(-30,66)
+	REVO A 1 Offset(-32,68)
+	REVO A 1 Offset(-32,84)
+	KNIF A 1 Offset(0,32)
+	KNIF A 1 Offset(-4,32)
+	KNIF A 1 Offset(-12,32)
+	TNT1 A 0 A_CustomPunch(4,0,0,"KnifeSlash")
+	KNIF A 1 Offset(-24,32)
+	KNIF B 1 Offset(-40,32)
+	KNIF B 1 Offset(-64,32)
+	KNIF B 1 Offset(-88,32)
+	TNT1 A 0 A_CustomPunch(4,0,0,"KnifePuff")
+	KNIF C 1 Offset(-112,32)
+	KNIF C 1 Offset(-136,32)
+	KNIF C 1 Offset(-160,32)
+	TNT1 A 0 A_CustomPunch(6,0,0,"KnifeSlash")
+	REVO A 1 Offset(32,80)
+	REVO A 1 Offset(32,64)
+	REVO A 1 Offset(30,62)
+	REVO A 1 Offset(24,56)
+	REVO A 1 Offset(16,48)
+	REVO A 1 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("knife",1)
+	Goto Ready
+  Spawn:
+    REVO Z -1
+    Stop
+ }
+}
+Actor In_pap357 : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 6
+ States 
+ { 
+  Spawn: 
+    TNT1 A -1 
+	Stop 
+ }
+}
+Actor Reserve_pap357 : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 80
+ States 
+ { 
+  Spawn: 
+    TNT1 A -1 
+	Stop 
+ }
+}

@@ -1,0 +1,201 @@
+Actor NaziZombiesPlayer : PlayerPawn
+{
+  Speed 0.65
+  Health 100
+  Radius 16
+  Height 56
+  Mass 100
+  PainChance 255
+  PainChance "grenade", 255
+  PainChance "Betty", 0
+  PainChance "AlreadyDead", 255
+  DamageFactor "grenade", 0.3
+  DamageFactor "Betty", 0.0
+  DamageFactor "AlreadyDead", 1.0
+  DamageFactor "RaygunSplash", 0.8
+  DamageFactor "ZombieMelee", 2.0
+  DamageFactor "Normal", 0.2
+  player.viewheight 50
+  
+  Player.DisplayName "Marine"
+  Player.CrouchSprite "PLYC"
+  Player.JumpZ 6.0
+  Player.StartItem "Colt45"
+  Player.StartItem "In_M1911", 8
+  Player.StartItem "Reserve_M1911", 32
+  Player.StartItem "GrenadeAmmo", 2
+  Player.WeaponSlot 1, Colt45, 357Magnum, RayGun, Glock18, Luger, Dualcolt45s, Nambu,
+					   TrenchGun, SawnOffShotgun, DoubleBarrel, Olympia, BrowningA5,
+					   MP40, Thompson, SterlingL2A3, PPSh41,
+					   BrowningM1919, BAR, FG42, MG42, "DP-28", Nailgun,
+					   M1Garand, M1A1Carbine, Kar98k, "STG-44", Gewehr43, Springfield, 
+					   Panzerschreck, M2Flamethrower, Thundergun
+					   //PAP Weapons
+  Player.WeaponSlot 2, "C-3000b1at-ch35", "Oh-Sieben", MustangAndSally, "357Plus1K1L-u",
+					   Gutshot, TheSnuffBox, 24BoreLongRange,
+					   TheAfterburner, GibsOmatic,
+					   B115Accelerator, AcesNG64,
+					   M1000, "WiddershinsRC-1", Armageddon, "Spats-447+", G115Compressor
+					   
+  -DONTMORPH
+  -DONTMORPH
+  -NOTARGET
+  +NOBLOOD
+
+  States
+  {
+  Spawn:
+    PLAY A -1
+    Loop
+  See:
+    PLAY ABCD 4
+    Loop
+  Missile:
+    PLAY E 12 
+    Goto Spawn
+  Melee:
+    PLAY F 6 BRIGHT
+    Goto Missile
+  Pain:
+    TNT1 A 0 A_PlaySound("playersnds/injured")
+	TNT1 AAAA 0 A_SpawnItemEx("Gore_Knife",12,random(-1,1),random(12,20),random(1,2),random(-1,1),0,0,SXF_CLIENTSIDE)
+	TNT1 A 0 ACS_ExecuteAlways(253,0,random(-5,-8),random(-4,4),0)
+    PLAY G 4 
+    Goto Spawn
+  Pain.grenade:
+    TNT1 A 0 A_PlaySound("playersnds/injured")
+	TNT1 A 0 ACS_ExecuteAlways(253,0,random(-8,8),random(-8,8),0)
+	TNT1 A 0 ACS_ExecuteAlways(24,0,0,0,0)
+	PLAY G 4
+	Goto Spawn
+  Pain.AlreadyDead:
+  Death.AlreadyDead:
+	TNT1 A 1 A_NoBlocking
+	TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+	TNT1 A -1
+	Stop
+  Pain.ZombieMelee:
+    TNT1 A 0 A_PlaySound("playersnds/injured")
+	TNT1 AAAA 0 A_SpawnItemEx("Gore_Knife",12,random(-1,1),random(12,20),random(1,2),random(-1,1),0,0,SXF_CLIENTSIDE)
+	TNT1 A 0 ACS_ExecuteAlways(253,0,random(-5,-8),random(-4,4),0)
+    PLAY G 4 
+    Goto Spawn
+  Death:
+    PLAY H 0 A_PlayerSkinCheck("AltSkinDeath")
+  Death1:
+    TNT1 A 0 A_PlaySound("playersnds/die")
+    PLAY H 10
+    PLAY I 10
+    PLAY J 10 A_NoBlocking
+    PLAY KLM 10
+    PLAY N -1
+    Stop
+  XDeath:
+    PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath")
+  XDeath1:
+    PLAY O 5
+    PLAY P 5 A_XScream
+    PLAY Q 5 A_NoBlocking
+    PLAY RSTUV 5
+    PLAY W -1
+    Stop
+  AltSkinDeath:
+	PLAY H 1 ACS_ExecuteAlways(258,0,0,0,0)
+    PLAY H 6
+    PLAY I 6 A_PlayerScream
+    PLAY JK 6
+    PLAY L 6 A_NoBlocking
+    PLAY MNO 6
+    PLAY P -1
+    Stop
+  AltSkinXDeath:
+    PLAY Q 5 A_PlayerScream
+    PLAY R 0 A_NoBlocking
+    PLAY R 5 A_SkullPop
+    PLAY STUVWX 5
+    PLAY Y -1
+    Stop
+  }
+}
+Actor NaziZombiesPlayer_LS : PlayerPawn
+{
+  Speed 0.11
+  Health 100
+  Radius 16
+  Height 24
+  Mass 10000
+  PainChance 0
+  PainChance "AlreadyDead", 255
+  DamageFactor "AlreadyDead", 1.0
+  DamageFactor "ZombieMelee", 0.0
+  DamageFactor "BarrelExplosion", 0.0
+  DamageFactor "Grenade", 0.0
+  DamageFactor "Normal", 0.0
+  Player.JumpZ 0.0
+  Player.DisplayName "Marine"
+  Player.CrouchSprite "PLYC"
+  Player.StartItem "Colt45_LS"
+  Player.StartItem "In_M1911LS", 8
+  Player.StartItem "Reserve_M1911LS", 16
+  Player.StartItem "Grenade", 2
+  Player.WeaponSlot 1, Colt45_LS, Raygun_LS, Luger_LS, MustangAndSally
+  -DONTMORPH
+  Player.ViewHeight 10
+  -DONTMORPH
+  +NOBLOOD
+  +NOTARGET
+
+  States
+  {
+  Spawn:
+    PLAY N -1
+    Loop
+  See:
+    PLAY N 4
+    Loop
+  Missile:
+    PLAY N 12 
+    Goto Spawn
+  Melee:
+    PLAY N 6 BRIGHT
+    Goto Missile
+  Pain:
+    PLAY N 4 
+    PLAY N 4 A_Pain
+    Goto Spawn
+  Death.AlreadyDead:
+	TNT1 A 1 A_NoBlocking
+	TNT1 A 1 ACS_ExecuteAlways(270,0,0,0,0)
+	TNT1 A -1
+	Stop
+  Death:
+    PLAY N 0 A_PlayerSkinCheck("AltSkinDeath")
+  Death1:
+    TNT1 A 0 A_PlaySound("playersnds/die")
+    PLAY N 10 A_NoBlocking
+    PLAY N -1
+    Stop
+  XDeath:
+    PLAY N 0 A_PlayerSkinCheck("AltSkinXDeath")
+  XDeath1:
+    PLAY N 10 A_NoBlocking
+    PLAY N -1
+    Stop
+  AltSkinDeath:
+	PLAY H 1 ACS_ExecuteAlways(258,0,0,0,0)
+    PLAY H 6
+    PLAY I 6 A_PlayerScream
+    PLAY JK 6
+    PLAY L 6 A_NoBlocking
+    PLAY MNO 6
+    PLAY P -1
+    Stop
+  AltSkinXDeath:
+    PLAY Q 5 A_PlayerScream
+    PLAY R 0 A_NoBlocking
+    PLAY R 5 A_SkullPop
+    PLAY STUVWX 5
+    PLAY Y -1
+    Stop
+  }
+}

@@ -1,0 +1,131 @@
+//Perk buying code, written by TheCubasy, edited by WhiteAce
+
+//Don't compile this! It goes into the map, I also know where this goes don't
+//go putting it just anywhere either, you are free to use the scripts however
+ 
+#define DEF_COUNT_PERKS                 5 
+
+//-------------------------------------------------------------------------
+ 
+str PERK_names[5] ={ "Juggernog",
+     "Speed Cola",
+     "Double Tap Root Beer",
+     "Quick Revive",
+     "Machete" };
+str PERK_actors[5] ={ "Jugg",
+     "SpdCola",
+     "DoubTap",
+     "QckRvve",
+     "Machete" };
+int PERK_prices[5] ={ 2500,
+     3000,
+     2000,
+     500,
+     3000 };
+str PERK_Inventory[5] ={ "PowerJuggernog",
+     "SpeedCola",
+     "DoubleTap",
+     "PowerQuickRevive",
+     "Machete" }; 
+int PERK_tids[5] ={ 40, 41, 42, 43, 44 };
+
+//-------------------------------------------------------------------------
+ 
+ else if(TEMP_for_mode==3)
+ {
+  for(int forD=0;forD<DEF_COUNT_PERKS;forD++)
+  {
+   if(ThingCountSector(T_NONE,ActivatorTID(),PERK_tids[forD])==1 && POWER==1 && CheckInventory(PERK_Inventory[forD])==0)
+   {
+    SetFont("SmallFont");
+    SetHudSize(800,600,0);
+    if(!CheckInventory(PERK_actors[forD])) {HudMessage(s:"hold \cfUSE \c-to buy ",s:PERK_names[forD],s:" [price: ",d:PERK_prices[forD],s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+    if(TEMP_player_input & BT_USE)
+    {
+     TEMP_player_buytime+=1;
+     if(TEMP_player_buytime>10)
+     {
+      TEMP_player_buytime=0;
+      if(PLAYER_money[PlayerNumber()]>=PERK_prices[forD])
+      {
+       ActivatorSound("game/PURCHASE",127);
+       ACS_ExecuteAlways(502,0,10,0,0);
+       PLAYER_money[PlayerNumber()]-=PERK_prices[forD];
+       GiveInventory(PERK_actors[forD],1);
+       SetWeapon(PERK_actors[forD]);
+      }
+     }
+    }
+  }
+    else if(ThingCountSector(T_NONE,ActivatorTID(),PERK_tids[forD])==1 && PERK_actors[forD]=="Jugg" && Power==0)
+   {
+    SetFont("SmallFont");
+    SetHudSize(800,600,0);
+    if(!CheckInventory(PERK_actors[forD])) {HudMessage(s:" You must turn on the power first!";
+    HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+   }
+    else if(ThingCountSector(T_NONE,ActivatorTID(),PERK_tids[forD])==1 && PERK_actors[forD]=="SpdCola" && Power==0)
+   {
+    SetFont("SmallFont");
+    SetHudSize(800,600,0);
+    if(!CheckInventory(PERK_actors[forD])) {HudMessage(s:" You must turn on the power first!";
+    HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+   }
+    else if(ThingCountSector(T_NONE,ActivatorTID(),PERK_tids[forD])==1 && PERK_actors[forD]=="DoubTap" && Power==0)
+   {
+    SetFont("SmallFont");
+    SetHudSize(800,600,0);
+    if(!CheckInventory(PERK_actors[forD])) {HudMessage(s:" You must turn on the power first!";
+    HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+   }
+    else if(ThingCountSector(T_NONE,ActivatorTID(),PERK_tids[forD])==1 && PERK_actors[forD]=="StamUp" && Power==0)
+   {
+    SetFont("SmallFont");
+    SetHudSize(800,600,0);
+    if(!CheckInventory(PERK_actors[forD])) {HudMessage(s:" You must turn on the power first!";
+    HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+   }
+  else if(ThingCountSector(T_NONE,ActivatorTID(),PERK_tids[forD])==1 && PERK_actors[forD]=="Machete" && CheckInventory(PERK_Inventory[forD])==0)
+   {
+    SetFont("SmallFont");
+    SetHudSize(800,600,0);
+    if(!CheckInventory(PERK_actors[forD])) {HudMessage(s:"hold \cfUSE \c-to buy ",s:PERK_names[forD],s:" [price: ",d:PERK_prices[forD],s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+    if(TEMP_player_input & BT_USE)
+    {
+     TEMP_player_buytime+=1;
+     if(TEMP_player_buytime>10)
+     {
+      TEMP_player_buytime=0;
+      if(PLAYER_money[PlayerNumber()]>=PERK_prices[forD])
+      {
+       ActivatorSound("game/PURCHASE",127);
+       ACS_ExecuteAlways(502,0,10,0,0);
+       PLAYER_money[PlayerNumber()]-=PERK_prices[forD];
+       GiveInventory(PERK_actors[forD],1);
+       SetWeapon(PERK_actors[forD]);
+      }
+     }
+    }
+  else if(ThingCountSector(T_NONE,ActivatorTID(),PERK_tids[forD])==1 && PERK_actors[forD]=="QckRvve" && PlayerCount()==1 && CheckInventory(PERK_Inventory[forD])==0)
+   {
+    SetFont("SmallFont");
+    SetHudSize(800,600,0);
+    if(!CheckInventory(PERK_actors[forD])) {HudMessage(s:"hold \cfUSE \c-to buy ",s:PERK_names[forD],s:" [price: ",d:PERK_prices[forD],s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);}
+    if(TEMP_player_input & BT_USE)
+    {
+     TEMP_player_buytime+=1;
+     if(TEMP_player_buytime>10)
+     {
+      TEMP_player_buytime=0;
+      if(PLAYER_money[PlayerNumber()]>=PERK_prices[forD])
+      {
+       ActivatorSound("game/PURCHASE",127);
+       ACS_ExecuteAlways(502,0,10,0,0);
+       PLAYER_money[PlayerNumber()]-=PERK_prices[forD];
+       GiveInventory(PERK_actors[forD],1);
+       SetWeapon(PERK_actors[forD]);
+      }
+     }
+    } 
+  }  
+}

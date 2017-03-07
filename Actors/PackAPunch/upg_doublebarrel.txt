@@ -1,0 +1,160 @@
+Actor 24BoreLongRange : Weapon 10051
+{
+ Weapon.SelectionOrder 1300
+ Weapon.SlotNumber 1
+ Weapon.AmmoUse 1
+ Weapon.AmmoGive1 2
+ Weapon.AmmoGive2 999
+ Weapon.AmmoType1 "In_papDouble"
+ Weapon.AmmoType2 "Reserve_papDouble"
+ Inventory.PickupMessage "24 Bore Long Range"
+ Weapon.PreferredSkin "DoubleShotgun"
+ +AMMO_OPTIONAL
+ +NOAUTOFIRE
+ States
+ {
+  Ready:
+    COCH A 0 A_JumpIfInventory("reload",1,"Reload")
+	COCH A 0 A_JumpIfInventory("thrownade",1,"ThrowGrenade")
+	COCH A 0 A_JumpIfInventory("knife",1,"Knife")
+    COCH A 1 A_WeaponReady
+    Loop
+  Deselect:
+    COCH A 1 A_Lower
+    COCH A 0 A_Lower
+    COCH A 0 A_Lower
+    Loop
+  Select:
+    COCH A 1 A_Raise
+    COCH A 0 A_Raise
+    COCH A 0 A_Raise
+    Loop
+  Fire:
+ 	COCH A 0 A_JumpIfNoAmmo("Reload")
+	COCH A 0 A_JumpIfInventory("DoubleTap",1,"Fire.DoubleTap")
+    COCH A 3
+	COCH A 0 ACS_ExecuteAlways(253,0,-5,random(-5,5),0)
+	COCH AAAA 0 A_SpawnItemEx("GunSmoke",random(12,16),random(4,-4),random(40,30),random(0,2),0,1,0,SXF_CLIENTSIDE)
+    COCH B 1 bright A_FireBullets(4,4,10,20,"GunSmoke")
+    COCH B 0 bright A_PlaySound("coachgun/fire",1)
+	COCH B 0 bright A_PlaySound("pap_sound/laser",2)
+	COCH B 0 bright A_Gunflash
+    COCH B 0 bright
+    COCH C 1 bright
+    COCH D 1
+    COCH AAAA 2 A_WeaponReady
+    Goto Ready
+  Fire.DoubleTap:
+    COCH A 1
+	COCH A 0 ACS_ExecuteAlways(253,0,-5,random(-5,5),0)
+	COCH AAAA 0 A_SpawnItemEx("GunSmoke",random(12,16),random(4,-4),random(40,30),random(0,2),0,1,0,SXF_CLIENTSIDE)
+    COCH B 1 bright A_FireBullets(4.3,4.3,10,20,"GunSmoke")
+    COCH B 0 bright A_PlaySound("coachgun/fire",1)
+	COCH B 0 bright A_PlaySound("pap_sound/laser",2)
+	COCH B 0 bright A_Gunflash
+    COCH B 0 bright
+    COCH C 1 bright
+    COCH AAAA 1 A_WeaponReady
+    Goto Ready
+  ThrowGrenade:
+    HNDG BCD 1
+    HNDG E 1 A_PlaySound("weapons/grenadepin")
+    HNDG FGHH 1
+    HNDG I 1 A_PlaySound("weapons/grenadethr") 
+    HNDG J 0 A_FireCustomMissile("ThrownGrenade",0,0,0,0)
+    HNDG J 0 A_PlaySound("weapons/grenadethr")
+    HNDG JKLMNOPQ 1
+	HNDG Q 0 A_TakeInventory("thrownade")
+    Goto Ready
+  Reload:
+	TNT1 A 0 A_TakeInventory("reload",1)
+	TNT1 A 0 A_JumpIfInventory("In_papDouble",2,"Ready")
+	TNT1 A 0 A_JumpIfInventory("Reserve_papDouble",1,"ReloadLoop")
+	Goto Ready
+  ReloadLoop:
+    COCH A 0 A_JumpIfInventory("In_papDouble",2,"Reloading")
+    COCH A 0 A_JumpIfInventory("Reserve_papDouble",1,1)
+	Goto Reloading
+	COCH A 0 A_TakeInventory("Reserve_papDouble",1)
+	COCH A 0 A_GiveInventory("In_papDouble",1)
+	Loop
+  Reloading:
+    COCH A 0 A_JumpIfInventory("SpeedCola",1,"Reloading.SpeedReload")
+	COCH A 4
+    COCH EFG 2
+    COCH H 2 A_PlaySound ("coachgun/reload1")
+    COCH I 2
+    COCH J 10
+    COCH KLMNO 1
+    COCH P 4 A_PlaySound ("coachgun/reload2")
+    COCH QRSTU 1
+    COCH V 6
+    COCH W 2
+    COCH X 2 A_PlaySound ("coachgun/reload3")
+    COCH GFE 2
+    COCH A 7
+	TNT1 A 0 A_TakeInventory("reload",1)
+	Goto Ready
+  Reloading.SpeedReload:
+    COCH A 2
+    COCH EFG 1
+    COCH H 1 A_PlaySound ("coachgun/reload1")
+    COCH I 1
+    COCH J 5
+    COCH KLMNO 1
+    COCH P 2 A_PlaySound ("coachgun/reload2")
+    COCH QRSTU 1
+    COCH V 3
+    COCH W 1
+    COCH X 1 A_PlaySound ("coachgun/reload3")
+    COCH GFE 1
+    COCH A 4
+	TNT1 A 0 A_TakeInventory("reload",1)
+	Goto Ready
+  Knife:
+	COCH A 1 Offset(-16,52)
+	COCH A 1 Offset(-24,60)
+	COCH A 1 Offset(-30,66)
+	COCH A 1 Offset(-32,68)
+	COCH A 1 Offset(-32,84)
+	KNIF A 1 Offset(0,32)
+	KNIF A 1 Offset(-4,32)
+	KNIF A 1 Offset(-12,32)
+	TNT1 A 0 A_CustomPunch(4,0,0,"KnifeSlash")
+	KNIF A 1 Offset(-24,32)
+	KNIF B 1 Offset(-40,32)
+	KNIF B 1 Offset(-64,32)
+	KNIF B 1 Offset(-88,32)
+	TNT1 A 0 A_CustomPunch(4,0,0,"KnifePuff")
+	KNIF C 1 Offset(-112,32)
+	KNIF C 1 Offset(-136,32)
+	KNIF C 1 Offset(-160,32)
+	TNT1 A 0 A_CustomPunch(6,0,0,"KnifeSlash")
+	COCH A 2 Offset(32,80)
+	COCH A 2 Offset(32,64)
+	COCH A 2 Offset(30,62)
+	COCH A 2 Offset(24,56)
+	COCH A 2 Offset(16,48)
+	COCH A 2 Offset(0,32)
+	TNT1 A 0 A_TakeInventory("knife",1)
+	Goto Ready
+  Flash:
+    TNT1 A 4 Bright A_Light1
+    TNT1 A 3 Bright A_Light2
+    Goto LightDone
+  Spawn:
+    COCP A -1
+    Stop
+ }
+}
+
+Actor In_papDouble : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 2
+}
+Actor Reserve_papDouble : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 60
+}

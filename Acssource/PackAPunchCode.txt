@@ -1,0 +1,96 @@
+//WIP PAP Code, written by WhiteAce
+
+//Don't compile this! It goes into the map, I also know where this goes so
+//don't go putting it just anywhere either
+
+#define DEF_COUNT_PAPITEMS        16
+
+//-------------------------------------------------------------------------
+
+int PAP_names[16] ={	"Gewehr 43",
+						"Browning m1919",
+						"M1 Garand",
+						"Luger",
+						"M1A1 Carbine",
+						"Kar98K",
+						"Thomspon",
+						"Dual M1911s",
+						".357 Magnum",
+						"Double-Barrel Shotgun",
+						"Sawn-Off Shotgun",
+						"Nailgun",
+						"M1897 Trench Gun",
+						"STG-44",
+						"MP40",
+						"M2 Flamethrower"
+						};
+int PAP_weapons[2][16] ={{ "Gewehr43",
+						   "Browningm1919",
+						   "M1Garand",
+						   "Luger",
+						   "M1A1Carbine",
+						   "Kar98K",
+						   "Thompson",
+						   "DualColt45s",
+						   "357Magnum",
+						   "DoubleBarrel",
+						   "SawnOffShotgun",
+						   "Nailgun",
+						   "TrenchGun",
+						   "STG-44",
+						   "MP40",
+						   "M2Flamethrower" 
+						   },
+						   { "G115Compressor",
+						     "B115Accelerator",
+							 "M100",
+							 "Oh-Sieben",
+							 "WiddershinsRC-1",
+							 "Armageddon",
+							 "Gibsomatic",
+							 "MustangAndSally",
+							 "357Plus1K1L-u",
+							 "24BoreLongRange",
+							 "TheSnuffBox",
+							 "AcesNG64",
+							 "Gutshot",
+							 "Spatz-447+",
+							 "TheAfterburner",
+							 "F1WNitrogenCooled" 
+						   }};
+						
+int PAP_tid =60;						
+int PAP_Price =5000;
+
+
+//-------------------------------------------------------------------------						 
+						 
+ TEMP_for_mode=6; //Pack A Punch
+ }
+  else if(TEMP_for_mode==6)
+  {
+   for(int forG=0;forG<DEF_COUNT_PAPITEMS;forG++)
+   {
+    If(ThingCountSector(T_NONE,ActivatorTID(),PAP_tid)==1 && CheckWeapon(PAP_weapons[0][ForG]))
+	{
+      SetFont("SMALLFONT");
+      SetHudSize(800,600,0);
+      HudMessage(s:"hold \cfUSE \c-to pack a punch ",s:PAP_names[ForG],s:" [price: ",d:PAP_price,s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
+      if(TEMP_player_input & BT_USE)
+      {
+      TEMP_player_buytime+=1;
+      if(TEMP_player_buytime>10)
+      {
+       TEMP_player_buytime=0;
+       if(PLAYER_money[PlayerNumber()]>=PAP_price)
+       {
+        ActivatorSound("game/PURCHASE",127);
+        PLAYER_money[PlayerNumber()]-=PAP_price;
+        TakeInventory(PAP_weapons[0][ForG],1);
+        GiveInventory(PAP_weapons[1][ForG],1);
+        SetWeapon(PAP_weapons[1][ForG]);
+       }
+      }
+     }
+	}
+}

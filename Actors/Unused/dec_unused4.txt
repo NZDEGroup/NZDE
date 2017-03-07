@@ -1,0 +1,19 @@
+Actor BarricadeThing 10002
+{
+   Radius 1
+   Height 1
+   
+   PROJECTILE
+   -LOWGRAVITY
+   +NOGRAVITY
+   +NOBLOCKMAP
+   States
+   {
+   Spawn:
+      TNT1 A 1
+      Loop
+   Death:
+      TNT1 A 1
+      Stop
+   }
+}

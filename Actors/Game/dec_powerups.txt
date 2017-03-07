@@ -1,0 +1,427 @@
+Actor RandomPowerup : RandomSpawner 1111
+{
+ DropItem "Nuke"
+ DropItem "MaxAmmo"
+ DropItem "InstaKill"
+ DropItem "DoublePoints"
+}
+
+Actor RandomPowerupStay : RandomSpawner 1112
+{
+ DropItem "NukeStay"
+ DropItem "MaxAmmoStay"
+ DropItem "InstaKillStay"
+ DropItem "DoublePointsStay"
+}
+
+Actor NukeStay : CustomInventory 10420
+{
+ Inventory.PickupMessage " "
+ Inventory.PickupSound "Game/Nuke"
+ +COUNTITEM
+ +NOGRAVITY
+ +INVENTORY.ALWAYSPICKUP
+ States
+ {
+  Spawn:
+    NUKE A 1 BRIGHT
+    Loop
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(275,0,1,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+	TNT1 AAA 0 A_SpawnItemEx("M67Grenade_Explosion",0,0,0,0,0,random(1,2),SXF_CLIENTSIDE)
+	TNT1 AAA 0 A_SpawnItemEx("M67Grenade_Smoke",0,0,0,0,0,random(1,2),SXF_CLIENTSIDE)
+	TNT1 AAAAAA 0 A_SpawnItemEx("M67Grenade_Smoke",0,0,0,random(-1,1),random(-1,1),random(1,2),SXF_CLIENTSIDE)
+	TNT1 AAAA 1 A_SpawnItemEx("M67Grenade_Explosion",0,0,0,random(-1,1),random(-1,1),random(1,2),SXF_CLIENTSIDE)
+    Stop
+  Death:
+    TNT1 A 0
+	Stop
+ }
+}
+
+Actor MaxAmmoStay : CustomInventory 10421
+{
+ Inventory.PickupMessage " "
+ Inventory.PickupSound "Game/MaxAmmo"
+ +COUNTITEM
+ +NOGRAVITY
+ +INVENTORY.ALWAYSPICKUP
+ States
+ {
+  Spawn:
+    MAXA A 1 BRIGHT
+	Loop
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(275,0,0,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+    Stop
+  Death:
+	TNT1 A 0
+	STOP
+ }
+}
+
+Actor InstaKillStay : CustomInventory 10422
+{
+  Inventory.PickupMessage " "
+  Inventory.PickupSound "game/instak"
+  -FLOATBOB
+  States
+  {
+  Spawn:
+    INST A 1 BRIGHT
+	Loop
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(275,0,2,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+    Stop
+  Death:
+    TNT1 A 0 A_Playsound("game/ikvanish",1,1.0)
+	Stop
+  }
+}
+
+Actor DoublePointsStay : CustomInventory 10423
+{
+  Inventory.PickupMessage " "
+  Inventory.PickupSound "game/points"
+  -FLOATBOB
+  States
+  {
+  Spawn:
+    INST A 1 BRIGHT
+	Loop
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(275,0,3,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+    Stop
+  Death:
+    TNT1 A 0 A_PlaySound("game/x2vanish",1,1.0)
+	Stop
+  }
+}
+
+Actor Nuke : CustomInventory 10400
+{
+ Inventory.PickupMessage " "
+ Inventory.PickupSound "Game/Nuke"
+ +COUNTITEM
+ +NOGRAVITY
+ +INVENTORY.ALWAYSPICKUP
+ States
+ {
+  Spawn:
+    NUKE A 1205 BRIGHT
+	TNT1 A 35
+	NUKE A 35 BRIGHT
+	TNT1 A 35
+	NUKE A 35 BRIGHT
+	TNT1 A 35
+	NUKE A 35 BRIGHT
+	TNT1 A 35
+	NUKE A 35 BRIGHT
+	TNT1 A 35
+	NUKE A 35 BRIGHT
+	Goto Death
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(275,0,1,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+	TNT1 AAA 0 A_SpawnItemEx("M67Grenade_Explosion",0,0,0,0,0,random(1,2),SXF_CLIENTSIDE)
+	TNT1 AAA 0 A_SpawnItemEx("M67Grenade_Smoke",0,0,0,0,0,random(1,2),SXF_CLIENTSIDE)
+	TNT1 AAAAAA 0 A_SpawnItemEx("M67Grenade_Smoke",0,0,0,random(-1,1),random(-1,1),random(1,2),SXF_CLIENTSIDE)
+	TNT1 AAAA 1 A_SpawnItemEx("M67Grenade_Explosion",0,0,0,random(-1,1),random(-1,1),random(1,2),SXF_CLIENTSIDE)
+    Stop
+  Death:
+    TNT1 A 0
+	Stop
+ }
+}
+
+Actor MaxAmmo : CustomInventory 10401
+{
+ Inventory.PickupMessage " "
+ Inventory.PickupSound "Game/MaxAmmo"
+ +COUNTITEM
+ +NOGRAVITY
+ +INVENTORY.ALWAYSPICKUP
+ States
+ {
+  Spawn:
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+	MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+    MAXA ABCDEFGH 5 BRIGHT
+	Goto Death
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(275,0,0,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+    Stop
+  Death:
+	TNT1 A 0
+	STOP
+ }
+}
+
+Actor Carpenter : Nuke 10402
+{
+  Inventory.PickupMessage "Carpenter"
+  Inventory.PickupSound "game/REBUILD"
+  -FLOATBOB
+  States
+  {
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(257,0,2,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+    Stop
+  }
+}
+
+Actor InstaKill : CustomInventory 10403
+{
+  Inventory.PickupMessage " "
+  Inventory.PickupSound "game/instak"
+  -FLOATBOB
+ States
+ {
+  Spawn:
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+	INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+	TNT1 A 35
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+    INST ABCDEFGH 5 BRIGHT
+	Goto Death
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(275,0,2,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+    Stop
+  Death:
+	TNT1 A 0
+	STOP
+ }
+}
+
+Actor PowerInstantKill : PowerDamage
+{
+  DamageFactor "Normal", 255
+}
+
+Actor InstantKill : PowerupGiver
+{
+  Inventory.PickupMessage " "
+  Inventory.MaxAmount 0
+  Inventory.Usesound "game/powerup_loop"
+  Powerup.Type "InstantKill"
+  Powerup.Duration 1035
+  Translation "128:143=104:111"
+  +INVENTORY.AUTOACTIVATE
+  +Inventory.FancyPickupSound
+  States
+  {
+  Spawn:
+    TNT1 ABCD 4 Bright
+    Loop
+  }
+}
+
+Actor DoublePoints : CustomInventory 10404
+{
+  Inventory.PickupMessage " "
+  Inventory.PickupSound "game/points"
+  -FLOATBOB
+  States
+  {
+  Spawn:
+    INST A 1205 BRIGHT
+	TNT1 A 35
+	INST A 35 BRIGHT
+	TNT1 A 35
+	INST A 35 BRIGHT
+	TNT1 A 35
+	INST A 35 BRIGHT
+	TNT1 A 35
+	INST A 35 BRIGHT
+	TNT1 A 35
+	INST A 35 BRIGHT
+    Goto Death
+  Pickup:
+    TNT1 A 0 ACS_ExecuteAlways(275,0,3,0,0)
+	TNT1 A 0 A_PlaySound("game/powerup_grab",1)
+    Stop
+  Death:
+    TNT1 A 0 A_PlaySound("game/x2vanish",1,1.0)
+	Stop
+  }
+}
+
+Actor PowerX2Points : PowerScanner
+{
+}
+
+Actor X2Points : PowerupGiver
+{
+  Inventory.PickupMessage " "
+  Inventory.MaxAmount 0
+  Inventory.Usesound "game/powerup_loop"
+  Powerup.Type "X2Points"
+  Powerup.Duration 1035
+  Translation "128:143=104:111"
+  +INVENTORY.AUTOACTIVATE
+  +Inventory.FancyPickupSound
+  States
+  {
+  Spawn:
+    TNT1 ABCD 4 Bright
+    Loop
+  }
+}
+
+Actor PowerInfiniteKill : PowerDamage
+{
+  DamageFactor "Normal", 255
+}
+
+Actor InfiniteKill : PowerupGiver
+{
+ Inventory.PickupMessage " "
+ Inventory.MaxAmount 0
+ Powerup.Type "InfiniteKill"
+ Powerup.Duration 0x7FFFFFF
+ Translation "128:143=104:111"
+ +INVENTORY.AUTOACTIVATE
+ States
+ {
+ Spawn:
+   TNT1 ABCD 4 Bright
+   Loop
+  }
+}

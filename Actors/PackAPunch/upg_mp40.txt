@@ -1,0 +1,185 @@
+Actor TheAfterburner : Weapon 10055
+{
+ Inventory.PickupMessage "The Afterburner"
+ Weapon.SlotNumber 1
+ Weapon.KickBack 75
+ Weapon.AmmoType1 "In_papMP40"
+ Weapon.AmmoType2 "Reserve_papMP40"
+ Weapon.AmmoUse 1
+ Weapon.AmmoGive1 64
+ Weapon.AmmoGive2 999
+ Weapon.PreferredSkin "MachineGun"
+ +AMMO_OPTIONAL
+ +NOAUTOFIRE
+ states
+ {
+  Ready:
+     AFTR A 0 A_JumpIfInventory("reload",1,"Reload")
+	 AFTR A 0 A_JumpIfInventory("thrownade",1,"ThrowGrenade")
+	 AFTR A 0 A_JumpIfInventory("knife",1,"Knife")
+     AFTR A 1 A_WeaponReady
+     Loop
+  Deselect: 
+     AFTR A 1 A_Lower
+     AFTR A 0 A_Lower
+     AFTR A 0 A_Lower
+	 AFTR A 0 A_TakeInventory("sights",1)
+	 AFTR A 0 A_ZoomFactor(1)
+     Loop
+  Select:
+     AFTR A 1 A_Raise
+     AFTR A 0 A_Raise
+     AFTR A 0 A_Raise
+     Loop
+  Fire:
+	 AFTR A 0 A_JumpIfNoAmmo("Reload")
+	 AFTR A 0 A_JumpIfInventory("DoubleTap",1,"Fire.DoubleTap")
+	 AFTR A 0 A_PlaySound("weapons/mp40",1)
+	 AFTR A 0 A_PlaySound("pap_sound/laser",2)
+	 AFTR A 0 ACS_ExecuteAlways(253,0,random(-1,1),random(-1,1),0)
+	 AFTR A 0 A_SpawnItemEx("GunSmoke",12,0,36,1,0,1,0,SXF_CLIENTSIDE)
+     AFTR A 0 A_ZoomFactor(0.98)
+	 AFTR B 1 BRIGHT A_FireBullets(5,5,-1,133,"GunSmoke")
+	 AFTR A 0 A_ZoomFactor(0.99)
+	 AFTR B 1 BRIGHT
+	 AFTR A 0 A_ZoomFactor(1.0)
+	 AFTR A 1
+	 AFTR A 4 A_ReFire
+     Goto Ready
+  Fire.DoubleTap:
+	 AFTR A 0 A_JumpIfNoAmmo("Reload")
+	 AFTR A 0 A_PlaySound("weapons/mp40",1)
+	 AFTR A 0 A_PlaySound("pap_sound/laser",2)
+	 AFTR A 0 ACS_ExecuteAlways(253,0,random(-1,1),random(-1,1),0)
+	 AFTR A 0 A_SpawnItemEx("GunSmoke",12,0,36,1,0,1,0,SXF_CLIENTSIDE)
+     AFTR A 0 A_ZoomFactor(0.98)
+	 AFTR B 1 BRIGHT A_FireBullets(5,5,-1,133,"GunSmoke")
+	 AFTR A 0 A_ZoomFactor(0.99)
+	 AFTR B 1 BRIGHT
+	 AFTR A 0 A_ZoomFactor(1.0)
+	 AFTR A 1
+	 AFTR A 5 A_ReFire
+     Goto Ready
+  ThrowGrenade:
+     HNDG BCD 1
+     HNDG E 1 A_PlaySound("weapons/grenadepin")
+     HNDG FGHH 1
+     HNDG I 1 A_PlaySound("weapons/grenadethr") 
+     HNDG J 0 A_FireCustomMissile("ThrownGrenade",0,0,0,0)
+     HNDG J 0 A_PlaySound("weapons/grenadethr")
+     HNDG JKLMNOPQ 1
+	 HNDG Q 0 A_TakeInventory("thrownade")
+     Goto Ready
+  Reload:
+	TNT1 A 0 A_TakeInventory("reload",1)
+	TNT1 A 0 A_JumpIfInventory("In_papMP40",64,"Ready")
+	TNT1 A 0 A_JumpIfInventory("Reserve_papMP40",1,"ReloadLoop")
+	Goto Ready
+  ReloadLoop:
+     AFTR A 0 A_JumpIfInventory("In_papMP40",64,"Reloading")
+     AFTR A 0 A_JumpIfInventory("Reserve_papMP40",1,1)
+	 Goto Reloading
+	 AFTR A 0 A_TakeInventory("Reserve_papMP40",1)
+	 AFTR A 0 A_GiveInventory("In_papMP40",1)
+	 Loop
+  Reloading:
+	 AFTR A 0 A_JumpIfInventory("SpeedCola",1,"Reloading.SpeedReload")
+	 AFTR A 1 Offset(2,32)
+	 AFTR A 1 Offset(4,32)
+	 AFTR A 1 Offset(8,32)
+	 AFTR A 1 Offset(16,32)
+	 AFTR A 1 Offset(24,32)
+	 AFTR A 1 Offset(32,32)
+	 AFTR A 1 Offset(48,32)
+	 AFTR C 12 Offset(0,32)
+	 AFTR C 0 ACS_ExecuteAlways(253,0,random(1,2),random(1,2),0)
+	 AFTR C 0 A_PlaySound("weapons/mpout")
+	 AFTR CD 4 Offset(0,32)
+	 AFTR D 30 Offset(0,32)
+	 AFTR D 0 ACS_ExecuteAlways(253,0,-1,-1,0)
+	 AFTR D 5 Offset(0,32)
+	 AFTR D 0 ACS_ExecuteAlways(253,0,-4,-1,0)
+	 AFTR D 0 A_PlaySound("weapons/mpin")
+	 AFTR C 15 Offset(0,32)
+	 AFTR A 1 Offset(48,32)
+	 AFTR A 1 Offset(32,32)
+	 AFTR A 1 Offset(24,32)
+	 AFTR A 1 Offset(16,32)
+	 AFTR A 1 Offset(8,32)
+	 AFTR A 1 Offset(4,32)
+	 AFTR A 1 Offset(2,32)
+	 AFTR A 0 A_TakeInventory("reload",1)
+	 Goto Ready
+  Reloading.SpeedReload:
+     AFTR A 1 Offset(2,32)
+	 AFTR A 1 Offset(4,32)
+	 AFTR A 1 Offset(8,32)
+	 AFTR A 1 Offset(16,32)
+	 AFTR A 1 Offset(24,32)
+	 AFTR A 1 Offset(32,32)
+	 AFTR A 1 Offset(48,32)
+	 AFTR C 12 Offset(0,32)
+	 AFTR C 0 ACS_ExecuteAlways(253,0,random(1,2),random(1,2),0)
+	 AFTR C 0 A_PlaySound("weapons/mpout")
+	 AFTR CD 2 Offset(0,32)
+	 AFTR D 14 Offset(0,32)
+	 AFTR D 0 ACS_ExecuteAlways(253,0,-1,-1,0)
+	 AFTR D 3 Offset(0,32)
+	 AFTR D 0 ACS_ExecuteAlways(253,0,-4,-1,0)
+	 AFTR D 0 A_PlaySound("weapons/mpin")
+	 AFTR C 7 Offset(0,32)
+	 AFTR A 1 Offset(48,32)
+	 AFTR A 1 Offset(32,32)
+	 AFTR A 1 Offset(24,32)
+	 AFTR A 1 Offset(16,32)
+	 AFTR A 1 Offset(8,32)
+	 AFTR A 1 Offset(4,32)
+	 AFTR A 1 Offset(2,32)
+	 AFTR A 0 A_TakeInventory("reload",1)
+	 Goto Ready
+  Knife:
+	 AFTR A 1 Offset(-16,52)
+	 AFTR A 1 Offset(-24,60)
+	 AFTR A 1 Offset(-30,66)
+	 AFTR A 1 Offset(-32,68)
+	 AFTR A 1 Offset(-32,84)
+	 KNIF A 1 Offset(0,32)
+	 KNIF A 1 Offset(-4,32)
+	 KNIF A 1 Offset(-12,32)
+	 TNT1 A 0 A_CustomPunch(4,0,0,"KnifeSlash")
+	 KNIF A 1 Offset(-24,32)
+	 KNIF B 1 Offset(-40,32)
+	 KNIF B 1 Offset(-64,32)
+	 KNIF B 1 Offset(-88,32)
+	 TNT1 A 0 A_CustomPunch(4,0,0,"KnifePuff")
+	 KNIF C 1 Offset(-112,32)
+	 KNIF C 1 Offset(-136,32)
+	 KNIF C 1 Offset(-160,32)
+	 TNT1 A 0 A_CustomPunch(6,0,0,"KnifeSlash")
+	 AFTR A 1 Offset(32,80)
+	 AFTR A 1 Offset(32,64)
+	 AFTR A 1 Offset(30,62)
+	 AFTR A 1 Offset(24,56)
+	 AFTR A 1 Offset(16,48)
+	 AFTR A 1 Offset(0,32)
+	 TNT1 A 0 A_TakeInventory("knife",1)
+	 Goto Ready
+  NoAmmo:
+     AFTR A 9 A_PlaySound("weapons/noammo")
+	 Goto Ready
+  Spawn:
+     AFTR E -1
+     Stop
+  }
+}
+
+Actor In_papMP40 : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 64
+}
+Actor Reserve_papMP40 : Ammo
+{
+ Inventory.Amount 1
+ Inventory.MaxAmount 192
+}
