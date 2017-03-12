@@ -115,16 +115,10 @@ Actor throwspec : Ammo
      Stop
   }
 }
-Actor sights : Ammo
+Actor Zoomed : Inventory
 {
-  Inventory.Amount 1
-  Inventory.MaxAmount 1
-  States
-  {
-   Spawn:
-     TNT1 A -1
-     Stop
-  }
+ Inventory.Amount 1
+ Inventory.MaxAmount 1
 }
 Actor knife : Inventory
 {
