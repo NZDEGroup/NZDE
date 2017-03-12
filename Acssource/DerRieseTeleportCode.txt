@@ -15,9 +15,10 @@ the code*/
  int TELEPORTER_tids[3] ={ 80,81,82 };
  int TELEPORTER_prices[3] ={ 1500,1500,1500};
  int TELEPORTER_firstuse[3] ={ 0,0,0};
+ int TELEPORTER_sounds[3] ={ "game/Tele1Active", "game/Tele2Active", "game/Tele3Active"};
  
  int TELEPORTER_mainframe=79;
- int TELEPORTER_countdown=1575;
+ int TELEPORTER_countdown=875;
  int TELEPORTER_cooldown=1050;
  
  int PAPDOOR=0;
@@ -38,11 +39,12 @@ the code*/
   {
    SetFont("SMALLFONT");
    SetHudSize(800,600,0);
-    HudMessage(s:"hold \cfUSE \c-for to link teleporter";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
+    HudMessage(s:"hold \cfUSE \c-to link teleporter";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
    if(TEMP_player_input & BT_USE)
    {
-    ActivatorSound("game/PURCHASE",127);
-    TELEPORTER_countdown=1575;
+    ActivatorSound("game/padactive",127);
+    AmbientSound("game/linkbegin",127);
+    TELEPORTER_countdown=875;
     TELEPORTER_linking[ForF]=1;
    }
   }
@@ -50,10 +52,11 @@ the code*/
   {
    SetFont("SMALLFONT");
    SetHudSize(800,600,0);
-   HudMessage(s:"hold \cfUSE \c-for to link to mainframe";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
+   HudMessage(s:"hold \cfUSE \c-to link to mainframe";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
    If(TEMP_player_input & BT_USE)
    {
-    ActivatorSound("game/PURCHASE",127);
+    ActivatorSound("game/padactive",127);
+    AmbientSound(TELEPORTER_sounds[ForF],127);
     TELEPORTER_firstuse[ForF]=1;
     TELEPORTER_linked[ForF]=1;
     TELEPORTER_linking[ForF]=0;
@@ -62,30 +65,33 @@ the code*/
   }
   if(ThingCountSector(T_NONE,ActivatorTID(),TELEPORTER_tids[ForF])==1 && Power==1 && TELEPORTER_linked[ForF]==1 && TELEPORTER_cooled[ForF]==1 && TELEPORTER_linking[ForF]==0)
   {
-  SetFont("SMALLFONT");
-  SetHudSize(800,600,0);
-  HudMessage(s:"hold \cfUSE \c-for to activate teleporter [price: ",d:TELEPORTER_prices[forF],s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
-   if(TEMP_player_input & BT_USE)
-    {
-     TEMP_player_buytime+=1;
-     if(TEMP_player_buytime>10)
+  if(!DEBUG_enabled)
+  {
+   SetFont("SMALLFONT");
+   SetHudSize(800,600,0);
+   HudMessage(s:"hold \cfUSE \c-to activate teleporter [price: ",d:TELEPORTER_prices[forF],s:"]";HUDMSG_FADEOUT,5,CR_WHITE,400.0,300.0,1.0,0.2);
+    if(TEMP_player_input & BT_USE)
      {
-      TEMP_player_buytime=0;
-      if(PLAYER_money[PlayerNumber()]>=TELEPORTER_prices[forF])
+      TEMP_player_buytime+=1;
+      if(TEMP_player_buytime>10)
       {
-       ActivatorSound("game/PURCHASE",127);
-       PLAYER_money[PlayerNumber()]-=TELEPORTER_prices[forF];
-       ACS_ExecuteAlways(ForF+240,0,0,0,0);
-       TELEPORTER_cooled[ForF]=0;
+       TEMP_player_buytime=0;
+       if(PLAYER_money[PlayerNumber()]>=TELEPORTER_prices[forF])
+       {
+        ActivatorSound("game/padactive",127);
+        PLAYER_money[PlayerNumber()]-=TELEPORTER_prices[forF];
+        TELEPORTER_cooled[ForF]=0;
+        ACS_ExecuteAlways(ForF+240,0,0,0,0);
+       }
       }
      }
-    }
-  }
+   }
+ }
 }
 
 //-------------------------------------------------------------------------
 
- If(TELEPORTER_cooled[0]==0) //This needs to be pasted into a loop
+  If(TELEPORTER_cooled[0]==0)
   {
    TELEPORTER_cooldown-=1;
    if(TELEPORTER_cooldown<=0)
@@ -120,7 +126,8 @@ the code*/
    TELEPORTER_countdown-=1;
    if(TELEPORTER_countdown<=0)
    {
-    TELEPORTER_countdown=1575;
+    TELEPORTER_countdown=875;
+    AmbientSound("game/linkfailed",127);
     TELEPORTER_linking[0]=0;
    }
   }
@@ -131,7 +138,8 @@ the code*/
    TELEPORTER_countdown-=1;
    if(TELEPORTER_countdown<=0)
    {
-   TELEPORTER_countdown=1575;
+    TELEPORTER_countdown=875;
+    AmbientSound("game/linkfailed",127);
     TELEPORTER_linking[1]=0;
    }
   }
@@ -142,30 +150,83 @@ the code*/
    TELEPORTER_countdown-=1;
    if(TELEPORTER_countdown<=0)
    {
-   TELEPORTER_countdown=1575;
+    TELEPORTER_countdown=875;
+    AmbientSound("game/linkfailed",127);
     TELEPORTER_linking[2]=0;
    }
+  }
+  if(TELEPORTER_countdown==700)
+  {
+   AmbientSound("game/20secs",127);
+  }
+  else if(TELEPORTER_countdown==525)
+  {
+   AmbientSound("game/15secs",127);
+  }
+  else if(TELEPORTER_countdown==350)
+  {
+   AmbientSound("game/10secs",127);
+  }
+  else if(TELEPORTER_countdown==315)
+  {
+   AmbientSound("game/9secs",127);
+  }
+  else if(TELEPORTER_countdown==280)
+  {
+   AmbientSound("game/8secs",127);
+  }
+  else if(TELEPORTER_countdown==245)
+  {
+   AmbientSound("game/7secs",127);
+  }
+  else if(TELEPORTER_countdown==210)
+  {
+   AmbientSound("game/6secs",127);
+  }
+  else if(TELEPORTER_countdown==175)
+  {
+   AmbientSound("game/5secs",127);
+  }
+  else if(TELEPORTER_countdown==140)
+  {
+   AmbientSound("game/4secs",127);
+  }
+  else if(TELEPORTER_countdown==105)
+  {
+   AmbientSound("game/3secs",127);
+  }
+  else if(TELEPORTER_countdown==70)
+  {
+   AmbientSound("game/2secs",127);
+  }
+  else if(TELEPORTER_countdown==35)
+  {
+   AmbientSound("game/1secs",127);
   }
   
 //-------------------------------------------------------------------------
   
 Script 240 (Void) //Teleport script, 240+
 {
+ ThingSound(100,"game/teleporterwarmup",127);
+ Delay(35*3);
+ ThingSound(100,"game/teleport",127);
+ Delay(35*2);
  if(ThingCountSector(T_NONE,1000,TELEPORTER_tids[0])==1)
  {
-  Thing_Move(1000,8,0);
+  Teleport(8,0,1);
  }
  if(ThingCountSector(T_NONE,1001,TELEPORTER_tids[0])==1)
  {
-  Thing_Move(1001,9,0);
+  Teleport(9,0,1);
  }
  if(ThingCountSector(T_NONE,1002,TELEPORTER_tids[0])==1)
  {
-  Thing_Move(1002,10,0);
+  Teleport(10,0,1);
  }
  if(ThingCountSector(T_NONE,1003,TELEPORTER_tids[0])==1)
  {
-  Thing_Move(1003,11,0);
+  Teleport(11,0,1);
  }
   If(TELEPORTER_firstuse[0]==1)
  {
@@ -178,23 +239,28 @@ Script 240 (Void) //Teleport script, 240+
   }
  }
 }
+
 Script 241 (Void)
 {
+ ThingSound(101,"game/teleporterwarmup",127);
+ Delay(35*3);
+ ThingSound(101,"game/teleport",127);
+ Delay(35*2);
  if(ThingCountSector(T_NONE,1000,TELEPORTER_tids[1])==1)
  {
-  Thing_Move(1000,8,0);
+  Teleport(8,0,1);
  }
  if(ThingCountSector(T_NONE,1001,TELEPORTER_tids[1])==1)
  {
-  Thing_Move(1001,9,0);
+  Teleport(9,0,1);
  }
  if(ThingCountSector(T_NONE,1002,TELEPORTER_tids[1])==1)
  {
-  Thing_Move(1002,10,0);
+  Teleport(10,0,1);
  }
  if(ThingCountSector(T_NONE,1003,TELEPORTER_tids[1])==1)
  {
-  Thing_Move(1003,11,0);
+  Teleport(11,0,1);
  }
  If(TELEPORTER_firstuse[1]==1)
  {
@@ -207,23 +273,28 @@ Script 241 (Void)
   }
  }
 }
+
 Script 242 (Void)
 {
+ ThingSound(102,"game/teleporterwarmup",127);
+ Delay(35*3);
+ ThingSound(102,"game/teleport",127);
+ Delay(35*2);
  if(ThingCountSector(T_NONE,1000,TELEPORTER_tids[2])==1)
  {
-  Thing_Move(1000,8,0);
+  Teleport(8,0,1);
  }
  if(ThingCountSector(T_NONE,1001,TELEPORTER_tids[2])==1)
  {
-  Thing_Move(1001,9,0);
+  Teleport(9,0,1);
  }
  if(ThingCountSector(T_NONE,1002,TELEPORTER_tids[2])==1)
  {
-  Thing_Move(1002,10,0);
+  Teleport(10,0,1);
  }
  if(ThingCountSector(T_NONE,1003,TELEPORTER_tids[2])==1)
  {
-  Thing_Move(1003,11,0);
+  Teleport(11,0,1);
  }
 If(TELEPORTER_firstuse[2]==1)
  {
@@ -235,3 +306,4 @@ If(TELEPORTER_firstuse[2]==1)
     SetLineBlocking(80,OFF);
   }
  }
+}
