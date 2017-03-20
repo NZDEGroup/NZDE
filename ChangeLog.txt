@@ -10,7 +10,7 @@ Map changes/fixes:
    - Updated parts of the map
    - Every player (assuming there's 4 or less) can now see each others money in multiplayer
    - Updated code to latest
-- Remove Blood Party, replaced with Verruckt (Made by TankDempsey)
+- Removed Blood Party, replaced with Verruckt (Made by TankDempsey)
 - Added in Kino Der Toten (Thanks to MrEnchanter)
 - Added in Der Riese (Thanks to TankDempsey)
 
@@ -74,7 +74,9 @@ General additions/changes/fixes:
 - Scoreboard will now update every so often and can be toggled on and off
 - New player voices (Thanks to MrEnchanter for VA)
    - Includes zombie kill voices
+   - Removed old voices
 - Turret now plays a sound when firing (Uses Browning M1919 fire sound, untill I can find a better one)
+- Perks now play jingles when the player buys them
 
 Removed features:
 - Took out player controlled taunts
